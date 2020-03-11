@@ -1,0 +1,233 @@
+
+/* styling for body*/
+body {
+  margin: 0;
+  padding: 0;
+  background: #f1f2f6;
+  color:#2d3436;
+  font-family: "lato" sans-serif;
+  line-height: 1.5; 
+}
+
+
+
+
+
+/* main header styles*/
+.main-header {
+  padding: none;
+  width: full-width;
+  min-height: 90px;
+  border: none;
+  border-top: none;
+	background: #00cec9;
+}
+
+.main-header:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+
+
+
+
+
+/* display logo to the left of the page */
+.logo {
+  text-decoration: none;
+  float:left;
+  width:100px;
+  height:auto;
+  display: inline-block;
+  marign: 20px 0 10px 20px;
+}
+
+
+
+
+
+
+/* ----- Main Nav Styles ----- */
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; 
+}
+
+.main-nav,
+.drop-nav {
+  background: #353b48;
+}
+
+/* */
+.main-nav {
+  float: right;
+  border-radius:none;
+  border: none;
+  margin:30px 100px 10px 20px;
+}
+
+
+
+.main-nav > li {
+    float: left;
+    border-left: solid 1px #2d3436;
+}
+
+.main-nav a {
+    color: #fff;
+    display: block;
+    padding: 10px 30px;
+    text-decoration: none;
+    background-color: #2f3640;
+}
+
+/* allowing flyout to adjust */
+.dropdown, .flyout {
+  position:relative;
+}
+
+/* placing rows in location*/
+.drop-nav, .flyout-nav{ 
+  position:absolute;
+  display:none;
+}
+
+/* shows the content when hover */
+.dropdown:hover > .drop-nav, 
+.flyout:hover > .flyout-nav{
+      display: block;
+}   
+
+
+/* positioning fly out nav */
+.flyout-nav {
+  left: 100%;
+  top: 0;
+}
+
+/* changing background color on hovering to locate clicking region in nav*/
+.flyout:hover a, .flyout-nav, {
+  background: #2c3e50;
+}
+
+a:hover{
+  background-color: #e84118;
+}
+
+
+/* alignment of content in listing */
+.responsive{
+  width:auto;
+  height:280px;
+}
+
+ul.products li{
+  width:280px;
+  height:auto;
+  display: inline-block;
+  vertical-align:top;
+  padding: 0 0 60px 43px;
+}
+
+.name{
+  text-align: center;
+}
+.detail{
+  text-align: justify;
+}
+.info{
+  text-align: left;
+}
+
+
+
+
+
+
+
+/* search box in nav bar */
+.search-box{
+  display: inline-block;
+  float:auto;
+  width:350px;
+  top:50%;
+  bottom:50%;
+  background:#2f3640;
+  height:auto;
+  border-radius:50px;
+  margin: none;
+  position: relative;
+  margin:30px 0 10px 20px;
+}
+
+.search-btn{
+  text-decoration: none;
+  color:#e84118;
+  float:right;
+  width:40px;
+  height:40px;
+  border-radius:50px;
+  background-color:#2f3640;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
+.search-btn:hover{
+  background-color:#2f3640;
+  color:white;
+}
+
+.search-text{
+  border:none;
+  background:none;
+  outline:none;
+  float:left;
+  color:white;
+  font-size:16px;
+  transition:0.4s;
+  line-height: 40px;
+  width:300px;
+  padding:auto;
+  margin: 0 0 0  10px;
+}
+
+
+
+/* container to align content */
+.container h1{
+  text-align:center;
+}
+
+.container hr{
+  color:#ced6e0;
+  border: solid 1px #ced6e0;
+  margin: 0 40px 10px 40px ;
+}
+
+
+
+
+
+
+/* */
+.largeimg{
+  margin-right: 20px;
+  margin-left: 30px;
+  float: left;  
+  width: 350px;
+  height: 350px;
+  }
+
+.leftside{
+  float: right; 
+  display: inline-block;
+  margin: 20px;
+  padding: 20px;
+}
+
+
