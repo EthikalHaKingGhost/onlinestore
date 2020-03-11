@@ -6,11 +6,10 @@
   <script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <header class="main-header">
 
-    
+  <header class="main-header">
     <!--image logo with link to home(index) page-->  
-  <div>
+      <div>
      <a href="index.php">
     <img src=" images/logo.png" class="logo" >
     </a>
@@ -25,22 +24,21 @@
     </div>
 
     <ul class="main-nav">
-      <li><a href="#"><i class="fas fa-home"></i> HOME</a></li>
-      <li><a href="#"><i class="fas fa-info-circle"></i> ABOUT</a></li>
+      <li><a href="homepage.php"><i class="fas fa-home"></i> HOME</a></li>
       <li class="dropdown">
 
-        <a href="#"><i class="fab fa-shopify"></i> PRODUCTS</a>
+        <a href="index.php"><i class="fab fa-shopify"></i> PRODUCTS <i class="fa fa-caret-down"></i></a>
         <ul class="drop-nav">
           <li class="flyout">
             <a href="#">TOP-UP</a>
              <ul class="flyout-nav">
-              <li><a href="#">DIGICEL</a></li>
-              <li><a href="#">BMOBILE</a></li>        
+              <li><a href="#">Digicel</a></li>
+              <li><a href="#">Bmobile</a></li>        
             </ul>
           </li>
           <li class="flyout">
             <a href="#">Phones</a>
-            <ul class="flyout-nav last">
+            <ul class="flyout-nav">
               <li><a href="#">iPhone</a></li>
               <li><a href="#">Apple</a></li>
               <li><a href="#">Samsung</a></li>        
@@ -48,5 +46,6 @@
           </li>    
         </ul>
       </li>
+      <li><a href="#"><i class="fas fa-info-circle"></i> ABOUT</a></li>
     </ul>
   </header>
