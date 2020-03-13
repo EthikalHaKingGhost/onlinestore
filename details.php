@@ -122,12 +122,6 @@ if(isset($_GET["pid"])){
 
 
 
-<div class="detail_box">
-
-<h1 style="text-align: center;"><?php echo $product_name; ?></h1>
-
-<ul>
-  
 <?php 
 
   $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
@@ -155,31 +149,38 @@ if(isset($_GET["pid"])){
 
           ?>
 
-              
-                <img class="detail_image" src=images/<?php echo $product_image;?> alt="image">
-                <li><p class="info"><?php echo $product_name; ?></a></p>
-                  <h5 class="info">Type: <?php echo $product_type; ?></h5>
-                  <p class="detail"> <?php echo $product_details; ?></p> 
-                  
-       <!-------- cross out price if there is a sale---->
-                  <?php 
+
+
+  
+<div class="detail-block">
+  <h1 style="text-align: center;"><?php echo $product_name; ?></h1>
+
+
+  <ul class="product-info">
+    <li><img class="detail_image" src=images/<?php echo $product_image;?> alt="image"></li>
+    </ul>
+
+    <ul class="product-info">
+    <li><h3>Description:</h3></li>
+    <li><p> <?php echo $product_details; ?></p> </li>
+    <li><h5>Brand: <?php echo $product_type; ?></h5></li>
+    <li>        
+            <?php 
 
                     if($sale_price <> 0 ){
 
-                    echo '<h2 class="info" style="text-decoration:line-through;"> $'.$product_price.' TTD </h2>';
+                    echo '<h4 class="info" style="text-decoration:line-through;"> $'.$product_price.' TTD </h4>';
 
                   }else{
-                    echo '<h2 class="info" style="text-decoration:none;"> $'.$product_price.'TTD </h2>'; 
+                    echo '<h4 class="info" style="text-decoration:none;"> $'.$product_price.'TTD </h4>'; 
                     
                   }
 
                   ?>
 
-
         <!----remove sale price when value is 0 ------>
 
-                  <h4 class="info">
-
+            <h4 class="info">       
                     <?php 
 
                     if($sale_price != 0){
@@ -192,17 +193,21 @@ if(isset($_GET["pid"])){
                       }
 
                       ?>
-                    </h4>
-              </li>
+            </h4>
+      </li>
+
+<button class="btn btn-success"> Add to Cart</button>
+ </ul>
+</div>
+
+
+
 
           <?php
 
               }
               } else {echo "Site is under maintenance";}
           ?>        
-</ul>
-
-</div>
 
           <footer class="footer-nav">
             <nav>
