@@ -11,11 +11,16 @@ body {
   font-size: 14px;
 }
 
+h1{
+    text-align: center;
+}
+
 
 /* main header styles*/
 .main-header {
   padding: none;
-  width: full-width;
+  margin:none;
+  width: 100%;
   min-height: 90px;
   border: none;
   border-top: none;
@@ -29,21 +34,15 @@ body {
 }
 
 
-
-
-
-
 /* display logo to the left of the page */
 .logo {
   text-decoration: none;
   float:left;
-  width:100px;
-  height:auto;
+  width:auto;
+  height:100px;
   display: inline-block;
   marign: 20px 0 10px 20px;
 }
-
-
 
 
 
@@ -51,6 +50,7 @@ body {
 
 ul {
   list-style: none;
+  text-decoration: none;
   padding: 0;
   margin: 0; 
 }
@@ -111,15 +111,24 @@ ul {
   border-left: : solid 1px #2d3436;
 }
 
-a:hover{
+.main-nav a:hover, .drop-nav a:hover, .flyout a:hover, .flyout-nav a:hover{
   background-color: #e84118;
 }
 
+
+div.product_box{
+  background-color:white;
+  width: auto;
+  height: auto;
+  padding: 30px 0 20px 60px;
+  position: relative;
+}
 
 /* alignment of content in listing */
 .responsive{
   width:auto;
   height:280px;
+  list-style: none;
 }
 
 ul.products li{
@@ -127,7 +136,9 @@ ul.products li{
   height:auto;
   display: inline-block;
   vertical-align:top;
-  padding: 0 0 60px 43px;
+  margin-left:20px;
+  margin-bottom: 60px;
+  list-style: none;
 }
 
 .name{
@@ -194,8 +205,6 @@ ul.products li{
 
 
 
-
-
 /* container to align content */
 
 .container h1{
@@ -239,44 +248,8 @@ color: #2f3640;
 
 
 
-/* footer  */
-
-footer nav{
-  text-align: center;
-}
-
-footer{
-  width:100%;
-  background-color: #2f3640;
-  padding:60px 0;
-  border:none;
-}
-
-footer ul li{
-  display: inline-block;
-  margin-left:20px;
-  list-style: none;
-
-}
-
-footer ul li a{
-  font-family: inline-block;
-  font-weight:500;
-  font-size:14px;
-  text-decoration: none;
-  color:white;
-}
-
-footer ul li a:hover{
-  background-color:#2f3640 ;
-  color:orange;
-}
-
-
 
 /* button to go to the product page */
-
-
     .btn-card{
   background-color: #2f3640;
   color: #fff;
@@ -308,4 +281,58 @@ a.btn-card {
 }
 
 
-  
+/* large box to store div cards */
+div.detail_box{
+  background-color:white;
+  width: auto;
+  height: auto;
+  padding: 30px 0 20px 60px;
+  position: relative;
+  list-style: none;
+}
+
+
+.detail_image{
+  width:auto;
+  height:350px;
+  list-style: none;
+}
+
+
+
+
+/* footer  */
+
+footer nav{
+  text-align: center;
+}
+
+footer{
+  width:100%;
+  background-color: #2f3640;
+  padding:60px 0 30px 0;
+  border:none;
+  overflow: auto;
+  margin:none;
+}
+
+footer ul li{
+  display: inline-block;
+  margin-left:20px;
+  list-style: none;
+
+}
+
+footer ul li a{
+  font-family: inline-block;
+  font-weight:500;
+  font-size:14px;
+  text-decoration: none;
+  color:white;
+}
+
+footer ul li a:hover{
+  background-color:#2f3640 ;
+  color:orange;
+}
+
