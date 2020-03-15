@@ -115,13 +115,8 @@ if(isset($_GET["pid"])){
 
 <br>
 <br>
+
 <!------end of bread crumb ----->
-
-
-
-
-
-
 <?php 
 
   $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
@@ -147,40 +142,34 @@ if(isset($_GET["pid"])){
                   $sale_price = $row["sale_price"];
                   $product_type = $row["product_type"];
 
-          ?>
+              }
+              } else {echo "Site is under maintenance";}
+          ?>   
 
 
-
-  
-<div class="detail-block">
-  <h1 style="text-align: center;"><?php echo $product_name; ?></h1>
-
-
-  <ul class="product-info">
-    <li><img class="detail_image" src=images/<?php echo $product_image;?> alt="image"></li>
-    </ul>
-
-    <ul class="product-info">
-    <li><h3>Description:</h3></li>
-    <li><p> <?php echo $product_details; ?></p> </li>
-    <li><h5>Brand: <?php echo $product_type; ?></h5></li>
-    <li>        
-            <?php 
+ 
+  <div class="card-block">
+  <div class="prod-card">
+      <div class="img">
+        <img src="images/Samsung-Galaxy-S10.jpg" alt="">
+      </div>
+      <div class="prod-info">
+        <h2><?php echo $product_name; ?></h2>
+          <span class="desc"><?php echo $product_type; ?></span>
+          <span class="price"><?php 
 
                     if($sale_price <> 0 ){
 
-                    echo '<h4 class="info" style="text-decoration:line-through;"> $'.$product_price.' TTD </h4>';
+                    echo '<p style="text-decoration:line-through; color:black;"> $'.$product_price.' TTD </p>';
 
                   }else{
-                    echo '<h4 class="info" style="text-decoration:none;"> $'.$product_price.'TTD </h4>'; 
+                    echo '<p style="text-decoration:none;"> $'.$product_price.'TTD </p>'; 
                     
                   }
-
                   ?>
 
         <!----remove sale price when value is 0 ------>
-
-            <h4 class="info">       
+            <p>       
                     <?php 
 
                     if($sale_price != 0){
@@ -193,22 +182,42 @@ if(isset($_GET["pid"])){
                       }
 
                       ?>
-            </h4>
-      </li>
+            </p></span>
+          <h3>RAM size</h3>
+          <span>
+            <a href="#">32GB</a>
+            <a href="#">64GB</a>
+            <a href="#">128GB</a>
+          </span>
+          <h3>Capacity</h3>
+          <span>
+            <a href="#">Blue</a>
+            <a href="#">red</a>
+            <a href="#">orange</a>
+          </span>
+          <a class="addbtn" href="#"> <i class="ion-android-cart"></i>Add to Cart</a>
+        </div>
+        </div>
 
-<button class="btn btn-success"> Add to Cart</button>
- </ul>
+<div class="row">
+  <div class="column"> 
+        <h3>Description:</h3>
+        <p> <?php echo $product_details; ?></p>
+        <p> <b>Brand:</b> <?php echo $product_type; ?></p> 
+  </div>
+
+
+  <div class="column">
+          <h3>Specifications</h3>
+          <p><b>RAM:</b> 124GB</p>
+          <p><b>Processor:</b> 3.5ghz</p>
+          <p><b>Resolution:</b> 9.5"</p>
+          <p><b>Capacity:</b> 500 GB</p>   
 </div>
-
-
-
-
-          <?php
-
-              }
-              } else {echo "Site is under maintenance";}
-          ?>        
-
+</div>
+</div>
+</div>
+</div>
           <footer class="footer-nav">
             <nav>
               <div class="wrapper">

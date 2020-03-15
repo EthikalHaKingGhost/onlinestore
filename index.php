@@ -75,10 +75,9 @@ session_start();
 <!---------------------------- product listing ----------------------------->
 
 <div class="product_box">
-  <h1>Product Listing</h1>
+  <h1>Product</h1>
 <p style="text-align: center;">Shop for some of the best deals!</p>
 <ul class="products">
-
 
 <?php 
 
@@ -112,23 +111,28 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
 
 
 ?>
-    <li>
-      <img class="responsive" src=images/<?php echo $product_image;?> alt="image">
-        <p class="info"><a href="<?php echo $link ?>" class="btn-card"><?php echo $product_name; ?></a></p>
-        <h2 class="info">Price: $<?php echo $product_price; ?> TTD</h2>
-        <h4 class="info" style="color:red;">
 
+    <li>
+      
+      <div class="card">
+        <a class="detail-link" href="<?php echo $link ?>">
+      <img class="responsive" src=images/<?php echo $product_image;?> alt="image">
+        <h2 class="info"><?php echo $product_name; ?></h2>
+        <p class="info"><?php echo $product_type; ?></p>
+        <h3 class="info">$<?php echo $product_price; ?> TTD</h3>
+
+        <h4 class="info" style="color:red;">
 
           <?php 
 
 //check if product has a discout and display with code to prevent displaying over 100% sale.
           if($product_price < $sale_price) {
 
-                    echo "";
+                    echo '<h4 class="info" style="color:white;"> no sale</h4>';
 
           }elseif($sale == 0){
 
-                    echo "";
+                    echo '<h4 class="info" style="color:white;"> no sale</h4>';
 
                   }else{
 
@@ -138,12 +142,17 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
           ?>
 
         </h4>
+        </a>
+        </div>
+      
     </li>
+    
 
 <?php
     }
     } else {echo "Site is under maintenance";}
 ?>
+
 </ul>
 </div>
 
