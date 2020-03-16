@@ -23,7 +23,7 @@ if(isset($_GET["pid"])){
     </head>
         <body>
 
-          <header class="main-header">
+           <header class="main-header">
             <!--image logo with link to home(index) page-->  
               <div>
              <a href="index.php">
@@ -31,38 +31,11 @@ if(isset($_GET["pid"])){
             </a>
           </div>
 
-        <!--- search box in a div container-->
-          <div class="search-box">
-            <input class="search-text" type="text" name=" " placeholder="Search for Product">
-              <a class="search-btn "href="#">
-                <i class="fas fa-search"></i>
-              </a>
-          </div>
-
           <ul class="main-nav">
             <li><a href="homepage.php"><i class="fas fa-home"></i> HOME</a></li>
             <li class="dropdown">
-
-              <a href="index.php"><i class="fab fa-shopify"></i> PRODUCTS <i class="fa fa-caret-down"></i></a>
-              <ul class="drop-nav">
-                <li class="flyout">
-                  <a href="#">TOP-UP</a>
-                   <ul class="flyout-nav">
-                    <li><a href="#">Digicel</a></li>
-                    <li><a href="#">Bmobile</a></li>        
-                  </ul>
-                </li>
-                <li class="flyout">
-                  <a href="#">Phones</a>
-                  <ul class="flyout-nav">
-                    <li><a href="#">iPhone</a></li>
-                    <li><a href="#">Apple</a></li>
-                    <li><a href="#">Samsung</a></li>        
-                  </ul>
-                </li>    
-              </ul>
+              <a href="index.php"><i class="fa fa-shopping-basket"></i> SHOP</a>
             </li>
-            <li><a href="#"><i class="fas fa-info-circle"></i> ABOUT</a></li>
           </ul>
         </header>
 
@@ -75,7 +48,7 @@ if(isset($_GET["pid"])){
   $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
 
   //access products table from database
-  $sql ="SELECT * FROM `products` WHERE products.product_id = $product_id";
+  $sql ="SELECT * FROM `products` WHERE product_id = $product_id";
 
       //create query to execute sql on database
       $query = mysqli_query($dbconnect, $sql);
@@ -90,9 +63,11 @@ if(isset($_GET["pid"])){
                   $product_name =$row["product_name"];
                   $product_type = $row["product_type"];
 
-?>
+                }
+                } else {echo "Site is under maintenance";}
+            ?>
 
-          <ul class="breadcrumb">
+      <ul class="breadcrumb">
           <li class="breadcrumb-item">
               <a href="homepage.php" class="breadcrumb-link">Home</a>
           </li>
@@ -105,16 +80,8 @@ if(isset($_GET["pid"])){
           <li class="breadcrumbs-item">
               <a href="" class="breadcrumb-link-active"><?php echo $product_name; ?></a>
           </li>
-            </ul>
-
-
-<?php
-                }
-                } else {echo "Site is under maintenance";}
-            ?>
-
-<br>
-<br>
+      </ul>
+      <br>
 
 <!------end of bread crumb ----->
 <?php 
@@ -123,7 +90,7 @@ if(isset($_GET["pid"])){
 
 
   //access products table from database
-  $sql ="SELECT * FROM `products` WHERE products.product_id = $product_id";
+  $sql ="SELECT * FROM products, images, thumbnails WHERE products.product_id = images.product_id = thumbnails.thumbnail_id AND products.product_id = $product_id";
 
       //create query to execute sql on database
       $query = mysqli_query($dbconnect, $sql);
@@ -141,18 +108,53 @@ if(isset($_GET["pid"])){
                   $product_price =$row["product_price"];
                   $sale_price = $row["sale_price"];
                   $product_type = $row["product_type"];
+                  $image_1 = $row["image_1"];
+                  $image_2 = $row["image_2"];
+                  $image_3 = $row["image_3"];
+                  $thumb1 = $row["thumb1"];
+                  $thumb2 = $row["thumb2"];
+                  $thumb3 = $row["thumb3"];
+
 
               }
               } else {echo "Site is under maintenance";}
           ?>   
 
 
- 
+<!--- image slider for detail page ---->
+
   <div class="card-block">
-  <div class="prod-card">
-      <div class="img">
-        <img src="images/Samsung-Galaxy-S10.jpg" alt="">
-      </div>
+  <div class="prod-card">     
+<div class="container">
+    <ul class="thumb">
+
+      <li><a class="img1" href="images/<?php echo $image_1; ?>" target="imgBox"><img src="images/<?php echo $thumb1; ?>"></a></li>
+
+      <li><a class="img1" href="images/<?php echo $image_2; ?>" target="imgBox"><img src="images/<?php echo $thumb2; ?>"></a></li>
+
+      <li><a class="img1" href="images/<?php echo $image_3; ?>" target="imgBox"><img src="images/<?php echo $thumb3; ?>"></a></li>
+    </ul>
+    <div class="imgBox"><img src="images/<?php echo $product_image; ?>"></div>
+  </div>
+
+<!----JQuery setup----->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+
+//setting up function
+$(document).ready(function(){ 
+
+//mouse hover to activate function
+$('.thumb a').mouseover(function(e){ 
+e.preventDefault();
+
+//change the image in the image box 
+$('.imgBox img').attr("src", $(this).attr("href")); 
+  })
+  
+})
+</script>
+
       <div class="prod-info">
         <h2><?php echo $product_name; ?></h2>
           <span class="desc"><?php echo $product_type; ?></span>
@@ -223,7 +225,6 @@ if(isset($_GET["pid"])){
               <div class="wrapper">
                 <ul>
                   <li><a href="index.php">HOME</a></li>
-                  <li><a href="about.php">ABOUT</a></li>
                   <li><a href="products.php">PRODUCTS</a></li>
                 </ul>
               </div>

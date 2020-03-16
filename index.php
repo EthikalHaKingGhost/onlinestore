@@ -14,50 +14,25 @@ session_start();
 </head>
 <body>
 
-  <header class="main-header">
-    <!--image logo with link to home(index) page-->  
-      <div>
-     <a href="index.php">
-    <img src=" images/logo.png" class="logo" >
-    </a>
-  </div>
 
-  <!--- search box in a div container-->
-    <div class="search-box">
-      <input class="search-text" type="text" name=" " placeholder="Search for Product">
-        <a class="search-btn "href="#">
-          <i class="fas fa-search"></i>
-        </a>
-    </div>
+        <header class="main-header">
+            <!--image logo with link to home(index) page-->  
+              <div>
+             <a href="index.php">
+            <img src=" images/logo.png" class="logo" >
+            </a>
+          </div>
 
-    <ul class="main-nav">
-      <li><a href="homepage.php"><i class="fas fa-home"></i> HOME</a></li>
-      <li class="dropdown">
-
-        <a href="index.php"><i class="fab fa-shopify"></i> PRODUCTS <i class="fa fa-caret-down"></i></a>
-        <ul class="drop-nav">
-          <li class="flyout">
-            <a href="#">TOP-UP</a>
-             <ul class="flyout-nav">
-              <li><a href="#">Digicel</a></li>
-              <li><a href="#">Bmobile</a></li>        
-            </ul>
-          </li>
-          <li class="flyout">
-            <a href="#">Phones</a>
-            <ul class="flyout-nav">
-              <li><a href="#">iPhone</a></li>
-              <li><a href="#">Apple</a></li>
-              <li><a href="#">Samsung</a></li>        
-            </ul>
-          </li>    
-        </ul>
-      </li>
-      <li><a href="#"><i class="fas fa-info-circle"></i> ABOUT</a></li>
-    </ul>
-  </header>
+          <ul class="main-nav">
+            <li><a href="homepage.php"><i class="fas fa-home"></i> HOME</a></li>
+            <li class="dropdown">
+              <a href="index.php"><i class="fa fa-shopping-basket"></i> SHOP</a>
+            </li>
+          </ul>
+        </header>
 
 <!---- breadcrumb ---->
+
         <ul class="breadcrumb">
           <li class="breadcrumb-item">
               <a href="homepage.php" class="breadcrumb-link">Home</a>
@@ -66,8 +41,8 @@ session_start();
               <a href="index.php" class="breadcrumb-link-active">Products</a>
           </li>
         </ul>
-    <br>
-<br>
+        <br>
+
 <!---- breadcrumb end ---->
 
 
@@ -75,10 +50,9 @@ session_start();
 <!---------------------------- product listing ----------------------------->
 
 <div class="product_box">
-  <h1>Product</h1>
-<p style="text-align: center;">Shop for some of the best deals!</p>
+<h1>Product</h1>
+<p>Shop for some of the best deals!</p>
 <ul class="products">
-
 <?php 
 
 $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
@@ -107,8 +81,6 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
                   $sale = (($sale_price/$product_price) * 100);
 
                   
-                  
-
 
 ?>
 
@@ -154,6 +126,8 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
 ?>
 
 </ul>
+
+
 </div>
 
 
@@ -162,7 +136,6 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
     <div class="wrapper">
       <ul>
         <li><a href="index.php">HOME</a></li>
-        <li><a href="about.php">ABOUT</a></li>
         <li><a href="products.php">PRODUCTS</a></li>
       </ul>
     </div>

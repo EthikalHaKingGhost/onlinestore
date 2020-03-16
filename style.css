@@ -21,32 +21,75 @@ h1{
 }
 
 
+/* image slider */
+
+.container{
+      float:left;
+      width:auto;
+      overflow: hidden;
+    }
+
+ul.thumb{
+      margin:0 auto;
+      padding: 0;
+      float: left;
+    }
+
+ul.thumb li{
+      list-style: none;
+      margin: 5px;
+      padding:4px;
+      width:auto;
+      height:auto;
+      border:1px solid rgba(0,0,0,.2);
+      overflow: hidden;
+    }
+
+ul.thumb li img {
+      width:150px;
+      height:150px;
+    }
+
+.imgBox{
+      float:left;
+      width:500px;
+      height:500px;
+      margin:6px;
+      border:1px solid rgba(0,0,0,.2);
+      overflow: hidden;
+    }
+
+.imgBox img{
+      width: 100%;
+    }   
+
+
 /* main header styles*/
 .main-header {
-  padding: none;
-  margin:none;
-  width: 100%;
-  min-height: 90px;
-  border: none;
-  border-top: none;
-	background: #00cec9;
+      padding: none;
+      margin:none;
+      width: 100%;
+      min-height: 90px;
+      border: none;
+      border-top: none;
+    	background-image: url(images/4.png);
 }
 
 .main-header:after {
-    content: " ";
-    display: table;
-    clear: both;
+      content: " ";
+      display: table;
+      clear: both;
 }
 
 
 /* display logo to the left of the page */
 .logo {
-  text-decoration: none;
-  float:left;
-  width:auto;
-  height:100px;
-  display: inline-block;
-  marign: 20px 0 10px 20px;
+      text-decoration: none;
+      float:left;
+      width:auto;
+      height:100px;
+      display: inline-block;
+      marign: 20px 0 10px 20px;
 }
 
 
@@ -63,6 +106,9 @@ ul {
 .main-nav,
 .drop-nav {
   background: #353b48;
+  opacity: 80%;
+  border-radius: 10px;
+
 }
 
 /* */
@@ -70,12 +116,15 @@ ul {
   float: right;
   border-radius:none;
   border: none;
-  margin:30px 100px 10px 20px;
+  margin:30px 100px 10px 20px;;
+  padding:0;
+  border-radius: 10px;
 }
 
 .main-nav > li {
     float: left;
-    border-left: solid 1px #2d3436;
+    border-left: solid 1px;
+    border-radius: 0 10px ;
 }
 
 .main-nav a {
@@ -83,32 +132,11 @@ ul {
     display: block;
     padding: 10px 30px;
     text-decoration: none;
-    background-color: #2f3640;
+    background-color: black;
+    border-radius: 0 10px;
+    
 }
 
-/* allowing flyout to adjust */
-.dropdown, .flyout {
-  position:relative;
-}
-
-/* placing rows in location*/
-.drop-nav, .flyout-nav{ 
-  position:absolute;
-  display:none;
-}
-
-/* shows the content when hover */
-.dropdown:hover > .drop-nav, 
-.flyout:hover > .flyout-nav{
-      display: block;
-}   
-
-
-/* positioning fly out nav */
-.flyout-nav {
-  left: 100%;
-  top: 0;
-}
 
 /* changing background color on hovering to locate clicking region in nav*/
 .flyout:hover a, .flyout-nav{
@@ -122,10 +150,12 @@ ul {
 
 
 div.product_box{
+  text-align: center;
   background-color:white;
   width: auto;
   height: auto;
-  padding: 30px 0 20px 60px;
+  padding:0;
+  margin: 0;
   position: relative;
 }
 
@@ -153,7 +183,7 @@ ul.products li{
   height:auto;
   display: inline-block;
   vertical-align:top;
-  margin-left:20px;
+  margin:10px;
   margin-bottom: 60px;
   list-style: none;
 }
@@ -167,57 +197,6 @@ ul.products li{
 .info{
   text-align: center;
 }
-
-
-
-
-/* search box in nav bar */
-.search-box{
-  display: inline-block;
-  float:auto;
-  width:350px;
-  top:50%;
-  bottom:50%;
-  background:#2f3640;
-  height:auto;
-  border-radius:50px;
-  margin: none;
-  position: relative;
-  margin:30px 0 10px 20px;
-}
-
-.search-btn{
-  text-decoration: none;
-  color:#e84118;
-  float:right;
-  width:40px;
-  height:40px;
-  border-radius:50px;
-  background-color:#2f3640;
-  display: flex;
-  justify-content:center;
-  align-items: center;
-}
-
-.search-btn:hover{
-  background-color:#2f3640;
-  color:white;
-}
-
-.search-text{
-  border:none;
-  background:none;
-  outline:none;
-  float:left;
-  color:white;
-  font-size:16px;
-  transition:0.4s;
-  line-height: 40px;
-  width:300px;
-  padding:auto;
-  margin: 0 0 0  10px;
-}
-
 
 
 
@@ -324,7 +303,7 @@ footer ul li a{
 
 footer ul li a:hover{
   background-color:#2f3640 ;
-  color:orange;
+  color:#e84118;
 }
 
 
@@ -356,20 +335,9 @@ footer ul li a:hover{
   overflow: hidden;
   position: relative;
   background-color: white;
-  padding: 10px;
-  margin: 0 20px 0 20px;
+  padding: 0px ;
+  margin: 0px 20px 0 20px;
   border-bottom: 2px solid #e74c3c;
-}
-
-.img{
-  width:500px;
-  float: left;
-  overflow:hidden;
-}
-
-.img img{
-  width:100%;
-
 }
 
 .prod-info{
@@ -417,8 +385,7 @@ footer ul li a:hover{
   float:left;
   padding:10px;
   text-align:center;
-  margin:20px 1px;
-  
+  margin:20px 1px; 
 }
 
 .addbtn:hover{
