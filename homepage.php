@@ -1,10 +1,3 @@
-
-<?Php
-
-session_start();
-
-?>
-
 <html>
 <head>
   <title>Products Home</title>
@@ -12,14 +5,13 @@ session_start();
   <!---script to add icons to page-->
   <script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>
 </head>
-<body>
+  <body>
 
-
-        <header class="main-header">
+    <header class="main-header">
             <!--image logo with link to home(index) page-->  
               <div>
              <a href="homepage.php">
-            <img src=" images/logo.png" class="logo" >
+            <img src=" images/logo.png" class="logo" title="TopCellers">
             </a>
           </div>
 
@@ -29,38 +21,26 @@ session_start();
               <a href="index.php"><i class="fa fa-shopping-basket"></i> SHOP</a>
             </li>
           </ul>
-        </header>
+    </header>
 
-<!---- breadcrumb ---->
-
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item">
-              <a href="homepage.php" class="breadcrumb-link">Home</a>
-          </li>
-          <li class="breadcrumb-item">
-              <a href="index.php" class="breadcrumb-link-active">Products</a>
-          </li>
-        </ul>
+        <div class="banner">
+          <div class="big-text bounce">10% OFF</div>
+          <div >on all new phones</div>
+          <a class="bouncein" href="index.php">Go to Store</a>
+        </div>
         <br>
 
-<!---- breadcrumb end ---->
+        <div class="product_box">
+          <h1>Top Sales!</h1>
+          <p>See some of our best deals!</p>
+            <ul class="products">
 
-
-
-<!---------------------------- product listing ----------------------------->
-
-<div class="product_box">
-<h1 class="bounce">Products</h1>
-<p>Shop for some of the best deals!</p>
-
-<ul class="products">
-
-<?php 
+  <?php 
 
 $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
 
-  //access products table from database
-  $sql ="SELECT * FROM `products`";
+  //access products table from database limit 4 items to show.
+  $sql ="SELECT * FROM `products` WHERE sale_price ORDER BY `products`.`sale_price` DESC LIMIT 4";
 
       //create query to execute sql on database
       $query = mysqli_query($dbconnect, $sql);
@@ -70,19 +50,16 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
             //loop each row
             while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
               //create variables for each field
+          $product_id = $row["product_id"];
+          $product_name =$row["product_name"];
+          $product_details = $row["product_details"];
+          $product_image = $row["product_image"];
+          $product_price =$row["product_price"];
+          $sale_price = $row["sale_price"];
+          $product_type = $row["product_type"];
+          $link = "details.php?pid=$product_id";
+          $sale = (($product_price/$sale_price) * (100/10));
 
-        $product_id = $row["product_id"];
-        $product_name =$row["product_name"];
-        $product_details = $row["product_details"];
-        $product_image = $row["product_image"];
-        $product_price =$row["product_price"];
-        $sale_price = $row["sale_price"];
-        $product_type = $row["product_type"];
-        $link = "details.php?pid=$product_id";
-
-        $sale = (($sale_price/$product_price) * (100/10));
-
-                  
 
 ?>
 
@@ -119,16 +96,44 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
         </a>
         </div>
       
-        </li>
+    </li>
     
 
-        <?php
-            }
-            } else {echo "Site is under maintenance";}
-        ?>
+<?php
 
-    </ul>
-  </div>
+    }
+        } else {echo "Site is under maintenance";}
+
+    ?>
+      
+</div>
+
+
+<div class="deals-box">
+  <h2>Best Deals</h2>
+  <p>We have some of the best deals and our products are always up to date. Topcellers are partners with three of the top brands in the world to ensure that customers are always up to date at the best prices.</p>
+   <form action="index.php">
+  <button class="deal-box-btn">Shop Now</button>
+  </form> 
+</div>
+<br>
+
+<div class="home-row">
+      <div class="home-column"><img src="images/banner1.png">
+      </div>
+
+
+      <div class="home-column"><img src="images/banner2.png">
+      </div>
+
+      <div class="home-column"><img src="images/banner3.png">
+      </div>
+
+    </div>
+    <br>
+
+
+
 
 <!----------Scroll to the top of the page ---------->
 
@@ -159,15 +164,15 @@ $(document).ready(function() {
 </script>
 
 <footer class="footer-nav">
-  <nav>
-    <div class="wrapper">
-      <ul>
-        <li><a href="index.php">HOME</a></li>
-        <li><a href="products.php">PRODUCTS</a></li>
-      </ul>
-    </div>
-  </nav>
-    
+	<nav>
+		<div class="wrapper">
+			<ul>
+				<li><a href="index.php">HOME</a></li>
+				<li><a href="products.php">PRODUCTS</a></li>
+			</ul>
+		</div>
+	</nav>
+		
 </footer>
 </body>
 </html>

@@ -26,7 +26,7 @@ if(isset($_GET["pid"])){
            <header class="main-header">
             <!--image logo with link to home(index) page-->  
               <div>
-             <a href="index.php">
+             <a href="homepage.php">
             <img src=" images/logo.png" class="logo" >
             </a>
           </div>
@@ -158,7 +158,7 @@ $('.imgBox img').attr("src", $(this).attr("href"));
       <div class="prod-info">
         <h2><?php echo $product_name; ?></h2>
           <span class="desc"><?php echo $product_type; ?></span>
-          <span class="price"><?php 
+          <span class="price bouncein"><?php 
 
                     if($sale_price <> 0 ){
 
@@ -191,7 +191,7 @@ $('.imgBox img').attr("src", $(this).attr("href"));
             <a href="#">64GB</a>
             <a href="#">128GB</a>
           </span>
-          <h3>Capacity</h3>
+          <h3>Color</h3>
           <span>
             <a href="#">Blue</a>
             <a href="#">red</a>
