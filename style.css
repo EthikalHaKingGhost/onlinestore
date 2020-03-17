@@ -9,16 +9,27 @@
 body {
   margin: 0;
   padding: 0;
-  background: #f1f2f6;
+  background: default;
   color:#2d3436;
   font-family: 'roboto', sans-serif;
   line-height: 1.5; 
   font-size: 14px;
 }
 
-h1{
+body h1{
     text-align: center;
+    font-size: 30px;
+    font-weight: 800;
 }
+
+
+
+
+
+
+
+
+
 
 
 /* image slider */
@@ -87,10 +98,16 @@ ul.thumb li img {
       text-decoration: none;
       float:left;
       width:auto;
-      height:100px;
+      height:150px;
       display: inline-block;
-      marign: 20px 0 10px 20px;
+      padding: 0;
+      margin-left: 40px;
 }
+
+
+
+
+
 
 
 
@@ -138,7 +155,7 @@ ul {
 }
 
 
-/* changing background color on hovering to locate clicking region in nav*/
+/* changing background color on hovering to locate clicking area in nav*/
 .flyout:hover a, .flyout-nav{
   border-right: solid 1px #2d3436;
   border-left: : solid 1px #2d3436;
@@ -148,6 +165,16 @@ ul {
   background-color: #e84118;
 }
 
+
+
+
+
+
+
+
+
+
+/* products listing page */
 
 div.product_box{
   text-align: center;
@@ -197,6 +224,13 @@ ul.products li{
 .info{
   text-align: center;
 }
+
+
+
+
+
+
+
 
 
 
@@ -261,13 +295,73 @@ div.detail_box{
   list-style: none;
 }
 
-
 .detail_image{
   width:auto;
   height:350px;
   list-style: none;
 }
 
+
+
+
+
+
+
+/* container with information about deals*/
+
+.home-Row {
+    display: table;
+    width: 100%; 
+    table-layout: fixed;
+    color: black; 
+    border-spacing: 2px; 
+}
+
+.home-column {
+    display: table-cell;
+    text-align: center;
+    background-color: #dfe6e9;
+    padding:20px;
+    margin: 0;
+}
+
+.deals-box{
+    width:auto;
+    height: auto;
+    background-color: #33d9b2;
+    padding:20px 60px;
+    margin:0;
+    text-align: justify;
+    overflow: hidden;
+}
+
+.deals-box p{
+  font-size:15px;
+  font-weight: 500;
+  color:#2d3436;
+}
+
+.deals-box h2{
+  font-size:22px;
+  font-weight: 800;
+  color:#2d3436;
+}
+
+.deal-box-btn{
+  background-color: #e55039; /* Green */
+  border: none;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.deal-box-btn:hover{
+ box-shadow: 0 12px 16px 0 rgba(0,0,0,0.2), 0 17px 50px 0 rgba(0,0,0,0.1);
+ cursor:pointer;
+}
 
 
 

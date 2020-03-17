@@ -50,9 +50,10 @@ session_start();
 <!---------------------------- product listing ----------------------------->
 
 <div class="product_box">
-<h1>Product</h1>
+<h1>Products</h1>
 <p>Shop for some of the best deals!</p>
 <ul class="products">
+
 <?php 
 
 $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
@@ -69,16 +70,16 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
             while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
               //create variables for each field
 
-                  $product_id = $row["product_id"];
-                  $product_name =$row["product_name"];
-                  $product_details = $row["product_details"];
-                  $product_image = $row["product_image"];
-                  $product_price =$row["product_price"];
-                  $sale_price = $row["sale_price"];
-                  $product_type = $row["product_type"];
-                  $link = "details.php?pid=$product_id";
+        $product_id = $row["product_id"];
+        $product_name =$row["product_name"];
+        $product_details = $row["product_details"];
+        $product_image = $row["product_image"];
+        $product_price =$row["product_price"];
+        $sale_price = $row["sale_price"];
+        $product_type = $row["product_type"];
+        $link = "details.php?pid=$product_id";
 
-                  $sale = (($sale_price/$product_price) * 100);
+        $sale = (($sale_price/$product_price) * 100);
 
                   
 
@@ -120,16 +121,46 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
     </li>
     
 
-<?php
-    }
-    } else {echo "Site is under maintenance";}
-?>
+  <?php
+      }
+      } else {echo "Site is under maintenance";}
+  ?>
 
 </ul>
 
 
 </div>
 
+
+<!----------Scroll to the top of the page ---------->
+
+<a id="topofpage" title="Top Of Page" href="index.php"><i class="fas fa-chevron-up"></i></a>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+
+
+/*Scroll to top when arrow up clicked BEGIN*/
+$(window).scroll(function() {
+    var height = $(window).scrollTop();
+    if (height > 100) {
+        $('#topofpage').fadeIn();
+    } else {
+        $('#topofpage').fadeOut();
+    }
+});
+$(document).ready(function() {
+    $("#topofpage").click(function(event) {
+        event.preventDefault();
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+    });
+
+});
+
+</script>
+
+<!-- Scroll to top when arrow up clicked END --->
 
 <footer class="footer-nav">
   <nav>

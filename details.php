@@ -150,9 +150,9 @@ e.preventDefault();
 
 //change the image in the image box 
 $('.imgBox img').attr("src", $(this).attr("href")); 
-  })
+  });
   
-})
+});
 </script>
 
       <div class="prod-info">
@@ -220,6 +220,8 @@ $('.imgBox img').attr("src", $(this).attr("href"));
 </div>
 </div>
 </div>
+
+
           <footer class="footer-nav">
             <nav>
               <div class="wrapper">
