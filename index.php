@@ -52,6 +52,7 @@ session_start();
 <div class="product_box">
 <h1>Products</h1>
 <p>Shop for some of the best deals!</p>
+
 <ul class="products">
 
 <?php 
@@ -118,19 +119,16 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
         </a>
         </div>
       
-    </li>
+        </li>
     
 
-  <?php
-      }
-      } else {echo "Site is under maintenance";}
-  ?>
+        <?php
+            }
+            } else {echo "Site is under maintenance";}
+        ?>
 
-</ul>
-
-
-</div>
-
+    </ul>
+  </div>
 
 <!----------Scroll to the top of the page ---------->
 
@@ -159,8 +157,6 @@ $(document).ready(function() {
 });
 
 </script>
-
-<!-- Scroll to top when arrow up clicked END --->
 
 <footer class="footer-nav">
   <nav>

@@ -365,40 +365,8 @@ div.detail_box{
 
 
 
-/* footer  */
 
-footer nav{
-  text-align: center;
-}
 
-footer{
-  width:100%;
-  background-color: #2f3640;
-  padding:60px 0 40px 0;
-  border:none;
-  overflow: auto;
-  margin:none;
-}
-
-footer ul li{
-  display: inline-block;
-  margin-left:20px;
-  list-style: none;
-
-}
-
-footer ul li a{
-  font-family: inline-block;
-  font-weight:500;
-  font-size:14px;
-  text-decoration: none;
-  color:white;
-}
-
-footer ul li a:hover{
-  background-color:#2f3640 ;
-  color:#e84118;
-}
 
 
 /* specifications and description page */
@@ -485,3 +453,68 @@ footer ul li a:hover{
 .addbtn:hover{
   filter: brightness(120%);
 }
+
+
+
+
+
+
+#topofpage {
+    overflow: hidden;
+    display: none;
+    cursor: pointer;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    background-color: transparent;
+    color: #e84118;
+    text-align: center;
+    font-size: 30px;
+    text-decoration: none;
+    border-radius: 50px 50px;
+}
+#topofpage:hover {
+    background-color:transparent;
+    color: #e84118;
+    border-radius: 50px 50px;
+}
+
+
+
+
+
+/* footer  */
+
+footer nav{
+  text-align: center;
+}
+
+footer{
+  width:100%;
+  background-color: #2f3640;
+  padding:60px 0 40px 0;
+  border:none;
+  overflow: auto;
+  margin:none;
+}
+
+footer ul li{
+  display: inline-block;
+  margin-left:20px;
+  list-style: none;
+
+}
+
+footer ul li a{
+  font-family: inline-block;
+  font-weight:500;
+  font-size:14px;
+  text-decoration: none;
+  color:white;
+}
+
+footer ul li a:hover{
+  background-color:#2f3640 ;
+  color:#e84118;
+}
+
