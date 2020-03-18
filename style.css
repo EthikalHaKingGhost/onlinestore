@@ -148,7 +148,7 @@ body {
   padding: 0;
   background: default;
   color:#2d3436;
-  font-family: 'roboto', sans-serif;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   line-height: 1.5; 
 }
 
@@ -223,7 +223,9 @@ ul.thumb li img {
       min-height: 90px;
       border: none;
       border-top: none;
-    	background-image: url(images/4.png);
+    	background: #000;
+      background-position: contain, cover;
+
 }
 
 .main-header:after {
@@ -231,6 +233,22 @@ ul.thumb li img {
       display: table;
       clear: both;
 }
+
+
+.header-banner{
+    text-align: center;
+    font-size:12px;
+    font-weight:500;
+    word-spacing: 10px;
+    color:white;
+    background-color:#ff7675;
+    padding:2px 0 2px 0;
+    margin: 0;
+    width: 100%;
+    border:none;
+}
+
+
 
 
 /* display logo to the left of the page */
@@ -241,11 +259,8 @@ ul.thumb li img {
       height:150px;
       display: inline-block;
       padding: 0;
-      margin-left: 40px;
+      margin: 0;
 }
-
-
-
 
 
 
@@ -262,47 +277,35 @@ ul {
 
 .main-nav,
 .drop-nav {
-  background: #353b48;
-  opacity: 80%;
-  border-radius: 10px;
+  background: transparent;
+  border:none;
 
 }
 
 /* */
 .main-nav {
   float: right;
-  border-radius:none;
   border: none;
-  margin:30px 100px 10px 20px;;
+  margin:90px 20px 40px 20px;;
   padding:0;
-  border-radius: 10px;
 }
 
 .main-nav > li {
     float: left;
-    border-left: solid 1px;
-    border-radius: 0 10px ;
 }
 
 .main-nav a {
     color: #fff;
-    display: block;
     padding: 10px 30px;
+    font-family:"Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     text-decoration: none;
-    background-color: black;
-    border-radius: 0 10px;
-    
+    background: transparent;
 }
 
 
-/* changing background color on hovering to locate clicking area in nav*/
-.flyout:hover a, .flyout-nav{
-  border-right: solid 1px #2d3436;
-  border-left: : solid 1px #2d3436;
-}
 
-.main-nav a:hover, .drop-nav a:hover, .flyout a:hover, .flyout-nav a:hover{
-  background-color: #e84118;
+.main-nav a:hover{
+  color: #ff7675;
 }
 
 
@@ -318,7 +321,7 @@ ul {
 
 div.product_box{
   text-align: center;
-  background-color:white;
+  background-color:#fff;
   width: auto;
   height: auto;
   padding:0;
@@ -529,7 +532,7 @@ div.detail_box{
 
 
 *{
-    font-family: sans-serif;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;;
     text-decoration: none;
   }
 
@@ -562,23 +565,28 @@ div.detail_box{
 
 .price{
   color:#e74c3c;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 15px;
+
 }
 
 .prod-info h2{
   text-transform: uppercase;
 }
-.prod-info span a{
+
+
+
+.prod-info span .colors{
   display: block;
-  float:left;
-  margin-right:6px;
-  border: 2px solid;
-  color:#e74c3c;
-  font-size:20px;
-  border-radius:8px;
-  padding: 2px 4px;
+  float: left;
+  height: 25px;
+  width: 25px;
+  border: 1px solid #607d8b;
+  border-radius:50%;
+  padding: 2px 2px;
+  margin-right:10px;
 }
+
+
 
 .addbtn{
   width:260px;
@@ -625,21 +633,38 @@ div.detail_box{
 
 .banner{
   width:100%;
-  background: #00cec9;
-  background-size: contain, cover, no-repeat;
-  font-size: 88px;
-  color:#fff;
+  background:url(images/iphone-x.gif);
+  background-size: cover;
+  background-position: no-repeat;
   text-align:center;
-  padding:40px 15px;
+  padding:30px 15px;
   font-family:"Comic Sans MS", cursive, sans-serif;
   text-shadow: 2px 2px #487eb0;
+  width: auto;
+ 
 }
 
 .big-text{
-  font-size: 130px;
+  font-size: 10vw;
   font-weight: 800;
+  overflow: hidden;
+  color:#fff;
 }
 
+.big-text b{
+  font-size: 10vw;
+  font-weight: 800;
+  overflow: hidden;
+  text-decoration: none; 
+  color:#FFC107;
+}
+
+.banner p{
+margin-top:-15px;
+margin-bottom: 15px;
+font-size: 7vw;
+color:#fff;
+}
 
 .banner a{
   display:inline-block;
@@ -647,13 +672,16 @@ div.detail_box{
   color: #333;
   text-transform: uppercase;
   text-decoration: none;
-  font-size:40px;
-  padding: 15px;
+  font-size:3.5vw;
+  letter-spacing: 2px;
+  padding: 8px 10px;
   transition: .3s;
 }
+
 .banner a:hover{
-  background:#333;
+  background:#ff7675;
   color:#fff;
+  padding: 8px 12px;
 }
 
 
@@ -680,7 +708,7 @@ footer ul li{
 }
 
 footer ul li a{
-  font-family: inline-block;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   font-weight:500;
   font-size:14px;
   text-decoration: none;

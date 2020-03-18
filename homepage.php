@@ -6,7 +6,9 @@
   <script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>
 </head>
   <body>
-
+<div class="header-banner">
+  <b>Email:</b>topcellers@mail.com <b>Phone:</b>1-868-726-7856 <b>Fax:</b>1-868-345-3425
+</div>
     <header class="main-header">
             <!--image logo with link to home(index) page-->  
               <div>
@@ -24,8 +26,8 @@
     </header>
 
         <div class="banner">
-          <div class="big-text bounce">10% OFF</div>
-          <div >on all new phones</div>
+          <div class="big-text bounce"><b>10%</b> OFF</div>
+          <p >on all new phones!</p>
           <a class="bouncein" href="index.php">Go to Store</a>
         </div>
         <br>

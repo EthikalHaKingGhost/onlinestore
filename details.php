@@ -23,6 +23,10 @@ if(isset($_GET["pid"])){
     </head>
         <body>
 
+          <div class="header-banner">
+            <b>Email:</b>topcellers@mail.com <b>Phone:</b>1-868-726-7856 <b>Fax:</b>1-868-345-3425
+          </div>
+
            <header class="main-header">
             <!--image logo with link to home(index) page-->  
               <div>
@@ -59,7 +63,6 @@ if(isset($_GET["pid"])){
             while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
               //create variables for each field
 
-                $product_id = $row["product_id"];
                   $product_name =$row["product_name"];
                   $product_type = $row["product_type"];
 
@@ -90,7 +93,9 @@ if(isset($_GET["pid"])){
 
 
   //access products table from database
-  $sql ="SELECT * FROM products, images, thumbnails WHERE products.product_id = images.product_id = thumbnails.thumbnail_id AND products.product_id = $product_id";
+  $sql ="SELECT * FROM products, images, thumbnails 
+  WHERE products.product_id = images.product_id = thumbnails.thumbnail_id 
+  AND products.product_id = $product_id";
 
       //create query to execute sql on database
       $query = mysqli_query($dbconnect, $sql);
@@ -101,7 +106,6 @@ if(isset($_GET["pid"])){
             while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
               //create variables for each field
 
-            	    $product_id = $row["product_id"];
                   $product_name =$row["product_name"];
                   $product_details = $row["product_details"];
                   $product_image = $row["product_image"];
@@ -137,7 +141,7 @@ if(isset($_GET["pid"])){
     <div class="imgBox"><img src="images/<?php echo $product_image; ?>"></div>
   </div>
 
-<!----JQuery setup----->
+<!----JQuery for Product images and thumbnails----->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 
@@ -155,23 +159,31 @@ $('.imgBox img').attr("src", $(this).attr("href"));
 });
 </script>
 
-      <div class="prod-info">
-        <h2><?php echo $product_name; ?></h2>
-          <span class="desc"><?php echo $product_type; ?></span>
-          <span class="price bouncein"><?php 
 
+
+      <div class="prod-info">
+
+        <h2><?php echo $product_name; ?></h2>
+
+          <p class="desc"><?php echo $product_type; ?></p>
+
+          <span class="price bouncein"><?php 
                     if($sale_price <> 0 ){
 
-                    echo '<p style="text-decoration:line-through; color:black;"> $'.$product_price.' TTD </p>';
+                    echo '<span class="price" style="text-decoration:line-through; color:black;"> $'.$product_price.' TTD </span>';
 
                   }else{
-                    echo '<p style="text-decoration:none;"> $'.$product_price.'TTD </p>'; 
+                    echo '<span class="price" style="text-decoration:none; "> $'.$product_price.'TTD </span>'; 
                     
                   }
                   ?>
 
         <!----remove sale price when value is 0 ------>
-            <p>       
+
+            <span style="color:#e74c3c;
+                        font-size: 25px; 
+                        font-weight: 900;"> 
+
                     <?php 
 
                     if($sale_price != 0){
@@ -184,19 +196,53 @@ $('.imgBox img').attr("src", $(this).attr("href"));
                       }
 
                       ?>
-            </p></span>
-          <h3>RAM size</h3>
-          <span>
-            <a href="#">32GB</a>
-            <a href="#">64GB</a>
-            <a href="#">128GB</a>
+            </span>
           </span>
-          <h3>Color</h3>
-          <span>
-            <a href="#">Blue</a>
-            <a href="#">red</a>
-            <a href="#">orange</a>
+
+
+
+
+
+<!----------product colors--------------->
+
+      <h3>Available Colors</h3>
+      <span>
+          <?php 
+
+  $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
+
+
+  //access products table from database
+  $sql ="SELECT * FROM colors, product_color, products 
+          WHERE products.product_id = product_color.product_id
+          AND product_color.color_id = colors.color_id  
+          AND products.product_id = $product_id";
+
+      //create query to execute sql on database
+      $query = mysqli_query($dbconnect, $sql);
+
+    //statement to display day under condition
+          if($query){
+            //loop each row
+            while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
+              //create variables for each field
+                  $color_id = $row["color_id"];
+                  $colorhex = $row["colorhex"];
+                
+              ?>
+
+            <a class="colors" href="#" style="background-color:<?php echo $colorhex; ?>;"></a>
+
+              <?php
+
+              }
+
+               }
+
+                      ?>
+
           </span>
+
           <a class="addbtn" href="#"> <i class="ion-android-cart"></i>Add to Cart</a>
         </div>
         </div>
@@ -211,10 +257,10 @@ $('.imgBox img').attr("src", $(this).attr("href"));
 
   <div class="column">
           <h3>Specifications</h3>
-          <p><b>RAM:</b> 124GB</p>
-          <p><b>Processor:</b> 3.5ghz</p>
+          <p><b>RAM:</b> 4GB</p>
+          <p><b>Processor:</b> 2500mah</p>
           <p><b>Resolution:</b> 9.5"</p>
-          <p><b>Capacity:</b> 500 GB</p>   
+          <p><b>Camera:</b>12MP</p>   
         </div>
       </div>
     </div>

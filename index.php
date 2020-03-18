@@ -13,7 +13,10 @@ session_start();
   <script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
+  
+      <div class="header-banner">
+        <b>Email:</b>topcellers@mail.com <b>Phone:</b>1-868-726-7856 <b>Fax:</b>1-868-345-3425
+      </div>
 
         <header class="main-header">
             <!--image logo with link to home(index) page-->  
