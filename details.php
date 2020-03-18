@@ -202,6 +202,47 @@ $('.imgBox img').attr("src", $(this).attr("href"));
 
 
 
+<!--------------product Storage size ---------------->
+
+          <h3>Available Capacity:</h3>
+          <span>
+
+                      <?php 
+
+  $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
+
+
+  //access products table from database
+  $sql ="SELECT * FROM storage_sizes, product_storage, products 
+WHERE products.product_id = product_storage.product_id
+AND product_storage.storage_id = storage_sizes.storage_id  
+AND products.product_id = 1";
+
+      //create query to execute sql on database
+      $query = mysqli_query($dbconnect, $sql);
+
+    //statement to display day under condition
+          if($query){
+            //loop each row
+            while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
+              //create variables for each field
+                  $storage_id = $row["storage_id"];
+                  $storagesize = $row["storagesize"];
+                
+              ?>
+
+            <a class="storage" href="#"><?php echo $storagesize ?></a>
+
+              <?php
+
+              }
+
+               }
+
+                      ?>
+ 
+          </span>
+
 
 <!----------product colors--------------->
 
