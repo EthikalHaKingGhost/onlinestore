@@ -210,6 +210,11 @@ ul.thumb li img {
       overflow: hidden;
     }
 
+
+.thumb li:hover{
+     border: 2px solid #f00;
+    }
+
 .imgBox img{
       width: 100%;
     }   

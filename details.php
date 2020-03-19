@@ -108,6 +108,10 @@ if(isset($_GET["pid"])){
 
                   $product_name =$row["product_name"];
                   $product_details = $row["product_details"];
+                  $ram = $row["ram"];
+                  $battery_size = $row["battery_size"];
+                  $screen_size = $row["screen_size"];
+                  $camera_pixels = $row["camera_pixels"];
                   $product_image = $row["product_image"];
                   $product_price =$row["product_price"];
                   $sale_price = $row["sale_price"];
@@ -132,7 +136,7 @@ if(isset($_GET["pid"])){
 <div class="container">
     <ul class="thumb">
 
-      <li><a class="img1" href="images/<?php echo $image_1; ?>" target="imgBox"><img src="images/<?php echo $thumb1; ?>"></a></li>
+      <li><a class="img1" href="images/<?php echo $product_image; ?>" target="imgBox"><img src="images/<?php echo $product_image; ?>"></a></li>
 
       <li><a class="img1" href="images/<?php echo $image_2; ?>" target="imgBox"><img src="images/<?php echo $thumb2; ?>"></a></li>
 
@@ -298,10 +302,10 @@ AND products.product_id = 1";
 
   <div class="column">
           <h3>Specifications</h3>
-          <p><b>RAM:</b> 4GB</p>
-          <p><b>Processor:</b> 2500mah</p>
-          <p><b>Resolution:</b> 9.5"</p>
-          <p><b>Camera:</b>12MP</p>   
+          <p><b>RAM: </b><?php echo $ram; ?></p>
+          <p><b>Processor: </b><?php echo $battery_size; ?></p>
+          <p><b>Resolution: </b><?php echo $screen_size; ?></p>
+          <p><b>Camera: </b><?php echo $camera_pixels; ?></p>   
         </div>
       </div>
     </div>
