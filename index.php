@@ -10,7 +10,7 @@ session_start();
   <title>Products Home</title>
   <link href="style.css" rel="stylesheet" >
   <!---script to add icons to page-->
-  <script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
 </head>
 <body>
   
@@ -63,7 +63,9 @@ session_start();
 $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
 
   //access products table from database
-  $sql ="SELECT * FROM `products`";
+  $sql ="SELECT * 
+  FROM products, images 
+  WHERE products.product_id = images.product_id";
 
       //create query to execute sql on database
       $query = mysqli_query($dbconnect, $sql);
@@ -77,7 +79,7 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
         $product_id = $row["product_id"];
         $product_name =$row["product_name"];
         $product_details = $row["product_details"];
-        $product_image = $row["product_image"];
+        $image_1 = $row["image_1"];
         $product_price =$row["product_price"];
         $sale_price = $row["sale_price"];
         $product_type = $row["product_type"];
@@ -93,7 +95,7 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
       
       <div class="card">
         <a class="detail-link" href="<?php echo $link ?>">
-      <img class="responsive" src=images/<?php echo $product_image;?> alt="image">
+      <img class="responsive" src=images/<?php echo $image_1;?> alt="image">
         <h2 class="info"><?php echo $product_name; ?></h2>
         <p class="info"><?php echo $product_type; ?></p>
         <h3 class="info">$<?php echo $product_price; ?> TTD</h3>

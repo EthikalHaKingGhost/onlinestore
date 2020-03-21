@@ -3,7 +3,7 @@
   <title>Products Home</title>
   <link href="style.css" rel="stylesheet" >
   <!---script to add icons to page-->
-  <script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
 </head>
   <body>
 <div class="header-banner">

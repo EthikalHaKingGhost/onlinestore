@@ -2,6 +2,7 @@
 
 session_start();
 
+
 if(isset($_GET["pid"])){
     $product_id = $_GET["pid"];
 }else{
@@ -12,14 +13,29 @@ if(isset($_GET["pid"])){
 }
 
 
+if(isset($_POST["addtocart"])){
+
+
+  echo "<div class='message'>
+        <div class='alert alert-success alert-dismissible' name='alerts'>
+            <a href='details.php?pid=$product_id' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <strong> Message! </strong> Added to Cart succesfully
+        </div>
+      </div>";
+
+}
+
+
 ?>
+
 
  <html>
     <head>
         <title>Products Home</title>
           <link href="style.css" rel="stylesheet" >
         <!---script to add icons to page-->
-            <script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
+            <!--<script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>--->
     </head>
         <body>
 
@@ -41,6 +57,10 @@ if(isset($_GET["pid"])){
               <a href="index.php"><i class="fa fa-shopping-basket"></i> SHOP</a>
             </li>
           </ul>
+
+  
+
+
         </header>
 
 
@@ -93,8 +113,8 @@ if(isset($_GET["pid"])){
 
 
   //access products table from database
-  $sql ="SELECT * FROM products, images, thumbnails 
-  WHERE products.product_id = images.product_id = thumbnails.thumbnail_id 
+  $sql ="SELECT * FROM products, images 
+  WHERE products.product_id = images.product_id 
   AND products.product_id = $product_id";
 
       //create query to execute sql on database
@@ -119,13 +139,11 @@ if(isset($_GET["pid"])){
                   $image_1 = $row["image_1"];
                   $image_2 = $row["image_2"];
                   $image_3 = $row["image_3"];
-                  $thumb1 = $row["thumb1"];
-                  $thumb2 = $row["thumb2"];
-                  $thumb3 = $row["thumb3"];
-
-
+        
               }
-              } else {echo "Site is under maintenance";}
+              } else {
+                echo "Site is under maintenance";
+              }
           ?>   
 
 
@@ -136,11 +154,11 @@ if(isset($_GET["pid"])){
 <div class="container">
     <ul class="thumb">
 
-      <li><a class="img1" href="images/<?php echo $product_image; ?>" target="imgBox"><img src="images/<?php echo $product_image; ?>"></a></li>
+      <li><a class="img1" href="images/<?php echo $image_1; ?>" target="imgBox"><img src="images/<?php echo $image_1; ?>"></a></li>
 
-      <li><a class="img1" href="images/<?php echo $image_2; ?>" target="imgBox"><img src="images/<?php echo $thumb2; ?>"></a></li>
+      <li><a class="img1" href="images/<?php echo $image_2; ?>" target="imgBox"><img src="images/<?php echo $image_2; ?>"></a></li>
 
-      <li><a class="img1" href="images/<?php echo $image_3; ?>" target="imgBox"><img src="images/<?php echo $thumb3; ?>"></a></li>
+      <li><a class="img1" href="images/<?php echo $image_3; ?>" target="imgBox"><img src="images/<?php echo $image_3; ?>"></a></li>
     </ul>
     <div class="imgBox"><img src="images/<?php echo $product_image; ?>"></div>
   </div>
@@ -177,7 +195,8 @@ $('.imgBox img').attr("src", $(this).attr("href"));
                     echo '<span class="price" style="text-decoration:line-through; color:black;"> $'.$product_price.' TTD </span>';
 
                   }else{
-                    echo '<span class="price" style="text-decoration:none; "> $'.$product_price.'TTD </span>'; 
+                    echo '<span class="price"  style="text-decoration:none; font-size:25px; 
+                        font-weight: 900;"> $'.$product_price.'TTD </span>'; 
                     
                   }
                   ?>
@@ -208,50 +227,54 @@ $('.imgBox img').attr("src", $(this).attr("href"));
 
 <!--------------product Storage size ---------------->
 
-          <h3>Available Capacity:</h3>
-          <span>
+<h3>Available Capacity:</h3>
+    <span>
 
                       <?php 
 
   $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
 
 
-  //access products table from database
-  $sql ="SELECT * FROM storage_sizes, product_storage, products 
-WHERE products.product_id = product_storage.product_id
-AND product_storage.storage_id = storage_sizes.storage_id  
-AND products.product_id = 1";
+          //access products table from database
+          $sql ="SELECT * FROM storage_sizes, product_storage, products 
+          WHERE products.product_id = product_storage.product_id
+          AND product_storage.storage_id = storage_sizes.storage_id  
+          AND products.product_id = 1";
 
-      //create query to execute sql on database
-      $query = mysqli_query($dbconnect, $sql);
+              //create query to execute sql on database
+              $query = mysqli_query($dbconnect, $sql);
 
-    //statement to display day under condition
-          if($query){
-            //loop each row
-            while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
-              //create variables for each field
-                  $storage_id = $row["storage_id"];
-                  $storagesize = $row["storagesize"];
+                //statement to display day under condition
+                if($query){
+                  //loop each row
+                  while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
+                    //create variables for each field
+                        $storage_id = $row["storage_id"];
+                        $storagesize = $row["storagesize"];
                 
-              ?>
+                        ?>
 
-            <a class="storage" href="#"><?php echo $storagesize ?></a>
+                        <a class="storage" href="#"><?php echo $storagesize; ?></a>
 
-              <?php
+                        <?php
 
-              }
+                        }
 
-               }
+                        }else{
 
-                      ?>
+                           echo "Site is under Maintenance";
+                        }
+
+                        ?>
  
-          </span>
+  </span>
 
 
 <!----------product colors--------------->
 
       <h3>Available Colors</h3>
       <span>
+
           <?php 
 
   $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
@@ -282,30 +305,35 @@ AND products.product_id = 1";
 
               }
 
-               }
+              }else{
+                echo "Site is under maintencance";
+              }
 
-                      ?>
+              ?>
 
           </span>
 
-          <a class="addbtn" href="#"> <i class="ion-android-cart"></i>Add to Cart</a>
-        </div>
-        </div>
 
-<div class="row">
-  <div class="column"> 
-        <h3>Description:</h3>
-        <p> <?php echo $product_details; ?></p>
-        <p> <b>Brand:</b> <?php echo $product_type; ?></p> 
+    <form method="post" action="details.php?pid=<?php echo $product_id; ?>">
+       <button name="addtocart" class="addbtn"><i class="ion-android-cart"></i>Add to Cart</button>
+    </form>        
   </div>
+</div>
+
+    <div class="row">
+        <div class="column"> 
+          <h3>Description:</h3>
+            <p> <?php echo $product_details; ?></p>
+            <p> <b>Brand:</b> <?php echo $product_type; ?></p> 
+        </div>               
 
 
-  <div class="column">
-          <h3>Specifications</h3>
-          <p><b>RAM: </b><?php echo $ram; ?></p>
-          <p><b>Processor: </b><?php echo $battery_size; ?></p>
-          <p><b>Resolution: </b><?php echo $screen_size; ?></p>
-          <p><b>Camera: </b><?php echo $camera_pixels; ?></p>   
+        <div class="column">
+            <h3>Specifications</h3>
+              <p><b>RAM: </b><?php echo $ram; ?></p>
+              <p><b>Processor: </b><?php echo $battery_size; ?></p>
+              <p><b>Resolution: </b><?php echo $screen_size; ?></p>
+              <p><b>Camera: </b><?php echo $camera_pixels; ?></p>   
         </div>
       </div>
     </div>
@@ -318,40 +346,40 @@ AND products.product_id = 1";
 <a id="topofpage" title="Top Of Page" href="index.php"><i class="fas fa-chevron-up"></i></a>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script type="text/javascript">
+    <script type="text/javascript">
+
+        /*Scroll to top when arrow up clicked BEGIN*/
+        $(window).scroll(function() {
+            var height = $(window).scrollTop();
+            if (height > 100) {
+                $('#topofpage').fadeIn();
+            } else {
+                $('#topofpage').fadeOut();
+            }
+        });
+
+        $(document).ready(function() {
+            $("#topofpage").click(function(event) {
+                event.preventDefault();
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+                return false;
+            });
+
+        });
+
+    </script>
 
 
-/*Scroll to top when arrow up clicked BEGIN*/
-$(window).scroll(function() {
-    var height = $(window).scrollTop();
-    if (height > 100) {
-        $('#topofpage').fadeIn();
-    } else {
-        $('#topofpage').fadeOut();
-    }
-});
-$(document).ready(function() {
-    $("#topofpage").click(function(event) {
-        event.preventDefault();
-        $("html, body").animate({ scrollTop: 0 }, "slow");
-        return false;
-    });
+<footer class="footer-nav">
+  <nav>
+    <div class="wrapper">
+      <ul>
+        <li><a href="index.php">HOME</a></li>
+        <li><a href="products.php">PRODUCTS</a></li>
+      </ul>
+    </div>
+  </nav>  
+</footer>
 
-});
-
-</script>
-
-
-
-          <footer class="footer-nav">
-            <nav>
-              <div class="wrapper">
-                <ul>
-                  <li><a href="index.php">HOME</a></li>
-                  <li><a href="products.php">PRODUCTS</a></li>
-                </ul>
-              </div>
-            </nav>  
-        </footer>
-    </body>
+</body>
 </html>

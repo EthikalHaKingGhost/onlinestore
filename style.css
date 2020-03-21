@@ -1,6 +1,4 @@
 
-@import"http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css";
-
   .bounce {
   -webkit-animation-name: bounce;
   animation-name: bounce;
@@ -165,10 +163,20 @@ body h1{
 
 
 
+/*alert boxes*/
 
+  .message{
+      width: auto;
+      height: 20px;
+      padding: 5px;
+      background-color: #a0ffa5;
+  }
 
-
-
+  .message a{
+    float:right;
+    color:black;
+    font-weight: 900;
+  }
 
 
 
@@ -242,12 +250,12 @@ ul.thumb li img {
 
 .header-banner{
     text-align: center;
-    font-size:12px;
+    font-size:14px;
     font-weight:500;
     word-spacing: 10px;
     color:white;
     background-color:#ff7675;
-    padding:2px 0 2px 0;
+    padding:3px 0 3px 0;
     margin: 0;
     width: 100%;
     border:none;
@@ -291,7 +299,7 @@ ul {
 .main-nav {
   float: right;
   border: none;
-  margin:90px 20px 40px 20px;;
+  margin:60px 40px 40px 20px;;
   padding:0;
 }
 
