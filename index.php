@@ -167,8 +167,8 @@ $(document).ready(function() {
   <nav>
     <div class="wrapper">
       <ul>
-        <li><a href="index.php">HOME</a></li>
-        <li><a href="products.php">PRODUCTS</a></li>
+        <li><a href="homepage.php">HOME</a></li>
+        <li><a href="index.php">PRODUCTS</a></li>
       </ul>
     </div>
   </nav>

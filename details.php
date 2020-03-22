@@ -35,7 +35,6 @@ if(isset($_POST["addtocart"])){
           <link href="style.css" rel="stylesheet" >
         <!---script to add icons to page-->
         <link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
-            <!--<script src="https://kit.fontawesome.com/bc9aeacf84.js" crossorigin="anonymous"></script>--->
     </head>
         <body>
 
@@ -97,8 +96,8 @@ if(isset($_POST["addtocart"])){
           <li class="breadcrumb-item">
               <a href="index.php" class="breadcrumb-link">Products</a>
           </li>
-          <li class="breadcrumb-item">
-              <a href="index.php" class="breadcrumb-link"><?php echo $product_type; ?></a>
+          <!-- <li class="breadcrumb-item">
+              <a href="index.php" class="breadcrumb-link"><?php echo $product_type; ?></a> --->
           </li>
           <li class="breadcrumbs-item">
               <a href="" class="breadcrumb-link-active"><?php echo $product_name; ?></a>
@@ -239,7 +238,7 @@ $('.imgBox img').attr("src", $(this).attr("href"));
           $sql ="SELECT * FROM storage_sizes, product_storage, products 
           WHERE products.product_id = product_storage.product_id
           AND product_storage.storage_id = storage_sizes.storage_id  
-          AND products.product_id = 1";
+          AND products.product_id = $product_id";
 
               //create query to execute sql on database
               $query = mysqli_query($dbconnect, $sql);
@@ -374,8 +373,8 @@ $('.imgBox img').attr("src", $(this).attr("href"));
   <nav>
     <div class="wrapper">
       <ul>
-        <li><a href="index.php">HOME</a></li>
-        <li><a href="products.php">PRODUCTS</a></li>
+        <li><a href="homepage.php">HOME</a></li>
+        <li><a href="index.php">PRODUCTS</a></li>
       </ul>
     </div>
   </nav>  
