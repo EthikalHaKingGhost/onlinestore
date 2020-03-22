@@ -317,7 +317,56 @@ $('.imgBox img').attr("src", $(this).attr("href"));
        <button name="addtocart" class="addbtn"><i class="ion-android-cart"></i>Add to Cart</button>
     </form>        
   </div>
+  <div class="pagination">
+
+          <?php 
+
+  $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
+
+  $sql ="SELECT * FROM products WHERE product_id < $product_id ORDER BY product_id DESC LIMIT 1";
+      $query = mysqli_query($dbconnect, $sql);
+          if($query){
+            while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
+                
+              $prevproduct_id = $row["product_id"];
+
+              }
+
+              }
+
+            ?>
+
+              <a href="details.php?pid=<?php echo $prevproduct_id; ?>" class="previous round"><i class="fas fa-angle-left"></i></a>
+
+
+
+
+
+<?php 
+
+$dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
+
+  $sql ="SELECT * FROM products WHERE product_id > $product_id ORDER BY product_id ASC LIMIT 1";
+      $query = mysqli_query($dbconnect, $sql);
+          if($query){
+            while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
+                
+              $nextproduct_id = $row["product_id"];
+
+              }
+
+              }
+
+            ?>
+
+
+<a href="details.php?pid=<?php echo $nextproduct_id; ?>" class="next round"><i class="fas fa-angle-right"></i></a>
+
 </div>
+</div>
+
+
+
 
     <div class="row">
         <div class="column"> 
@@ -338,7 +387,6 @@ $('.imgBox img').attr("src", $(this).attr("href"));
     </div>
   </div>
 </div>
-
 
 <!----------Scroll to the top of the page ---------->
 

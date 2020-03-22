@@ -526,6 +526,33 @@ div.detail_box{
 
 
 
+a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+a:hover {
+  background-color: #e84118;
+  color: black;
+}
+
+.pagination{
+  float:right;
+  display: inline-block;
+}
+.previous {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.next {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+
+
 
 
 /* specifications and description page */
