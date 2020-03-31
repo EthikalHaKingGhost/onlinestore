@@ -5,6 +5,7 @@
 <title><?php echo $page_title; ?></title>
 <link rel="stylesheet" href="includes/style.css">
 </head>
+<link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <body>
 
@@ -17,13 +18,15 @@
         </button>
         <div class="collapse navbar-collapse" id="exCollapsingNavbar">
             <ul class="nav navbar-nav">
-                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Service</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">More</a></li>
+                <li class="nav-item"><a href="home.php" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="shop.php" class="nav-link">Shop</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="forum.php" class="nav-link">Forum</a></li>
             </ul>
+            
+<!-------------------------------Login button on navbar ---------------------------->
             <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-                <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
+                <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="profile"></i></a></li>
                 <li class="dropdown order-1">
                     <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right mt-2">
@@ -46,20 +49,9 @@
                     </ul>
                 </li>
             </ul>
-          <ul class="nav navbar-nav navbar-right">
-	          <li>
-	          	<a href="#" data-toggle="modal" data-target="#logoutModal">
-	          	<button type="button" class="btn btn-outline-secondary">logout <span class="caret"></span></button></a>
-	          </li>
-          </ul>
-        </div>
-        
-      </div>
-    </nav>
-        </div>
-    </div>
-</nav>
+<!------------------------------------------------------end of login ---------------------------->
 
+<!---------------------modal for login ------------------------------>
 <div id="modalPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -77,25 +69,54 @@
         </div>
     </div>
 </div>
+<!---------------------------modal for login end ------------------------>
 
-<!-- Small modal -->
+<!--------user login avatar----->
+          <ul class="nav navbar-nav navbar-right">
+          	<li>
+          		<div class="dropdown pmd-dropdown pmd-user-info ml-auto">
+          			<a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center" data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
+          				<img class="mr-2" src="https://pro.propeller.in/assets/images/avatar-icon-40x40.png" width="40" height="40" alt="avatar">
+            	<div class="media-body">
+                user
+            </div>
+            <i class="material-icons md-light ml-2 pmd-sm"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+        	<a class="dropdown-item" href="javascript:void(0);">Edit Profile</a>
+            <a data-toggle="modal" data-target="#logoutModal" class="dropdown-item" href="javascript:void(0);">Logout</a>
+        </ul>
+    </div>
+</li>
+</ul>
+<!-----------end of user logout-------------->
+
+</div>
+</div>
+</div>
+</nav>
+
+
+<!------Small modal for logout confirmation----->
 <div class="modal" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4>Log Out <i class="fa fa-lock"></i></h4>
+      	<h4>Log Out <i class="fa fa-lock"></i></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        	<span aria-hidden="true">&times</span></button>
       </div>
       <div class="modal-body">
-        <p><i class="fa fa-question-circle"></i> Are you sure you want to log-off? <br /></p>
+        <p><i class="fa fa-question-circle"></i> Are you sure you want to log-out? <br /></p>
         <div class="actionsBtns">
-            <form action="/logout" method="post">
+            <form action="goodbye.php" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="submit" class="btn btn-default btn-primary" data-dismiss="modal" value="Logout" />
-	                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+	                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
             </form>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!------logout confirmation modal end----->
