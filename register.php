@@ -1,8 +1,32 @@
 <?php # DISPLAY COMPLETE REGISTRATION PAGE.
 
 # Set page title and display header section.
-$page_title = 'Register' ;
-include ( 'includes/header.html' ) ;
+$page_title = 'Register' ; ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title><?php echo $page_title ?></title>
+</head>
+<link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="includes/style.css">
+<body>
+
+<style>
+
+  body {
+    background-image: url(images/cover.jpg) !important;
+    background-size: cover;
+    background-repeat: none;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+  }
+</style>
+
+<?php
 
 # Check form submitted.
 if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
@@ -77,20 +101,115 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
 }
 ?>
 
-<!-- Display body section with sticky form. -->
-<h1>Register</h1>
-<form action="register.php" method="post">
-<p>First Name: <input type="text" name="first_name" size="20" value="<?php if (isset($_POST['first_name'])) echo $_POST['first_name']; ?>"> 
-Last Name: <input type="text" name="last_name" size="20" value="<?php if (isset($_POST['last_name'])) echo $_POST['last_name']; ?>"></p>
-<p>Email Address: <input type="text" name="email" size="50" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"></p>
-<p>Password: <input type="password" name="pass1" size="20" value="<?php if (isset($_POST['pass1'])) echo $_POST['pass1']; ?>" >
-Confirm Password: <input type="password" name="pass2" size="20" value="<?php if (isset($_POST['pass2'])) echo $_POST['pass2']; ?>"></p>
-<p><input type="submit" value="Register"></p>
+
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-md-6">
+  <div class="card">
+  <header class="card-header bg-info text-white text-center p-0">
+    
+      <span aria-label="Click me to go back to home page">
+        
+          <a href="home.php"><small class="mb-0"><img src="images/rhino.png"></small></a>
+
+      </span>
+  </header>                  
+<div class="card-body">
+<form>
+  <div class="form-row">
+    <div class="col form-group">
+      <label class="m-0">First name </label>   
+        <input type="text" class="form-control form-control-sm" name="first_name">
+    </div> <!-- form-group end.// -->
+    <div class="col form-group">
+      <label class="m-0">Last name </label>
+        <input type="text" class="form-control form-control-sm" name="last_name">
+    </div> <!-- form-group end.// -->
+  </div> <!-- form-row end.// -->
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+      <label class="m-0">City</label>
+      <input type="text" class="form-control form-control-sm" name="city">
+    </div> <!-- form-group end.// -->
+    <div class="form-group col-md-6">
+
+<!----------countries included to database ------------------>
+      <label class="m-0 text-dark">Country</label>
+      <select id="countryname" class="form-control form-control-sm" name="countryname">
+        <option selected="">Choose...</option>
+        <?php include "connect_db.php"; 
+        $sql = "SELECT * FROM countries LIMIT 20";
+        $result = mysqli_query($dbc, $sql);
+        if($result){
+        //loop each row
+          while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+            $id = $row["cid"];
+            $countrycode = $row["Countrycode"];
+            $countryname = $row["Countryname"];
+            ?>
+            <option value="<?php echo $cid ?>"><?php echo $countryname; ?></option>
+            <?php
+          }
+        }else{
+          echo "error in sql";
+        }
+        ?>
+      </select>
+    </div> <!-- form-group end.// -->
+  </div> <!-- form-row.// -->
+
+<!----------countries end// ------------------>
+  <div class="form-group">
+      <label class="form-check form-check-inline m-0">
+      <input class="form-check-input" type="radio" name="gender" value="option1" checked>
+      <span class="form-check-label"> Male </span>
+    </label>
+    <label class="form-check form-check-inline m-0">
+      <input class="form-check-input" type="radio" name="gender" value="option2">
+      <span class="form-check-label"> Female</span>
+    </label>
+  </div> <!-- form-group end.// -->
+  <div class="form-group">
+    <label class="m-0">Email address</label>
+    <input type="email" class="form-control form-control-sm">
+    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div> <!-- form-group end.// -->
+  <div class="form-group">
+    <label class="m-0">Create password</label>
+      <input class="form-control form-control-sm" type="password" name="pass1">
+  </div> <!-- form-group end.// -->  
+  <div class="form-group">
+    <label class="m-0">Confirm password</label>
+      <input class="form-control form-control-sm" type="password" name="pass2">
+  </div> <!-- form-group end.// -->  
+    <div class="form-group">
+        <button type="submit" class="btn btn-info btn-block p-0" value="register"> Register  </button>
+    </div> <!-- form-group// --> 
+<div class="text-center">
+    <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>
+</div>                                          
 </form>
+</div> <!-- card-body end .// -->
+</div>
+<div class="border-top card-body text-center pt-2 pb-5">Have an account? <a href="login.php">Log In</a></div>
+</div> <!-- card.// -->
+</div> <!-- col.//-->
+
+</div> <!-- row.//-->
+
+
+</div> 
+<!--container end.//-->
+        </form>
+      </div>
+    </div>
+  </div>
+
 
 <?php 
 
 # Display footer section.
-include ( 'includes/footer.html' ) ; 
+include ( 'includes/login-footer.html') ; 
 
 ?>

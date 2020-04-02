@@ -1,8 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+</head>
+<link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="includes/style.css">
+
+<style>
+
+	body {
+		background-image: url(images/login-bg.jpeg) !important;
+		background-size: cover;
+		background-repeat: none;
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+
+	}
+</style>
+<body>
+
 <?php # DISPLAY COMPLETE LOGIN PAGE.
 
 # Set page title and display header section.
 $page_title = 'Login' ;
-include ( 'includes/header.html' ) ;
 
 # Display any error messages if present.
 if ( isset( $errors ) && !empty( $errors ) )
@@ -13,45 +36,44 @@ if ( isset( $errors ) && !empty( $errors ) )
 }
 ?>
 
-<!-- Display body section. -->
-<h1>Login</h1>
-<form action="login_action.php" method="post">
-<p>Email Address: <input type="text" name="email"> </p>
-<p>Password: <input type="password" name="pass"></p>
-<p><input type="submit" value="Login" ></p>
-</form>
-..................
 
 <!---Login Form Bootstrap 4 ----->
 <form action="login_action.php" method="post">
-<div class="container-fluid">
-	<h1 class="text-center pb-4">Login</h1>
-	<div class="col-md-4 offset-md-4 pt-5 pb-5">
-		<div class="form-group">
-	<label for="email">Email address:</label>
-	<input type="email" name="email" class="form-control" placeholder="Enter email">
-</div>
-<div class="form-group">
-	<label for="password">Password:</label>
-	<input type="password" name="pass" class="form-control" placeholder="Enter password">
-</div>
-<div class="form-group form-check">
-    <label class="form-check-label">
-      <input class="form-check-input" type="checkbox">
-		Remember me
-    </label>
-  </div>
-<button type="Login" class="btn btn-primary">
-	Login
-</button>
-	</form>
+	<div class="container">
+	<div class="row justify-content-center p-5">
+	<div class="col-md-6">
+		<span class="anchor" id="login"></span>
+		<div class="card">
+			<header class="card-header bg-info text-white text-center p-0">
+				<h4 class="mb-0"><small><img src="images/rhino.png"></small></h4>
+			</header>
+	<div class="row pl-3 pr-3">
+		<div class="card-body">
+			<div class="form-group">
+				<label for="email" class="m-0">Email:</label>
+				<input type="text" class="form-control form-control-sm" name="email" id="email" required="">
+				<span class="form-text small text-muted">
+					<small>Please enter your email.</small>
+				</span>
+			</div>
+				<div class="form-group">
+					<label for="pass" class="m-0">Password:</label>
+					<input type="password" class="form-control form-control-sm" id="pass" name="pass"required="" autocomplete="new-password">
+					<span class="form-text small text-muted">
+						<small>Please enter your password</small>
+					</span>
+				</div>
+				<button type="submit" class="btn btn-block btn-info pb-0 pt-0 mt-3" Value="Login" id="Login"><small>Sign in</small></button>
+			</div>
+		</div>
 	</div>
+	<hr>
+	<a href="register.php" class="btn btn-block btn-secondary pb-0 pt-0 mt-3"><small>Create a topcellers account</small></a>
 </div>
+</div>
+</div>           <!--/card-body-->
+</form>
+</body>
+</html>
 
 
-<?php 
-
-# Display footer section.
-include ( 'includes/footer.html' ) ; 
-
-?>
