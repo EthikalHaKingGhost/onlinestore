@@ -25,7 +25,7 @@ if ( isset( $errors ) && !empty( $errors ) )
 }
 ?>
 
-<div class="container-fluid text-white p-5 m-0">
+<div class="container-fluid text-white pl-5 pr-5">
 
 <div class="text-center">
 
@@ -34,18 +34,18 @@ if ( isset( $errors ) && !empty( $errors ) )
   
 </div> 
 
-<div class="col-md-6 offset-md-3">
+<div class="col-md-4 offset-md-4">
 <form action="login_action.php" method="post">
 			<div class="form-group">
-				<label for="email" class="m-0">Email:</label>
+				<label for="email">Email:</label>
 				<input type="text" class="form-control form-control-default" name="email" id="email" required="">
 				<span class="help-box text-muted">
 					Please enter your email.
 				</span>
 			</div>
 			<div class="form-group">
-					<label for="pass" class="m-0">Password:</label>
-					<input type="password" class="form-control form-control-default password-input" id="pass" name="pass"required="" autocomplete="new-password">
+					<label for="pass">Password:</label>
+					<input type="password" class="form-control form-control-default password-input" id="pass" name="pass" required="" autocomplete="new-password">
 					<span class="help-box text-muted">
 						Please enter your password
 					</span>

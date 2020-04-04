@@ -86,7 +86,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
   if ( empty( $_POST[ 'email' ] ) )
   { $errors[] = 'Enter your email address.'; }
   else
-  { $e = mysqli_real_escape_string( $dbc, trim( $_POST[ 'email' ] ) ) ; }
+  { $email = mysqli_real_escape_string( $dbc, trim( $_POST[ 'email' ] ) ) ; }
 
   # Check for a password and matching input passwords.
   if ( !empty($_POST[ 'pass1' ] ) )
@@ -101,8 +101,8 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
   # Check if email address already registered.
   if ( empty( $errors ) )
   {
-    $q = "SELECT user_id FROM users WHERE email='$e'" ;
-    $r = @mysqli_query ( $dbc, $q ) ;
+    $query = "SELECT user_id FROM users WHERE email='$email'" ;
+    $r = @mysqli_query ( $dbc, $query ) ;
     if ( mysqli_num_rows( $r ) != 0 ) $errors[] = 'Email address already registered. <a href="login.php">Login</a>' ;
   }
   
@@ -115,7 +115,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
 
     //$q = "INSERT INTO users (first_name, last_name, email, pass, reg_date) VALUES ('$fn', '$ln', '$e', SHA1('$p'), NOW() )";
 
-    $q = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `pass`, `reg_date`, `Address`, `Country_name`, `cellphone`, `user_image`, `city`, `gender`) VALUES (NULL, '$first_name', '$last_name', '$email', SHA1('$pass'), 'NOW()', '$address', '$Countryname', '$cellphone', '$user_image', '$city', '$gender');";
+    $q = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `pass`, `reg_date`, `address`, `country`, `cellphone`, `user_image`, `city`, `gender`, `address2`, `preferred_title`) VALUES (NULL, '$first_name', '$last_name', '$email', 'SHA1('$pass')', 'NOW()', '$address', '$countryname', '$cellphone', '', '$city', '$gender', '$address2', '$preferred_title');";
 
     $r = @mysqli_query ( $dbc, $q ) ;
     if ($r)
@@ -153,7 +153,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
   <form>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="first_name">First name</label>
+      <label for="first_name" autocomplete="off">First name</label>
       <input type="text" class="form-control form-control-sm" id="first_name" name="first_name" required>
     </div>
     <div class="form-group col-md-6">
@@ -161,12 +161,12 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
       <input type="text" class="form-control form-control-sm" id="last_name" name="last_name" required>
     </div>
   </div>
-  <div class="form-row">
+  <div class="form-row" autocomplete="off">
     <div class="form-group col-md-6">
       <label for="email">Email</label>
       <input type="email" name="email" class="form-control form-control-sm" id="email" required>
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-3" autocomplete="off">
       <label>Gender</label>
       <select class="form-control form-control-sm" id="gender" name="gender">
         <option value="male">Male</option>
@@ -185,17 +185,17 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
     </div>
   </div>
   <div class="form-group">
-    <label for="address">Address</label>
+    <label for="address" autocomplete="off">Address</label>
     <input type="text" class="form-control form-control-sm" id="address" placeholder="1234 Main St" name="address">
   </div>
   <div class="form-group">
-    <label for="address2">Address 2</label>
+    <label for="address2" autocomplete="off">Address 2</label>
     <input type="text" class="form-control form-control-sm" id="address2" placeholder="Apartment, studio, or floor" name="address2">
   </div>
 
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="inputCity">City</label>
+      <label for="city" autocomplete="off">City</label>
       <input type="text" class="form-control form-control-sm input-sm" id="city" name="city" required>
     </div>
     <div class="form-group col-md-6">
