@@ -1,7 +1,51 @@
 <?php # DISPLAY COMPLETE REGISTRATION PAGE.
 
 # Set page title and display header section.
-$page_title = 'Register' ; ?>
+$page_title = 'Register' ; 
+
+
+include "connect_db.php"; 
+        
+function fill_country($dbc){
+
+$output = '';
+
+$sql = "SELECT * FROM countries;";
+$result = mysqli_query($dbc, $sql);
+
+  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+
+  {
+    
+    $output .= '<option class="text-center">'.$row["Countryname"].'</option>';
+  }
+
+  return $output;
+
+}
+
+
+function fill_phone($dbc){
+
+$output = '';
+
+$sql = "SELECT * FROM countries ;";
+$result = mysqli_query($dbc, $sql);
+
+  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+
+  {
+
+    $output .= '<option>'.$row["phonecode"].'</option>';
+
+  }
+
+  return $output;
+
+}
+
+?>    
+
 
 <!DOCTYPE html>
 <html>
@@ -11,20 +55,9 @@ $page_title = 'Register' ; ?>
 <link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="includes/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <body>
-
-<style>
-
-  body {
-    background-image: url(images/cover.jpg) !important;
-    background-size: cover;
-    background-repeat: none;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-
-  }
-</style>
 
 <?php
 
@@ -61,7 +94,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
     if ( $_POST[ 'pass1' ] != $_POST[ 'pass2' ] )
     { $errors[] = 'Passwords do not match.' ; }
     else
-    { $p = mysqli_real_escape_string( $dbc, trim( $_POST[ 'pass1' ] ) ) ; }
+    { $pass = mysqli_real_escape_string( $dbc, trim( $_POST[ 'pass1' ] ) ) ; }
   }
   else { $errors[] = 'Enter your password.' ; }
   
@@ -75,8 +108,15 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
   
   # On success register user inserting into 'users' database table.
   if ( empty( $errors ) ) 
+      
   {
-    $q = "INSERT INTO users (first_name, last_name, email, pass, reg_date) VALUES ('$fn', '$ln', '$e', SHA1('$p'), NOW() )";
+
+    $cellphone = "$phonecode$phone_num";
+
+    //$q = "INSERT INTO users (first_name, last_name, email, pass, reg_date) VALUES ('$fn', '$ln', '$e', SHA1('$p'), NOW() )";
+
+    $q = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `pass`, `reg_date`, `Address`, `Country_name`, `cellphone`, `user_image`, `city`, `gender`) VALUES (NULL, '$first_name', '$last_name', '$email', SHA1('$pass'), 'NOW()', '$address', '$Countryname', '$cellphone', '$user_image', '$city', '$gender');";
+
     $r = @mysqli_query ( $dbc, $q ) ;
     if ($r)
     { echo '<h1>Registered!</h1><p>You are now registered.</p><p><a href="login.php">Login</a></p>'; }
@@ -101,110 +141,104 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
 }
 ?>
 
-
-<div class="container">
-<div class="row justify-content-center">
-<div class="col-md-6">
-  <div class="card">
-  <header class="card-header bg-info text-white text-center p-0">
-    
-      <span aria-label="Click me to go back to home page">
-        
-          <a href="home.php"><small class="mb-0"><img src="images/rhino.png"></small></a>
-
-      </span>
-  </header>                  
-<div class="card-body">
-<form>
-  <div class="form-row">
-    <div class="col form-group">
-      <label class="m-0">First name </label>   
-        <input type="text" class="form-control form-control-sm" name="first_name">
-    </div> <!-- form-group end.// -->
-    <div class="col form-group">
-      <label class="m-0">Last name </label>
-        <input type="text" class="form-control form-control-sm" name="last_name">
-    </div> <!-- form-group end.// -->
-  </div> <!-- form-row end.// -->
-
-<div class="form-row">
-    <div class="form-group col-md-6">
-      <label class="m-0">City</label>
-      <input type="text" class="form-control form-control-sm" name="city">
-    </div> <!-- form-group end.// -->
-    <div class="form-group col-md-6">
-
-<!----------countries included to database ------------------>
-      <label class="m-0 text-dark">Country</label>
-      <select id="countryname" class="form-control form-control-sm" name="countryname">
-        <option selected="">Choose...</option>
-        <?php include "connect_db.php"; 
-        $sql = "SELECT * FROM countries LIMIT 20";
-        $result = mysqli_query($dbc, $sql);
-        if($result){
-        //loop each row
-          while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-            $id = $row["cid"];
-            $countrycode = $row["Countrycode"];
-            $countryname = $row["Countryname"];
-            ?>
-            <option value="<?php echo $cid ?>"><?php echo $countryname; ?></option>
-            <?php
-          }
-        }else{
-          echo "error in sql";
-        }
-        ?>
-      </select>
-    </div> <!-- form-group end.// -->
-  </div> <!-- form-row.// -->
-
-<!----------countries end// ------------------>
-  <div class="form-group">
-      <label class="form-check form-check-inline m-0">
-      <input class="form-check-input" type="radio" name="gender" value="option1" checked>
-      <span class="form-check-label"> Male </span>
-    </label>
-    <label class="form-check form-check-inline m-0">
-      <input class="form-check-input" type="radio" name="gender" value="option2">
-      <span class="form-check-label"> Female</span>
-    </label>
-  </div> <!-- form-group end.// -->
-  <div class="form-group">
-    <label class="m-0">Email address</label>
-    <input type="email" class="form-control form-control-sm">
-    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div> <!-- form-group end.// -->
-  <div class="form-group">
-    <label class="m-0">Create password</label>
-      <input class="form-control form-control-sm" type="password" name="pass1">
-  </div> <!-- form-group end.// -->  
-  <div class="form-group">
-    <label class="m-0">Confirm password</label>
-      <input class="form-control form-control-sm" type="password" name="pass2">
-  </div> <!-- form-group end.// -->  
-    <div class="form-group">
-        <button type="submit" class="btn btn-info btn-block p-0" value="register"> Register  </button>
-    </div> <!-- form-group// --> 
+<div class="container-fluid pl-5 pr-5 text-white">
 <div class="text-center">
-    <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>
-</div>                                          
-</form>
-</div> <!-- card-body end .// -->
-</div>
-<div class="border-top card-body text-center pt-2 pb-5">Have an account? <a href="login.php">Log In</a></div>
-</div> <!-- card.// -->
-</div> <!-- col.//-->
 
-</div> <!-- row.//-->
-
+  <a href="shop.php"><img src="images/logo.png" loading="lazy" width="150px" height="150px">
+  <span aria-label="Click me to go back to Shop"></a></span>
 
 </div> 
-<!--container end.//-->
-        </form>
-      </div>
+
+  <div class="col-md-6 offset-md-3">
+  <form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="first_name">First name</label>
+      <input type="text" class="form-control form-control-sm" id="first_name" name="first_name" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="last_name">Last name</label>
+      <input type="text" class="form-control form-control-sm" id="last_name" name="last_name" required>
     </div>
   </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="email">Email</label>
+      <input type="email" name="email" class="form-control form-control-sm" id="email" required>
+    </div>
+    <div class="form-group col-md-3">
+      <label>Gender</label>
+      <select class="form-control form-control-sm" id="gender" name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <div class="form-group col-md-3">
+      <label>Preferred title</label>
+      <select class="form-control form-control-sm" id="gender" name="gender">
+        <option value="Mr">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Ms">Ms</option>
+        <option value="Dr">Dr</option>
+        <option value="Miss">Miss</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input type="text" class="form-control form-control-sm" id="address" placeholder="1234 Main St" name="address">
+  </div>
+  <div class="form-group">
+    <label for="address2">Address 2</label>
+    <input type="text" class="form-control form-control-sm" id="address2" placeholder="Apartment, studio, or floor" name="address2">
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control form-control-sm input-sm" id="city" name="city" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Country</label>
+      <select class="form-control form-control-sm input-sm" id="country" name="Countryname" required>
+        <option selected="">Choose...</option>
+        <?php echo fill_country($dbc); ?>
+      </select>
+    </div> <!-- form-group end.// -->
+  </div>
+    
+
+  <div class="form-row">
+    <div class="col-md-6 form-group">
+    <label>Create password</label>
+      <input class="form-control form-control-sm" type="password" name="pass1" required>
+      <span class="help-block text-muted">Password must be 8-20 characters long</span>
+  </div> <!-- form-group end.// -->  
+  <div class="col-md-6 form-group">
+    <label>Confirm password</label>
+      <input class="form-control form-control-sm password-input" type="password" name="pass2" required>
+  </div> 
+  </div> 
+
+  
+  <div class="form-group">
+    <div class="custom-control form-control-sm custom-checkbox">  
+    <input type="checkbox" class="custom-control-input" id="checkbox">  
+    <label class="custom-control-label" for="checkbox"><small>Remember Me</small></label>  
+    </div>  
+  </div> 
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-grad btn-block p-0" value="register"> Register  </button>
+    </div> <!-- form-group// --> 
+<div class="text-center pb-3">
+    <small class="text-muted">By clicking the 'Register' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>
+</div>                                          
+</div> <!-- card-body end .// -->
+<div class="border-top card-body text-center pt-2 pb-5">Have an account? <a href="login.php">Log In</a></div>
+<!-- card.// -->
+</form>
+</div>
 
 
 <?php 
@@ -212,4 +246,27 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
 # Display footer section.
 include ( 'includes/login-footer.html') ; 
 
+
 ?>
+
+<script>
+  $(document).ready(function(){
+    $('#country').change(function(){
+
+      var cid = $(this).val();
+
+      $.ajax({ 
+
+        url:"load_country.php",
+        method:"POST",
+        data:
+        {cid:cid},
+        success:function(data){
+          $("#phone_num").html(data);
+        }
+  
+      });
+    });
+  });
+
+</script>

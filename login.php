@@ -7,19 +7,8 @@
 <link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="includes/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<style>
-
-	body {
-		background-image: url(images/login-bg.jpeg) !important;
-		background-size: cover;
-		background-repeat: none;
-		background-size: cover;
-		background-position: center;
-		background-attachment: fixed;
-
-	}
-</style>
 <body>
 
 <?php # DISPLAY COMPLETE LOGIN PAGE.
@@ -36,43 +25,44 @@ if ( isset( $errors ) && !empty( $errors ) )
 }
 ?>
 
+<div class="container-fluid text-white p-5 m-0">
 
-<!---Login Form Bootstrap 4 ----->
+<div class="text-center">
+
+  <a href="shop.php"><img src="images/logo.png" loading="lazy" width="150px" height="150px">
+  <span aria-label="Click me to go back to Shop"></span></a>
+  
+</div> 
+
+<div class="col-md-6 offset-md-3">
 <form action="login_action.php" method="post">
-	<div class="container">
-	<div class="row justify-content-center p-5">
-	<div class="col-md-6">
-		<span class="anchor" id="login"></span>
-		<div class="card">
-			<header class="card-header bg-info text-white text-center p-0">
-				<h4 class="mb-0"><small><img src="images/rhino.png"></small></h4>
-			</header>
-	<div class="row pl-3 pr-3">
-		<div class="card-body">
 			<div class="form-group">
 				<label for="email" class="m-0">Email:</label>
-				<input type="text" class="form-control form-control-sm" name="email" id="email" required="">
-				<span class="form-text small text-muted">
-					<small>Please enter your email.</small>
+				<input type="text" class="form-control form-control-default" name="email" id="email" required="">
+				<span class="help-box text-muted">
+					Please enter your email.
 				</span>
 			</div>
-				<div class="form-group">
+			<div class="form-group">
 					<label for="pass" class="m-0">Password:</label>
-					<input type="password" class="form-control form-control-sm" id="pass" name="pass"required="" autocomplete="new-password">
-					<span class="form-text small text-muted">
-						<small>Please enter your password</small>
+					<input type="password" class="form-control form-control-default password-input" id="pass" name="pass"required="" autocomplete="new-password">
+					<span class="help-box text-muted">
+						Please enter your password
 					</span>
-				</div>
-				<button type="submit" class="btn btn-block btn-info pb-0 pt-0 mt-3" Value="Login" id="Login"><small>Sign in</small></button>
 			</div>
-		</div>
-	</div>
-	<hr>
-	<a href="register.php" class="btn btn-block btn-secondary pb-0 pt-0 mt-3"><small>Create a topcellers account</small></a>
-</div>
-</div>
-</div>           <!--/card-body-->
+
+			<button type="submit" class="btn btn-block btn-grad pb-0 pt-0 mt-3" Value="Login" id="Login"><small>Sign in</small></button>
+
 </form>
+
+	<hr>
+
+	<a href="register.php" class="btn btn-block btn-outline-light pb-0 pt-0 mt-3"><small>Create a topcellers account</small></a>
+
+</div>
+</div>
+  
+
 </body>
 </html>
 

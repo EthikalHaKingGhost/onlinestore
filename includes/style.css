@@ -23,30 +23,90 @@ ul{
 body{
 	font-family: 'Montserrat', sans-serif;
 	font-size:12px;
+	background-color: #2d3436
 }
 
-/* Navigation hover */
+/* --------input forms------- */
+.form-control{
+	background-color: black;
+	color:white;
+	border-color: #636e72;
+	font-size: 11px;
+}
+
+@-webkit-keyframes autofill {
+    0%,100% {
+        color: white;
+        background: black;
+    }
+}
+
+.password-input{
+	font-weight: 1000;
+	padding:0;
+	padding-left:2px;
+}
+
+/* --------autocomplete background color---------- */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus{
+    -webkit-animation-delay: 1s; 
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+
 
 .form-control:focus {
-  border-color: #17a2b8;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(23, 164, 186, 0.6);
+  border-color: #ff7675;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 118, 117, 0.6);
+  background-color: black;
+  color:white;
 }
+
+
+/* --------check box design-------- */
+
+.custom-control-label:before{
+  background-color:black;
+  border-color: #636e72;
+
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+  background-color:black;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after{
+	background-color:black;
+	
+}
+
+
+.container-fluid{
+	background-color: #2d3436;
+}
+
 
 .btn-grad {
 	color: #FFFFFF;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-	background-color: #0F8FD9;
-	*background-color: #0F8FD9;
-	background-image: -moz-linear-gradient(top, #2ECC71, #0F8FD9);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2ECC71), to(#0F8FD9));
-	background-image: -webkit-linear-gradient(top, #2ECC71, #0F8FD9);
-	background-image: -o-linear-gradient(top, #2ECC71, #0F8FD9);
-	background-image: linear-gradient(to bottom, #2ECC71, #0F8FD9);
+	background-color: #ff7675;
+	*background-color: #ff7675;
+	background-image: -moz-linear-gradient(top, #d63031, #ff7675);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#d63031), to(#ff7675));
+	background-image: -webkit-linear-gradient(top, #d63031, #ff7675);
+	background-image: -o-linear-gradient(top, #d63031, #ff7675);
+	background-image: linear-gradient(to bottom, #d63031, #ff7675);
 	background-repeat: repeat-x;
-	border-color: #0F8FD9;
+	border-color: #ff7675;
 	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2ECC71', endColorstr='#0F8FD9', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d63031', endColorstr='#ff7675', GradientType=0);
 	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	transition: 1.2s;
 }
 
 .btn-grad:focus,
@@ -55,13 +115,14 @@ body{
 .btn-grad.disabled,
 .btn-grad[disabled] {
 	color: #FFFFFF;
-	background-color: #0F8FD9;
+	background-color: #ff7675;
 	*background-color: #003bb3;
 }
 
 .btn-grad:hover{
-	background: #17a2b8;
+	background: #d63031;
 	color: #FFFFFF;
+	border-color: #ff7675;
 }
 
 
@@ -87,4 +148,15 @@ span[aria-label]:after {
 span[aria-label]:hover:after {
   opacity:1;
   transition-delay:0.5s;
+}
+
+
+/* link color */
+a{
+	color:#ff7675;
+}
+
+a:hover{
+	color:#d63031;
+
 }

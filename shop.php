@@ -8,6 +8,7 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load()
 
 # Set page title and display header section.
 $page_title = 'Shop' ;
+
 include ( 'includes/header.html' ) ;
 
 # Open database connection.
@@ -39,3 +40,8 @@ echo '<p><a href="cart.php">View Cart</a> | <a href="forum.php">Forum</a> | <a h
 include ( 'includes/footer.html' ) ;
 
 ?>
+
+
+
+
+
