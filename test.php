@@ -2,71 +2,29 @@
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" href="includes/style.css">
+  <link rel="stylesheet" href="fonts/css/all.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="datepicker/jquery.datepicker2.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="datepicker/jquery.datepicker2.min.js"></script>
+<script src="datepicker/jquery.datepicker2.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  
+  
 </head>
 <body>
 
-	<style type="text/css">
-		body{
-			margin:0px;
-			padding:0px;
-		}
 
-		.container{
-			position:absolute;
-			top: 10%;
-			float:left;
-			padding-left:20px;
-			float:left;
-			overflow: hidden;
-		}
 
-		ul.thumb{
-			margin:0 auto;
-			padding: 0;
-			float: left;
-		}
+<input class="form-control" type="text" name="date" id="date" data-select="datepicker">
 
-		ul.thumb li{
-			list-style: none;
-			margin: 5px;
-			padding:4px;
-			width:auto;
-			height:auto;
-			border:1px solid rgba(0,0,0,.2);
-			overflow: hidden;
-		}
 
-		ul.thumb li img {
-			width:100%;
-		}
 
-		.imgBox{
-			float:left;
-			width:500px;
-			height:500px;
-			margin:6px;
-			border:1px solid rgba(0,0,0,.2);
-			overflow: hidden;
-		}
 
-		.imgBox img{
-			width: 100%;
-		}
-	
 
-	</style>
 
-	<div class="container">
-		<ul class="thumb">
-
-			<li><a href="images/Apple/4/img1.jpg" target="imgBox"><img src="images/Apple/4/thumb1.jpg"></a></li>
-
-			<li><a href="images/Apple/4/img2.jpg" target="imgBox"><img src="images/Apple/4/thumb2.jpg"></a></li>
-
-			<li><a href="images/Apple/4/img3.jpg" target="imgBox"><img src="images/Apple/4/thumb3.jpg"></a></li>
-
-		</ul>
-		<div class="imgBox"><img src="images/Apple/4/Apple-iPhone-11-pro-max.jpg"></div>
-	</div>
-</body>
-</html>

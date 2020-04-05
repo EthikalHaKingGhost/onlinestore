@@ -1,26 +1,27 @@
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 
-<title>#</title>
+<title><?php echo $page_title; ?></title>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="includes/style.css">
+    <link rel="stylesheet" href="includes/style.css">
   <link rel="stylesheet" href="fonts/css/all.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  
 </head>
  
 
-   
-
 <body>
-
 <!------------------Main Navbar ------------------------->
-<nav class="navbar navbar-expand-lg p-1 navbar-dark bg-dark fixed-top" role="navigation">
+<nav class="navbar navbar-expand-lg p-1 navbar-dark bg-light sticky-top" role="navigation">
     <div class="container">
         <a class="navbar-brand p-0 m-0" href="#"><img src="images/logo.png" width="40px" height="40px"></a>
         <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
@@ -30,7 +31,7 @@
 <!--------------------Login button on navbar ---------------------------->
             <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
                 <div>
-                	<a href="login.php" class="btn btn-outline-dark bg-light text-dark">Login</a>
+                	<a href="login.php" class="btn btn-outline-dark btn-sm">Login</a>
                 </div>
             </ul>
 <!------------------------------------------------------end of login ---------------------------->
@@ -43,7 +44,7 @@
           			<a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center text-decoration-none" data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
           				<img class="mr-2 bg-white rounded-circle" src="images/cow.png" width="40" height="40">
             	<div class="media-body text-white">
-                <em>John</em>
+                <em><?php echo $_SESSION["first_name"]; ?></em>
             </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -66,17 +67,18 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-      	<h4>Log Out <i class="fa fa-lock"></i></h4>
+      	<h4>Log Out<i class="fa fa-lock"></i></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         	<span aria-hidden="true">&times</span></button>
+
       </div>
       <div class="modal-body">
-        <p><i class="fa fa-question-circle"></i> Are you sure you want to log-out? <br/></p>
+        <p><small><i class="fa fa-question-circle"></i>Are you sure you want to log-out?</small><br/></p>
         <div class="actionsBtns">
             <form action="goodbye.php" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <input type="submit" class="btn btn-default btn-primary" data-dismiss="modal" value="Logout" />
-	                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <input type="submit" class="btn btn-default btn-primary btn-sm" value="Logout" />
+	                <button class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
             </form>
         </div>
       </div>

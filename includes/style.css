@@ -20,12 +20,6 @@ ul{
 	font-family: 'Montserrat', sans-serif;
 }
 
-body{
-	font-family: 'Montserrat', sans-serif;
-	font-size:12px;
-	background-color: #2d3436
-}
-
 /* --------input forms------- */
 .form-control{
 	background-color: black;
@@ -33,6 +27,8 @@ body{
 	border-color: #636e72;
 	font-size: 11px;
 }
+
+/*  -------- form fields text customization (by user on stack Overflow) -------*/
 
 @-webkit-keyframes autofill {
     0%,100% {
@@ -47,7 +43,7 @@ body{
 	padding-left:2px;
 }
 
-/* --------autocomplete background color---------- */
+/* --------autocomplete background color (by user on stack overflow)---------- */
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -86,23 +82,18 @@ select:-webkit-autofill:focus{
 }
 
 
-.container-fluid{
-	background-color: #2d3436;
-}
-
-
 .btn-grad {
 	color: #FFFFFF;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-	background-color: #ff7675;
-	*background-color: #ff7675;
-	background-image: -moz-linear-gradient(top, #d63031, #ff7675);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#d63031), to(#ff7675));
-	background-image: -webkit-linear-gradient(top, #d63031, #ff7675);
-	background-image: -o-linear-gradient(top, #d63031, #ff7675);
-	background-image: linear-gradient(to bottom, #d63031, #ff7675);
+	background-color: #D31027;
+	*background-color: #D31027;
+	background-image: -moz-linear-gradient(top, #d63031, #D31027);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#d63031), to(#D31027));
+	background-image: -webkit-linear-gradient(top, #d63031, #D31027);
+	background-image: -o-linear-gradient(top, #d63031, #D31027);
+	background-image: linear-gradient(to bottom, #d63031, #D31027);
 	background-repeat: repeat-x;
-	border-color: #ff7675;
+	border-color: #D31027;
 	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d63031', endColorstr='#ff7675', GradientType=0);
 	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
@@ -115,15 +106,12 @@ select:-webkit-autofill:focus{
 .btn-grad.disabled,
 .btn-grad[disabled] {
 	color: #FFFFFF;
-	background-color: #ff7675;
+	background-color: #D31027;
 	*background-color: #003bb3;
 }
 
-.btn-grad:hover{
-	background: #d63031;
-	color: #FFFFFF;
-	border-color: #ff7675;
-}
+.btn-grad:hover.btn-grad {background-image: linear-gradient(to right, #D31027 0%, #EA384D 51%, #D31027 100%)}
+
 
 
 span {
@@ -152,12 +140,30 @@ span[aria-label]:hover:after {
 
 
 /* link color */
-a{
+.container-fluid a{
 	color:#ff7675;
 }
 
-a:hover{
+.container-fluid a:hover{
 	color:#d63031;
 
 }
 
+.text-gray {
+    color: #aaa
+}
+
+.item-img {
+    height: auto;
+    width: 80px
+}
+
+.shop-container a{
+	text-decoration: none !important;
+	color: black;
+}
+
+.shop-container a:hover{
+	text-decoration: none !important;
+	color: black;
+}

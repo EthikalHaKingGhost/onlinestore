@@ -1,3 +1,14 @@
+<style type="text/css">
+	body{
+	font-family: 'Montserrat', sans-serif;
+	font-size:10px;
+	background-image: url(images/background.jpg);
+	background-repeat: none;
+	background-attachment: ;
+	background-size: cover;
+	background-position: center;
+}
+</style>
 
 <!DOCTYPE html>
 <html>
@@ -39,31 +50,36 @@ if ( isset( $errors ) && !empty( $errors ) )
 			<div class="form-group">
 				<label for="email">Email:</label>
 				<input type="text" class="form-control form-control-default" name="email" id="email" required="">
-				<span class="help-box text-muted">
+				<span class="help-box text-light small">
 					Please enter your email.
 				</span>
 			</div>
 			<div class="form-group">
 					<label for="pass">Password:</label>
 					<input type="password" class="form-control form-control-default password-input" id="pass" name="pass" required="" autocomplete="new-password">
-					<span class="help-box text-muted">
+					<span class="help-box text-light small">
 						Please enter your password
 					</span>
 			</div>
 
-			<button type="submit" class="btn btn-block btn-grad pb-0 pt-0 mt-3" Value="Login" id="Login"><small>Sign in</small></button>
+			  <div class="form-group">
+			    <div class="custom-control form-control-sm custom-checkbox">  
+			    <input type="checkbox" class="custom-control-input" id="checkbox">  
+			    <label class="custom-control-label" for="checkbox"><small>Remember Me</small></label>  
+			    </div>  
+			  </div> 
+
+
+			<button type="submit" class="btn btn-block btn-grad mb-3 pt-0 mt-3" Value="Login" id="Login"><small>Sign in</small></button>
 
 </form>
 
-	<hr>
 
-	<a href="register.php" class="btn btn-block btn-outline-light pb-0 pt-0 mt-3"><small>Create a topcellers account</small></a>
-
+		<div class="border-top text-center p-3">
+		<small>Don't have an account? <a href="register.php">Create a topcellers account</a></small>
+</div>
 </div>
 </div>
   
-
-</body>
-</html>
 
 

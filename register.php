@@ -46,16 +46,33 @@ $result = mysqli_query($dbc, $sql);
 
 ?>    
 
+<style type="text/css">
+ body {
+  background: grey;
+  font-family: 'Montserrat', sans-serif;
+  font-size:10px;
+  background-image: url(images/background.jpg);
+  background-repeat: none;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+</style>
 
 <!DOCTYPE html>
 <html>
 <head>
   <title><?php echo $page_title ?></title>
 </head>
-<link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="includes/style.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="datepicker/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="datepicker/jquery.datepicker2.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="datepicker/jquery.datepicker2.min.js"></script>
+<script src="datepicker/jquery.datepicker2.js"></script>
 
 <body>
 
@@ -79,8 +96,23 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
   # Check for a last name.
   if (empty( $_POST[ 'last_name' ] ) )
   { $errors[] = 'Enter your last name.' ; }
+  
   else
   { $ln = mysqli_real_escape_string( $dbc, trim( $_POST[ 'last_name' ] ) ) ; }
+
+   
+    if (empty( $_POST[ 'date' ] ) )
+      { $errors[] = 'Enter your date of birth' ; }
+
+   else{
+
+    $dob = $_POST["date"];  // Get the input from form
+
+    $dob = explode("/",$dob);  // explode it with the delimiter
+
+    $date = mysqli_real_escape_string( $dbc, trim($dob) ) ; }
+
+
 
   # Check for an email address:
   if ( empty( $_POST[ 'email' ] ) )
@@ -125,7 +157,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
     mysqli_close($dbc); 
 
     # Display footer section and quit script:
-    include ('includes/footer.html'); 
+    include ('includes/login-footer.html'); 
     exit();
   }
   # Or report errors.
@@ -153,28 +185,28 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
   <form>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="first_name" autocomplete="off">First name</label>
+      <label for="first_name" autocomplete="off"><small>First name</small></label>
       <input type="text" class="form-control form-control-sm" id="first_name" name="first_name" required>
     </div>
     <div class="form-group col-md-6">
-      <label for="last_name">Last name</label>
+      <label for="last_name"><small>Last name</small></label>
       <input type="text" class="form-control form-control-sm" id="last_name" name="last_name" required>
     </div>
   </div>
   <div class="form-row" autocomplete="off">
     <div class="form-group col-md-6">
-      <label for="email">Email</label>
+      <label for="email"><small>Email</small></label>
       <input type="email" name="email" class="form-control form-control-sm" id="email" required>
     </div>
     <div class="form-group col-md-3" autocomplete="off">
-      <label>Gender</label>
+      <label><small>Gender</small></label>
       <select class="form-control form-control-sm" id="gender" name="gender">
         <option value="male">Male</option>
         <option value="female">Female</option>
       </select>
     </div>
     <div class="form-group col-md-3">
-      <label>Preferred title</label>
+      <label><small>Preferred title</small></label>
       <select class="form-control form-control-sm" id="gender" name="gender">
         <option value="Mr">Mr</option>
         <option value="Mrs">Mrs</option>
@@ -184,24 +216,34 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
       </select>
     </div>
   </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+  <label for="date-input"><small>Date of Birth</small></label>
+    <input class="form-control form-control-sm" type="text" name="date" id="date" data-select="datepicker" required>
+  </div>
+    <div class="form-group col-md-6">
+      <label for="cellphone"><small>Phone</small></label>
+      <input type="tel" class="form-control form-control-sm" id="cellphone" placeholder="XXX-XXX-XXXX" name="cellphone" required>
+    </div>
+  </div>
   <div class="form-group">
-    <label for="address" autocomplete="off">Address</label>
+    <label for="address" autocomplete="off"><small>Address</small></label>
     <input type="text" class="form-control form-control-sm" id="address" placeholder="1234 Main St" name="address">
   </div>
   <div class="form-group">
-    <label for="address2" autocomplete="off">Address 2</label>
+    <label for="address2" autocomplete="off"><small>Address 2</small></label>
     <input type="text" class="form-control form-control-sm" id="address2" placeholder="Apartment, studio, or floor" name="address2">
   </div>
 
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="city" autocomplete="off">City</label>
+      <label for="city" autocomplete="off"><small>City</small></label>
       <input type="text" class="form-control form-control-sm input-sm" id="city" name="city" required>
     </div>
     <div class="form-group col-md-6">
-      <label>Country</label>
+      <label><small>Country</small></label>
       <select class="form-control form-control-sm input-sm" id="country" name="Countryname" required>
-        <option selected="">Choose...</option>
+        <option>Choose...</option>
         <?php echo fill_country($dbc); ?>
       </select>
     </div> <!-- form-group end.// -->
@@ -210,32 +252,24 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
 
   <div class="form-row">
     <div class="col-md-6 form-group">
-    <label>Create password</label>
+    <label><small>Create password</small></label>
       <input class="form-control form-control-sm" type="password" name="pass1" required>
-      <span class="help-block text-muted">Password must be 8-20 characters long</span>
+      <span class="help-block text-light small">Password must be 8-20 characters long</span>
   </div> <!-- form-group end.// -->  
   <div class="col-md-6 form-group">
-    <label>Confirm password</label>
+    <label><small>Confirm password</small>Confirm password</label>
       <input class="form-control form-control-sm password-input" type="password" name="pass2" required>
   </div> 
   </div> 
 
-  
-  <div class="form-group">
-    <div class="custom-control form-control-sm custom-checkbox">  
-    <input type="checkbox" class="custom-control-input" id="checkbox">  
-    <label class="custom-control-label" for="checkbox"><small>Remember Me</small></label>  
-    </div>  
-  </div> 
-
     <div class="form-group">
-        <button type="submit" class="btn btn-grad btn-block p-0" value="register"> Register  </button>
+        <button type="submit" class="btn btn-grad btn-block p-0 text-light" value="register">Register</button>
     </div> <!-- form-group// --> 
 <div class="text-center pb-3">
-    <small class="text-muted">By clicking the 'Register' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>
+    <small class="text-light">By clicking the 'Register' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>
 </div>                                          
 </div> <!-- card-body end .// -->
-<div class="border-top card-body text-center pt-2 pb-5">Have an account? <a href="login.php">Log In</a></div>
+<div class="border-top card-body text-center pt-2 pb-5"><small>Have an account?<a href="login.php">Log In</a></small></div>
 <!-- card.// -->
 </form>
 </div>
@@ -249,24 +283,25 @@ include ( 'includes/login-footer.html') ;
 
 ?>
 
-<script>
-  $(document).ready(function(){
-    $('#country').change(function(){
+<script type="text/javascript">
 
-      var cid = $(this).val();
 
-      $.ajax({ 
+//Date of birth plugin (by jqueryscript.net)
 
-        url:"load_country.php",
-        method:"POST",
-        data:
-        {cid:cid},
-        success:function(data){
-          $("#phone_num").html(data);
-        }
-  
-      });
-    });
-  });
+ dateFormat: function(date) {
+    return $.datePicker.defaults.pad(date.getMonth() + 1, 2) + '-' + $.datePicker.defaults.pad(date.getDate(), 2) + '-' + date.getFullYear();
+  },
+  dateParse: function(string) {
+    var date = new Date();
+    if (string instanceof Date) {
+      date = new Date(string);
+    } else {
+      var parts = string.match(/(\d{1,2})-(\d{1,2})-(\d{4})/);
+      if ( parts && parts.length == 4 ) {
+        date = new Date( parts[3], parts[1] - 1, parts[2] );
+      }
+    }
+    return date;
+  }
 
 </script>

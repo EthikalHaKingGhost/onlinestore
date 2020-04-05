@@ -1,4 +1,4 @@
-<?php # DISPLAY COMPLETE LOGGED IN PAGE.
+<?php 
 
 # Access session.
 session_start() ; 
@@ -7,16 +7,25 @@ session_start() ;
 if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load() ; }
 
 # Set page title and display header section.
-$page_title = 'Home' ;
-include ( 'includes/header.html' ) ;
+$page_title = 'Home';
 
-# Display body section.
-echo "<h1>HOME</h1><p>You are now logged in, {$_SESSION['first_name']} {$_SESSION['last_name']} </p>";
+include ( 'includes/header.html' ) ;?>
+
+<div class="p-0">
+		<?php require 'slider1.php'; ?>
+	</div>
+
+<?php echo "<h1>HOME</h1><p>You are now logged in, {$_SESSION['first_name']} {$_SESSION['last_name']} </p>";
+
 
 # Create navigation links.
 echo '<p><a href="forum.php">Forum</a> | <a href="shop.php">Shop</a> | <a href="goodbye.php">Logout</a></p>';
 
 ?>
+
+
+
+
 
 
 # Display footer section.

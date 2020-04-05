@@ -1,34 +1,19 @@
-<?php include ( 'includes/header.html' ) ; ?>
+<?php # DISPLAY COMPLETE PRODUCTS PAGE.
 
-<style type="text/css">
-	body {
-    background: #eee;
-}
+# Access session.
+session_start() ;
 
-.text-gray {
-    color: #aaa
-}
+# Redirect if not logged in.
+if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load() ; }
 
-.item-img {
-    height: auto;
-    width: 80px
-}
-
-a{
-	text-decoration: none !important;
-	color: black;
-}
-
-a:hover{
-	text-decoration: none !important;
-	color: black;
-}
+# Set page title and display header section.
+$page_title = 'Shop' ;
 
 
+include ( 'includes/header.html' ) ; ?>
 
-</style>
-	
-<div class="container pt-5">
+
+<div class="container shop-container pt-5">
 		
 	<div class="row">
 		<div class="col-md-12 pt-3">
@@ -59,6 +44,7 @@ a:hover{
 					<div class="card bg-white p-1 rounded-0">
 						<div class="input-group">
 						  <input type="text" class="form-control" placeholder="Search for product..." aria-label="Recipient's username">
+
 						  <div class="input-group-append">
 						    <span class="input-group-text"><i class="fa fa-search"></i></span>
 						  </div>
@@ -115,7 +101,7 @@ a:hover{
                     <!-- Custom content-->
                     <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                         <div class="media-body order-2 order-lg-1">
-                            <h5 class="mt-0 font-weight-bold mb-2">Apple iPhone XS (Silver, 64 GB)</h5>
+                            <h5 class="mt-0 font-weight-bold mb-2">Green iPhone XS (Silver, 64 GB)</h5>
                             <p class="font-italic text-muted mb-0 small">64 GB ROM | 14.73 cm (5.8 inch) Super Retina HD Display 12MP + 12MP | 7MP Front Camera A12 Bionic Chip Processor</p>
                             <div class="d-flex align-items-center justify-content-between mt-1">
                                 <h6 class="font-weight-bold my-2">$9,000</h6>
@@ -129,16 +115,16 @@ a:hover{
                             </div>
                         </div><img src="https://images-na.ssl-images-amazon.com/images/I/61UXPmnTC9L._SL1024_.jpg" alt="Generic placeholder image" width="70" class="ml-lg-5 order-1 order-lg-2">
                     </div> <!-- End -->
-                </li> <!-- End -->
-           	</ul>
+               	 </li> <!-- End -->
+           		</ul>
                 <!-- list group item -->
 				</div>
-			</div>
-			 
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
 
 
 <?php include ( 'includes/footer.html' ) ; ?>
