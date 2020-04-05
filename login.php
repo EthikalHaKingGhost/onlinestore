@@ -48,18 +48,14 @@ if ( isset( $errors ) && !empty( $errors ) )
 <div class="col-md-4 offset-md-4">
 <form action="login_action.php" method="post">
 			<div class="form-group">
-				<label for="email">Email:</label>
-				<input type="text" class="form-control form-control-default" name="email" id="email" required="">
-				<span class="help-box text-light small">
-					Please enter your email.
-				</span>
+				<label for="email"> <small>Email</small></label>
+				<input type="text" class="form-control form-control-sm" name="email" id="email" required="">
+				
 			</div>
 			<div class="form-group">
-					<label for="pass">Password:</label>
-					<input type="password" class="form-control form-control-default password-input" id="pass" name="pass" required="" autocomplete="new-password">
-					<span class="help-box text-light small">
-						Please enter your password
-					</span>
+					<label for="pass"><small>Password</small></label>
+					<input type="password" class="form-control form-control-sm password-input" id="pass" name="pass" required="" autocomplete="new-password">
+					
 			</div>
 
 			  <div class="form-group">
@@ -70,7 +66,7 @@ if ( isset( $errors ) && !empty( $errors ) )
 			  </div> 
 
 
-			<button type="submit" class="btn btn-block btn-grad mb-3 pt-0 mt-3" Value="Login" id="Login"><small>Sign in</small></button>
+			<button type="submit" class="btn btn-block btn-grad mb-3 pt-0 mt-3" Value="Login" id="Login"><small><strong>Sign in</strong></small></button>
 
 </form>
 

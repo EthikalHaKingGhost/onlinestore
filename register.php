@@ -5,6 +5,9 @@ $page_title = 'Register' ;
 
 
 include "connect_db.php"; 
+
+
+
         
 function fill_country($dbc){
 
@@ -25,18 +28,19 @@ $result = mysqli_query($dbc, $sql);
 }
 
 
-function fill_phone($dbc){
+
+function title($dbc){
 
 $output = '';
 
-$sql = "SELECT * FROM countries ;";
+$sql = "SELECT * FROM preferred_title ;";
 $result = mysqli_query($dbc, $sql);
 
   while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 
   {
 
-    $output .= '<option>'.$row["phonecode"].'</option>';
+    $output .= '<option value="'.$row["title_id"].'">'.$row["title"].'</option>';
 
   }
 
@@ -44,7 +48,31 @@ $result = mysqli_query($dbc, $sql);
 
 }
 
+
+
+function fill_gender($dbc){
+
+$output = '';
+
+$sql = "SELECT * FROM gender;";
+$result = mysqli_query($dbc, $sql);
+
+  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+
+  {
+    
+    $output .= '<option value="'.$row["gender_id"].'">'.$row["gender_type"].'</option>';
+  }
+
+  return $output;
+
+}
+
+
 ?>    
+
+
+
 
 <style type="text/css">
  body {
@@ -64,11 +92,12 @@ $result = mysqli_query($dbc, $sql);
 <head>
   <title><?php echo $page_title ?></title>
 </head>
+
 <link rel="stylesheet" href="includes/style.css">
-<link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
-<link rel="stylesheet" type="text/css" href="datepicker/css/bootstrap-datepicker.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="datepicker/jquery.datepicker2.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 <script src="datepicker/jquery.datepicker2.min.js"></script>
@@ -104,15 +133,19 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
     if (empty( $_POST[ 'date' ] ) )
       { $errors[] = 'Enter your date of birth' ; }
 
-   else{
+   else{ 
 
-    $dob = $_POST["date"];  // Get the input from form
+$dob = $_POST["date"];  // Get the input from form
 
-    $dob = explode("/",$dob);  // explode it with the delimiter
+ $date= explode("-",$dob); 
+     // explode it with the delimiter
 
-    $date = mysqli_real_escape_string( $dbc, trim($dob) ) ; }
+$date = "$date[2]-$date[1]-$date[0]";
+
+echo $date ;
 
 
+    $date = mysqli_real_escape_string( $dbc, trim($date) ) ; }
 
   # Check for an email address:
   if ( empty( $_POST[ 'email' ] ) )
@@ -182,7 +215,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
 </div> 
 
   <div class="col-md-6 offset-md-3">
-  <form>
+  <form action="login-action.php" method="POST">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="first_name" autocomplete="off"><small>First name</small></label>
@@ -201,21 +234,18 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
     <div class="form-group col-md-3" autocomplete="off">
       <label><small>Gender</small></label>
       <select class="form-control form-control-sm" id="gender" name="gender">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
+        <?php echo fill_gender($dbc) ?>
       </select>
     </div>
     <div class="form-group col-md-3">
       <label><small>Preferred title</small></label>
-      <select class="form-control form-control-sm" id="gender" name="gender">
-        <option value="Mr">Mr</option>
-        <option value="Mrs">Mrs</option>
-        <option value="Ms">Ms</option>
-        <option value="Dr">Dr</option>
-        <option value="Miss">Miss</option>
+      <select class="form-control form-control-sm" id="title" name="title">
+        <?php echo title($dbc); ?>
       </select>
     </div>
   </div>
+
+
   <div class="form-row">
     <div class="form-group col-md-6">
   <label for="date-input"><small>Date of Birth</small></label>
@@ -223,7 +253,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
   </div>
     <div class="form-group col-md-6">
       <label for="cellphone"><small>Phone</small></label>
-      <input type="tel" class="form-control form-control-sm" id="cellphone" placeholder="XXX-XXX-XXXX" name="cellphone" required>
+      <input type="tel" class="form-control form-control-sm" id="cellphone" placeholder="eg. 999-999-9999" name="cellphone" required>
     </div>
   </div>
   <div class="form-group">
@@ -244,7 +274,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
       <label><small>Country</small></label>
       <select class="form-control form-control-sm input-sm" id="country" name="Countryname" required>
         <option>Choose...</option>
-        <?php echo fill_country($dbc); ?>
+        <?php echo fill_country($dbc); ?> 
       </select>
     </div> <!-- form-group end.// -->
   </div>
@@ -257,13 +287,13 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
       <span class="help-block text-light small">Password must be 8-20 characters long</span>
   </div> <!-- form-group end.// -->  
   <div class="col-md-6 form-group">
-    <label><small>Confirm password</small>Confirm password</label>
+    <label><small>Confirm password</small></label>
       <input class="form-control form-control-sm password-input" type="password" name="pass2" required>
   </div> 
   </div> 
 
     <div class="form-group">
-        <button type="submit" class="btn btn-grad btn-block p-0 text-light" value="register">Register</button>
+        <button type="submit" class="btn btn-grad btn-block p-0" value="register"><strong>Register</strong></button>
     </div> <!-- form-group// --> 
 <div class="text-center pb-3">
     <small class="text-light">By clicking the 'Register' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>
