@@ -8,7 +8,7 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load()
 
 # Set page title and display header section.
 $page_title = 'Forum' ;
-include ( 'includes/header.html' ) ;
+include ( 'includes/header.php' ) ;
 
 # Open database connection.
 require ( 'connect_db.php' ) ;
@@ -35,6 +35,6 @@ echo '<p><a href="post.php">Post Message</a> | <a href="shop.php">Shop</a> | <a 
 mysqli_close( $dbc ) ;
   
 # Display footer section.
-include ( 'includes/footer.html' ) ;
+include ( 'includes/footer.php' ) ;
 
 ?>

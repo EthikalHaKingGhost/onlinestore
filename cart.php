@@ -4,11 +4,18 @@
 session_start() ;
 
 # Redirect if not logged in.
-if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load() ; }
+//if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load() ; }
 
 # Set page title and display header section.
 $page_title = 'Cart' ;
-include ( 'includes/header.html' ) ;
+
+if (isset($_SESSION["user_id"])){
+
+  include ( 'includes/topbar.php' );
+
+}
+
+include ( 'includes/header.php' ) ;
 
 # Check if form has been submitted for update.
 if ( $_SERVER['REQUEST_METHOD'] == 'POST' )
@@ -69,6 +76,6 @@ else
 echo '<p><a href="shop.php">Shop</a> | <a href="checkout.php?total='.$total.'">Checkout</a> | <a href="forum.php">Forum</a> | <a href="home.php">Home</a> | <a href="goodbye.php">Logout</a></p>' ;
 
 # Display footer section.
-include ( 'includes/footer.html' ) ;
+include ( 'includes/footer.php' ) ;
 
 ?>

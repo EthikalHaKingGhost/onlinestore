@@ -17,14 +17,10 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
   # On success set session data and display logged in page.
   if ( $check )
 
-    
-
-
   {
 
 echo "passthrough";
 
-    exit();
     # Access session.
     session_start();
     $_SESSION[ 'user_id' ] = $data[ 'user_id' ] ;

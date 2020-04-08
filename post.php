@@ -8,7 +8,7 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load()
 
 # Set page title and display header section.
 $page_title = 'Post Message' ;
-include ( 'includes/header.html' ) ;
+include ( 'includes/header.php' ) ;
 
 # Display form.
 echo '<form action="post_action.php" method="post" accept-charset="utf-8">
@@ -20,6 +20,6 @@ echo '<form action="post_action.php" method="post" accept-charset="utf-8">
 echo '<p><a href="forum.php">Forum</a> | <a href="shop.php">Shop</a> | <a href="home.php">Home</a> | <a href="goodbye.php">Logout</a></p>' ;
 
 # Display footer section.
-include ( 'includes/footer.html' ) ;
+include ( 'includes/footer.php' ) ;
 
 ?>

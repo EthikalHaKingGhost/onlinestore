@@ -9,9 +9,21 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load()
 # Set page title and display header section.
 $page_title = 'Shop' ;
 
+include ( 'includes/header.php' ) ;
 
-include ( 'includes/header.html' ) ; ?>
+require ( 'connect_db.php' ) ;
 
+# Retrieve items from 'shop' database table.
+$query = "SELECT * FROM shop" ;
+$result = mysqli_query( $dbc, $query ) ;
+if ( mysqli_num_rows( $result ) > 0 )
+{
+  # Display body section.
+  echo '<table><tr>';
+  while ( $row = mysqli_fetch_array( $result, MYSQLI_ASSOC ))
+  {
+
+?>
 
 <div class="container shop-container pt-5">
 		
@@ -127,7 +139,7 @@ include ( 'includes/header.html' ) ; ?>
 
 
 
-<?php include ( 'includes/footer.html' ) ; ?>
+<?php include ( 'includes/footer.php' ) ; ?>
 
 
 

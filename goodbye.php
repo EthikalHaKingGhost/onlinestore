@@ -9,7 +9,7 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load()
 # Set page title and display header section.
 $page_title = 'Goodbye' ;
 
-include ( 'includes/header.html' ) ;
+include ( 'includes/header.php' ) ;
 
 # Clear existing variables.
 $_SESSION = array() ;
@@ -22,6 +22,6 @@ session_destroy() ;
 echo '<h1>Goodbye!</h1><p>You are now logged out.</p><p><a href="login.php">Login</a></p>' ;
 
 # Display footer section.
-include ( 'includes/footer.html' ) ;
+include ( 'includes/footer.php' ) ;
 
 ?>

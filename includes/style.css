@@ -12,14 +12,13 @@ button:focus {
     outline: 0;
 }
 
-.navbar .dropdown-menu .form-control {
-    width: 200px;
-}
-
 ul{
 	font-family: 'Montserrat', sans-serif;
 }
 
+html body{
+	color:white  !important;
+}
 
 .bg-black{
 	background-color: black;
@@ -101,11 +100,11 @@ span[aria-label]:hover:after {
 
 
 /* link color */
-.container-fluid a{
+.container-fluid a, .container a{
 	color:#ff7675;
 }
 
-.container-fluid a:hover{
+.container-fluid a, .container a:hover{
 	color:#d63031;
 
 }
@@ -128,3 +127,4 @@ span[aria-label]:hover:after {
 	text-decoration: none !important;
 	color: black;
 }
+

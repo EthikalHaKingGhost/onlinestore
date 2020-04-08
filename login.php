@@ -40,7 +40,7 @@ if ( isset( $errors ) && !empty( $errors ) )
 
 <div class="text-center">
 
-  <a href="shop.php"><img src="images/logo.png" loading="lazy" width="150px" height="150px">
+  <a href="shop.php"><img src="images/logo2.png" loading="lazy" width="150px" height="150px">
   <span aria-label="Click me to go back to Shop"></span></a>
   
 </div> 
@@ -66,7 +66,7 @@ if ( isset( $errors ) && !empty( $errors ) )
 			  </div> 
 
 
-			<button type="submit" class="btn btn-block btn-grad mb-3 pt-0 mt-3" Value="Login" id="Login"><small><strong>Sign in</strong></small></button>
+			<button type="submit" class="btn btn-block btn-grad mb-3 pt-0 mt-3" Value="Login" id="Login" name="Login"><small><strong>Sign in</strong></small></button>
 
 </form>
 

@@ -43,11 +43,11 @@ function validate( $dbc, $email = '', $pass = '')
   # On success retrieve user_id, first_name, and last name from 'users' database.
   if ( empty( $errors ) ) 
   {
-    $query = "SELECT user_id, first_name, last_name FROM users WHERE email='$email' AND pass=SHA1('$pass')" ;  
+    $query = "SELECT user_id, first_name, last_name FROM users WHERE email ='$email' AND pass = SHA1('$pass')" ;  
     $result = mysqli_query ( $dbc, $query ) ;
     if ( @mysqli_num_rows( $result ) == 1 ) 
     {
-      $row = mysqli_fetch_array ( $r, MYSQLI_ASSOC ) ;
+      $row = mysqli_fetch_array ( $result, MYSQLI_ASSOC ) ;
       return array( true, $row ) ; 
     }
     # Or on failure set error message.

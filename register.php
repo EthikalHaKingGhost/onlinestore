@@ -1,77 +1,68 @@
 <?php # DISPLAY COMPLETE REGISTRATION PAGE.
-
 # Set page title and display header section.
-$page_title = 'Register' ; 
+$page_title = 'Register';
 
+include "connect_db.php";
 
-include "connect_db.php"; 
+function fill_country($dbc)
+{
 
+    $output = '';
 
+    $query = "SELECT * FROM countries;";
+    $result = mysqli_query($dbc, $query);
 
-        
-function fill_country($dbc){
+    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 
-$output = '';
+    {
 
-$query = "SELECT * FROM countries;";
-$result = mysqli_query($dbc, $query);
+        $output .= '<option class="text-center">' . $row["Countryname"] . '</option>';
+    }
 
-  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-
-  {
-    
-    $output .= '<option class="text-center">'.$row["Countryname"].'</option>';
-  }
-
-  return $output;
+    return $output;
 
 }
 
+function title($dbc)
+{
 
+    $output = '';
 
-function title($dbc){
+    $query = "SELECT * FROM preferred_title ;";
+    $result = mysqli_query($dbc, $query);
 
-$output = '';
+    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 
-$query = "SELECT * FROM preferred_title ;";
-$result = mysqli_query($dbc, $query);
+    {
 
-  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        $output .= '<option>' . $row["title"] . '</option>';
 
-  {
+    }
 
-    $output .= '<option>'.$row["title"].'</option>';
-
-  }
-
-  return $output;
-
-}
-
-
-
-function fill_gender($dbc){
-
-$output = '';
-
-$query = "SELECT * FROM gender;";
-$result = mysqli_query($dbc, $query);
-
-  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-
-  {
-    
-    $output .= '<option>'.$row["gender_type"].'</option>';
-  }
-
-  return $output;
+    return $output;
 
 }
 
+function fill_gender($dbc)
+{
+
+    $output = '';
+
+    $query = "SELECT * FROM gender;";
+    $result = mysqli_query($dbc, $query);
+
+    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+
+    {
+
+        $output .= '<option>' . $row["gender_type"] . '</option>';
+    }
+
+    return $output;
+
+}
 
 ?>    
-
-
 
 
 <style type="text/css">
@@ -98,196 +89,243 @@ $result = mysqli_query($dbc, $query);
 <link rel="stylesheet" href="datepicker/jquery.datepicker2.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-<link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-<script src="datepicker/jquery.datepicker2.min.js"></script>
-<script src="datepicker/jquery.datepicker2.js"></script>
 
 <body>
 
 <?php
-
 # Check form submitted.
-if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-  # Connect to the database.
-  require ('connect_db.php'); 
-  
-  # Initialize an error array.
-  $errors = array();
+    # Connect to the database.
+    require ('connect_db.php');
 
-  # Check for a first name.
-  if ( empty( $_POST[ 'first_name' ] ) )
+    # Initialize an error array to check each field.
+    $errors = array();
 
-  { $errors[] = 'Enter your first name.' ; }
+    
+    if (empty($_POST['first_name']))
 
-  else
+    {
+        $errors[] = 'Enter your first name.';
+    }
 
-  { $first_name = mysqli_real_escape_string( $dbc, trim( $_POST[ 'first_name' ] ) ) ; }
-
-  # Check for a last name.
-  if (empty( $_POST[ 'last_name' ] ) )
-
-  { $errors[] = 'Enter your last name.' ; }
-  
-  else
-  { $last_name = mysqli_real_escape_string( $dbc, trim( $_POST[ 'last_name' ] ) ) ; }
-
-
-if (!empty( $_POST[ 'gender' ] ) )
-
-  { $gender = mysqli_real_escape_string( $dbc, trim( $_POST[ 'gender' ] ) ) ; }
-
-
-if (!empty( $_POST[ 'title' ] ) )
-
-  { $title = mysqli_real_escape_string( $dbc, trim( $_POST[ 'title' ] ) ) ; }
-
-
-   if (empty( $_POST[ 'address' ] ) )
-
-  { $errors[] = 'Enter your Address.' ; }
-  
-  else
-
-  {$address = mysqli_real_escape_string( $dbc, trim( $_POST[ 'address' ] ) ) ; }
-
-
-   if (empty( $_POST[ 'address2' ] ) )
-
-  { $errors[] = 'Enter your alternate Address.' ; }
-  
-  else
-
-  { $address2 = mysqli_real_escape_string( $dbc, trim( $_POST[ 'address2' ] ) ) ;  }
-
-  
-  if (empty( $_POST[ 'city' ] ) )
-
-  { $errors[] = 'Enter your city.' ; }
-  
-  else
-
-  { $city = mysqli_real_escape_string( $dbc, trim( $_POST[ 'city' ] ) ) ; }
-
-if (empty( $_POST[ 'cellphone' ] ) )
-
-  { $errors[] = 'Enter your phone number.' ; }
-  
-  else
-  { $cellphone = mysqli_real_escape_string( $dbc, trim( $_POST[ 'cellphone' ] ) ) ; }
-
-if (empty( $_POST[ 'country' ] ) )
-  { $errors[] = 'Enter your country.' ; }
-  
-  else
-  { $country = mysqli_real_escape_string( $dbc, trim( $_POST[ 'country' ] ) ) ; }
-
-
-  if (empty( $_POST[ 'date' ] ) )
-
-  { $errors[] = 'Enter your date of birth' ; }
-
-  else{ $dob = $_POST["date"];  // Get the input from form
-
- $date= explode("-",$dob); 
-     // explode it with the delimiter
-
-$date = "$date[2]-$date[0]-$date[1]";
-
-    $date = mysqli_real_escape_string( $dbc, trim($date) ) ; }
-
-  # Check for an email address:
-  if ( empty( $_POST[ 'email' ] ) )
-
-  { $errors[] = 'Enter your email address.'; }
-
-  else
-
-  { $email = mysqli_real_escape_string( $dbc, trim( $_POST[ 'email' ] ) ) ; }
-
-  # Check for a password and matching input passwords.
-
-  if ( !empty($_POST[ 'pass' ] ) )
-
-  {
-
-    if ( $_POST[ 'pass' ] != $_POST[ 'pass2' ] )
-
-    { $errors[] = 'Passwords do not match.' ; 
-
-}
     else
 
-    { $pass = mysqli_real_escape_string( $dbc, trim( $_POST[ 'pass' ] ) ) ; }
+    {
+        $first_name = mysqli_real_escape_string($dbc, trim($_POST['first_name']));
+    }
 
-  }
+    # Check for a last name.
+    if (empty($_POST['last_name']))
 
-  else { $errors[] = 'Enter your password.' ; }
-  
-  # Check if email address already registered.
+    {
+        $errors[] = 'Enter your last name.';
+    }
 
-  if ( empty( $errors ) )
+    else
+    {
+        $last_name = mysqli_real_escape_string($dbc, trim($_POST['last_name']));
+    }
 
-  {
+    if (!empty($_POST['gender']))
 
-    $query = "SELECT user_id FROM users WHERE email = '$email'" ;
+    {
+        $gender = mysqli_real_escape_string($dbc, trim($_POST['gender']));
+    }
 
-    $result = @mysqli_query ( $dbc, $query ) ;
+    if (!empty($_POST['title']))
 
-    if ( mysqli_num_rows( $result ) != 0 ) $errors[] = 'Email address already registered. <a href="login.php">Login</a>' ;
+    {
+        $title = mysqli_real_escape_string($dbc, trim($_POST['title']));
+    }
 
-  }
-  
-  # On success register user inserting into 'users' database table.
+    if (empty($_POST['address']))
 
-  if ( empty( $errors ) ) 
-      
-  {
+    {
+        $errors[] = 'Enter your Address.';
+    }
 
-    $query = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `gender`, `preferred_title`, `cellphone`, `email`, `address`, `address2`, `countryname`, `city`, `pass`, `reg_date`, `date`) VALUES (NULL, '$first_name', '$last_name', '$gender', '$title', '$cellphone', '$email', '$address', '$address2', '$country', '$city', SHA1('$pass'), NOW(), '$date');";
+    else
 
-if (@mysqli_query($dbc, $query)) 
+    {
+        $address = mysqli_real_escape_string($dbc, trim($_POST['address']));
+    }
 
-{echo '<h1>Registered!</h1><p>You are now registered.</p><p><a href="login.php">Login</a></p>'; }
+    if (empty($_POST['address2']))
+
+    {
+        $errors[] = 'Enter your alternate Address.';
+    }
+
+    else
+
+    {
+        $address2 = mysqli_real_escape_string($dbc, trim($_POST['address2']));
+    }
+
+    if (empty($_POST['city']))
+
+    {
+        $errors[] = 'Enter your city.';
+    }
+
+    else
+
+    {
+        $city = mysqli_real_escape_string($dbc, trim($_POST['city']));
+    }
+
+    if (empty($_POST['cellphone']))
+
+    {
+        $errors[] = 'Enter your phone number.';
+    }
+
+    else
+    {
+        $cellphone = mysqli_real_escape_string($dbc, trim($_POST['cellphone']));
+    }
+
+    if (empty($_POST['country']))
+    {
+        $errors[] = 'Enter your country.';
+    }
+
+    else
+    {
+        $country = mysqli_real_escape_string($dbc, trim($_POST['country']));
+    }
+
+    if (empty($_POST['date']))
+
+    {
+        $errors[] = 'Enter your date of birth';
+    }
+
+    else
+    {
+        $dob = $_POST["date"]; // Get the input from form
+        $date = explode("-", $dob);
+        // explode it with the delimiter
+        $date = "$date[2]-$date[0]-$date[1]";
+
+        $date = mysqli_real_escape_string($dbc, trim($date));
+    }
+
+    # Check for an email address:
+    if (empty($_POST['email']))
+
+    {
+        $errors[] = 'Enter your email address.';
+    }
+
+    else
+
+    {
+        $email = mysqli_real_escape_string($dbc, trim($_POST['email']));
+    }
+
+    # Check for a password and matching input passwords.
+    if (!empty($_POST['pass']))
+
+    {
+
+        if ($_POST['pass'] != $_POST['pass2'])
+
+        {
+            $errors[] = 'Passwords do not match.';
+
+        }
+        else
+
+        {
+            $pass = mysqli_real_escape_string($dbc, trim($_POST['pass']));
+        }
+
+    }
+
+    else
+    {
+        $errors[] = 'Enter your password.';
+    }
+
+    # Check if email address already registered.
+    if (empty($errors))
+
+    {
+
+        $query = "SELECT user_id FROM users WHERE email = '$email'";
+
+        $result = @mysqli_query($dbc, $query);
+
+        if (mysqli_num_rows($result) != 0)
+
+        echo 'Email address already registered. <a href="login.php">Login</a>';
 
 
- else 
+      exit();
 
- {echo "Error: " . $query . "<br>" . mysqli_error($dbc);}
-  
-    # Close database connection.
-    mysqli_close($dbc); 
+    }
 
-    # Display footer section and quit script:
-    include ('includes/login-footer.html'); 
+    # On success register user inserting into 'users' database table.
+    if (empty($errors))
 
-    exit();
+    {
 
-  }
+        $query = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `gender`, `preferred_title`, `cellphone`, `email`, `address`, `address2`, `countryname`, `city`, `pass`, `reg_date`, `date`) VALUES (NULL, '$first_name', '$last_name', '$gender', '$title', '$cellphone', '$email', '$address', '$address2', '$country', '$city', SHA1('$pass'), NOW(), '$date');";
 
-  # Or report errors.
-  else 
+        if (@mysqli_query($dbc, $query))
 
-  {
+        {
 
-    echo '<h1>Error!</h1><p id="err_msg">The following error(s) occurred:<br>';
+          //include 'includes/register-success.html'; 
 
-    foreach ( $errors as $msg )
 
-    { echo " - $msg<br>" ; }
 
-    echo 'Please try again.</p>';
-    # Close database connection.
+            echo "<script>
+                      $('#myModal').modal('show')
+                  </script>";
 
-  }  
+        }
+
+        else
+
+        {
+            echo "Error: " . $query . "<br>" . mysqli_error($dbc);
+        }
+
+        # Close database connection.
+        mysqli_close($dbc);
+
+        # Display footer section and quit script:
+        include ('includes/login-footer.html');
+
+        exit();
+
+    }
+
+    # Or report errors.
+    else
+
+    {
+
+        echo '<h1>Error!</h1><p id="err_msg">The following error(s) occurred:<br>';
+
+        foreach ($errors as $msg)
+
+        {
+            echo " - $msg<br>";
+        }
+
+        echo 'Please try again.</p>';
+        # Close database connection.
+        
+    }
 
 }
 
-
-
 ?>
+
 
 <div class="container-fluid pl-5 pr-5 text-white">
 <div class="text-center">
@@ -389,11 +427,10 @@ if (@mysqli_query($dbc, $query))
 </div>
 
 
-<?php 
+<?php
 
 # Display footer section.
-include ( 'includes/login-footer.html') ; 
-
+include ('includes/login-footer.html');
 
 ?>
 
@@ -419,3 +456,9 @@ include ( 'includes/login-footer.html') ;
   }
 
 </script>
+
+<link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="datepicker/jquery.datepicker2.min.js"></script>
+<script src="datepicker/jquery.datepicker2.js"></script>
