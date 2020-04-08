@@ -6,7 +6,7 @@ footer > p { border-top: 1px dashed black ; font-style: italic ; }
 table { border-spacing:5px; width:530px;}
 th { color:#FFF; background:#000; text-align:left; }
 td { border-bottom:1px solid black; background:#F0F0F0; padding:3px; text-align:left; vertical-align:top;}
-p#err_msg { color:#F00; font-weight:bold; }
+p #err_msg { color:#F00 !important; font-weight:bold; }
 
 button:focus {
     outline: 0;
@@ -20,53 +20,10 @@ ul{
 	font-family: 'Montserrat', sans-serif;
 }
 
-/*
-/* --------input forms------- */
-/*
-.form-control{
+
+.bg-black{
 	background-color: black;
-	color:white;
-	border-color: #636e72;
-	font-size: 11px;
 }
-
-/*  -------- form fields text customization (by user on stack Overflow) -------*/
-/*
-@-webkit-keyframes autofill {
-    0%,100% {
-        color: white;
-        background: black;
-    }
-}
-
-.password-input{
-	font-weight: 1000;
-	padding:0;
-	padding-left:2px;
-}
-
-
-/* --------autocomplete background color (by user on stack overflow)---------- */
-/*
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus{
-    -webkit-animation-delay: 1s; 
-    -webkit-animation-name: autofill;
-    -webkit-animation-fill-mode: both;
-}
-
-
-.form-control:focus {
-  border-color: #ff7675;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 118, 117, 0.6);
-  background-color: black;
-  color:white;
-} */
-
 
 /* --------check box design-------- */
 

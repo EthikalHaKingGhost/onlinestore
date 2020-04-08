@@ -3,6 +3,8 @@
 # Check form submitted.
 if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
 {
+
+  //save this user and pass as cookie if remember checked end
   # Open database connection.
   require ( 'connect_db.php' ) ;
 
@@ -13,14 +15,31 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
   list ( $check, $data ) = validate ( $dbc, $_POST[ 'email' ], $_POST[ 'pass' ] ) ;
 
   # On success set session data and display logged in page.
-  if ( $check )  
+  if ( $check )
+
+    
+
+
   {
+
+echo "passthrough";
+
+    exit();
     # Access session.
     session_start();
     $_SESSION[ 'user_id' ] = $data[ 'user_id' ] ;
     $_SESSION[ 'first_name' ] = $data[ 'first_name' ] ;
     $_SESSION[ 'last_name' ] = $data[ 'last_name' ] ;
+    $_SESSION[ 'email' ] = $data[ 'email' ] ;
+    $_SESSION[ 'country' ] = $data[ 'country' ] ;
+    $_SESSION[ 'city' ] = $data[ 'city' ] ;
+    $_SESSION[ 'address' ] = $data[ 'address' ] ;
+    $_SESSION[ 'address2' ] = $data[ 'address2' ] ;
+    $_SESSION[ 'cellphone' ] = $data[ 'cellphone' ] ;
+    $_SESSION[ 'date' ] = $data[ 'date' ] ;
+
     load ( 'home.php' ) ;
+
   }
   # Or on failure set errors.
   else { $errors = $data; } 

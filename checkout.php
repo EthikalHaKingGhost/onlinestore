@@ -18,6 +18,7 @@ if ( isset( $_GET['total'] ) && ( $_GET['total'] > 0 ) && (!empty($_SESSION['car
   
   # Store buyer and order total in 'orders' database table.
   $q = "INSERT INTO orders ( user_id, total, order_date ) VALUES (". $_SESSION['user_id'].",".$_GET['total'].", NOW() ) ";
+  
   $r = mysqli_query ($dbc, $q);
   
   # Retrieve current order number.

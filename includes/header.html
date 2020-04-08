@@ -3,66 +3,100 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
 <title><?php echo $page_title; ?></title>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="includes/style.css">
+    <link rel="stylesheet" href="includes/megamenu.css">
   <link rel="stylesheet" href="fonts/css/all.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  
 </head>
- 
-
 <body>
-<!------------------Main Navbar ------------------------->
-<nav class="navbar navbar-expand-lg p-1 navbar-dark bg-light sticky-top" role="navigation">
-    <div class="container">
-        <a class="navbar-brand p-0 m-0" href="#"><img src="images/logo.png" width="40px" height="40px"></a>
-        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-            &#9776;
-        </button>
- 
-<!--------------------Login button on navbar ---------------------------->
-            <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-                <div>
-                	<a href="login.php" class="btn btn-outline-dark btn-sm">Login</a>
-                </div>
-            </ul>
-<!------------------------------------------------------end of login ---------------------------->
 
-<!--------user login avatar----->
-          <ul class="nav navbar-nav navbar-right">
-          	<li>
-          		<div class="dropdown pmd-dropdown pmd-user-info ml-auto">
-          			
-          			<a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center text-decoration-none" data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
-          				<img class="mr-2 bg-white rounded-circle" src="images/cow.png" width="40" height="40">
-            	<div class="media-body text-white">
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+  <div class="container-fluid">
+  <a class="navbar-brand" href="#"><img src="images/logo.png" height="50px"></a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <div class="dropdown-menu mega-menu" aria-labelledby="navbarDropdown"> 
+          <div class="row">
+            <div class="col-md-3 pl-4">
+              <img src="images/cow.png" alt="eg" class="img-fluid">
+              <h4>Technology</h4>
+              <p class="text-justify">How to choose the best phone!</p>
+            </div>
+            <div class="col-md-3">
+              <p><strong class="sub-menu-heading">iPhones</strong></p>
+              <p><a href="#">item 1</a></p>
+              <p><a href="#">item 1</a></p>
+              <p><a href="#">item 1</a></p>
+              <p><a href="#">item 1</a></p>
+            </div>
+            <div class="col-md-3">
+              <p><strong class="sub-menu-heading">Samsung</strong></p>
+              <p><a href="#">item 1</a></p>
+              <p><a href="#">item 1</a></p>
+              <p><a href="#">item 1</a></p>
+              <p><a href="#">item 1</a></p>
+            </div>
+            <div class="col-md-3">
+              <p><strong class="sub-menu-heading">Huawei</strong></p>
+              <p><a href="#">item 1</a></p>
+              <p><a href="#">item 1</a></p>
+              <p><a href="#">item 1</a></p>
+              <p><a href="#">item 1</a></p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+     <div>
+       <a href="login.php" class="btn btn-outline-dark btn-sm">Login</a>
+     </div>           
+    </ul>
+    <!--------user login avatar----->
+          <ul class=" container nav navbar-nav navbar-right">
+            <li>
+              <div class="dropdown pmd-dropdown pmd-user-info ml-auto mr-4">
+                
+                <a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center text-decoration-none" data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
+                  <img class="mr-2 bg-white rounded-circle" src="images/cow.png" width="40" height="40">
+              <div class="media-body text-white">
                 <em><?php echo $_SESSION["first_name"]; ?></em>
             </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-right" role="menu">
-        	<a class="dropdown-item" href="javascript:void(0);">Edit Profile</a>
+          <a class="dropdown-item" href="javascript:void(0);">Edit Profile</a>
             <a data-toggle="modal" data-target="#logoutModal" class="dropdown-item" href="javascript:void(0);">Logout</a>
         </ul>
     </div>
 </li>
 </ul>
-<!-----------end of user logout-------------->
+<div class="navbar nav">
+    <a href="login.php" class="btn btn-outline-dark btn-sm">Login</a>
+</div>
 
-</div>
-</div>
-</div>
+  </div>
+  </div>
 </nav>
 
 
-<!------Small modal for logout confirmation----->
+
+
+----Small modal for logout confirmation----->
 <div class="modal" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -85,4 +119,3 @@
     </div>
   </div>
 </div>
-<!------logout confirmation modal end----->

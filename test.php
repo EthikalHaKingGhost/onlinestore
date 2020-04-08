@@ -23,7 +23,10 @@
 <?php  
 
 if (isset($_POST["test"])){
+
       
+else{ 
+
 $dob = $_POST["date"];  // Get the input from form
 
  $date= explode("-",$dob); 
