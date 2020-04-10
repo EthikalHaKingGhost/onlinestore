@@ -32,7 +32,7 @@ echo "passthrough";
     $_SESSION[ 'address' ] = $data[ 'address' ] ;
     $_SESSION[ 'address2' ] = $data[ 'address2' ] ;
     $_SESSION[ 'cellphone' ] = $data[ 'cellphone' ] ;
-    $_SESSION[ 'date' ] = $data[ 'date' ] ;
+    $_SESSION[ 'date' ] = $data[ 'date' ];
 
     load ( 'home.php' ) ;
 

@@ -262,43 +262,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
         echo 'Email address already registered. <a href="login.php">Login</a>';
 
-
-      exit();
-
     }
 
     # On success register user inserting into 'users' database table.
     if (empty($errors))
 
     {
+      //default image for user
+      $default_image = "images/placeholder.png";
 
-        $query = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `gender`, `preferred_title`, `cellphone`, `email`, `address`, `address2`, `countryname`, `city`, `pass`, `reg_date`, `date`) VALUES (NULL, '$first_name', '$last_name', '$gender', '$title', '$cellphone', '$email', '$address', '$address2', '$country', '$city', SHA1('$pass'), NOW(), '$date');";
+      //insert all registered values into database
+        $query = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `gender`, `preferred_title`, `cellphone`, `email`, `address`, `address2`, `countryname`, `city`, `pass`, `user_image`, `reg_date`, `date`) VALUES (NULL, '$first_name', '$last_name', '$gender', '$title', '$cellphone', '$email', '$address', '$address2', '$country', '$city', SHA1('$pass'), '$default_image', NOW(), '$date');";
 
-        if (@mysqli_query($dbc, $query))
+        if (@mysqli_query($dbc, $query)){
 
-        {
+          echo "register succesful!";
 
-          //include 'includes/register-success.html'; 
+          header("location: login.php");
 
-
-
-            echo "<script>
-                      $('#myModal').modal('show')
-                  </script>";
-
-        }
-
-        else
-
-        {
-            echo "Error: " . $query . "<br>" . mysqli_error($dbc);
         }
 
         # Close database connection.
         mysqli_close($dbc);
-
-        # Display footer section and quit script:
-        include ('includes/login-footer.html');
 
         exit();
 
@@ -367,7 +352,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     </div>
   </div>
 
-
   <div class="form-row">
     <div class="form-group col-md-6">
   <label for="date-input"><small>Date of Birth</small></label>
@@ -430,7 +414,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <?php
 
 # Display footer section.
-include ('includes/login-footer.html');
+include ('includes/login-footer.php');
 
 ?>
 
@@ -458,7 +442,6 @@ include ('includes/login-footer.html');
 </script>
 
 <link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 <script src="datepicker/jquery.datepicker2.min.js"></script>
 <script src="datepicker/jquery.datepicker2.js"></script>

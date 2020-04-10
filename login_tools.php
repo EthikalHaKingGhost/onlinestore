@@ -40,16 +40,24 @@ function validate( $dbc, $email = '', $pass = '')
 
   else { $pass = mysqli_real_escape_string( $dbc, trim( $pass ) ) ; }
 
-  # On success retrieve user_id, first_name, and last name from 'users' database.
+  # On success retrieve user_id, first_name, and last name and login_time from 'users' database.
   if ( empty( $errors ) ) 
   {
-    $query = "SELECT user_id, first_name, last_name FROM users WHERE email ='$email' AND pass = SHA1('$pass')" ;  
+    $query = "SELECT user_id, first_name, last_name, login_time FROM users WHERE email ='$email' AND pass = SHA1('$pass')" ;  
     $result = mysqli_query ( $dbc, $query ) ;
-    if ( @mysqli_num_rows( $result ) == 1 ) 
+    if(mysqli_num_rows($result) == 1)
     {
       $row = mysqli_fetch_array ( $result, MYSQLI_ASSOC ) ;
       return array( true, $row ) ; 
+       
+        $_SESSION['login_time'] = $row['login_time'];
+
+        $update = "UPDATE `users` SET `login_time` = NOW() WHERE `email` = '$email'";
+
+         $result = mysql_query($update);
+
     }
+
     # Or on failure set error message.
     else { $errors[] = 'Email address and password not found.' ; }
   }

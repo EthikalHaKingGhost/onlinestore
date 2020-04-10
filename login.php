@@ -49,12 +49,12 @@ if ( isset( $errors ) && !empty( $errors ) )
 <form action="login_action.php" method="post">
 			<div class="form-group">
 				<label for="email"> <small>Email</small></label>
-				<input type="text" class="form-control form-control-sm" name="email" id="email" required="">
+				<input type="text" class="form-control" name="email" id="email" required>
 				
 			</div>
 			<div class="form-group">
 					<label for="pass"><small>Password</small></label>
-					<input type="password" class="form-control form-control-sm password-input" id="pass" name="pass" required="" autocomplete="new-password">
+					<input type="password" class="form-control password-input" id="pass" name="pass" required>
 					
 			</div>
 

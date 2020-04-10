@@ -1,3 +1,7 @@
+
+<?php session_start(); ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,22 +15,218 @@
 </head>
 <body>
 
-<form action="user-profile.php" method="POST">
+    <style type="text/css">
+        .img-fluid .img-profile {
+        width: 150px;
+        height: 150px;
+        border:1px solid #6c757d;
+}
+    </style>
+
+
+<?php
+
+if(isset($_SESSION["user_id"])){
+
+    $user_id = $_SESSION["user_id"];
+}
+
+
+# Connect to the database.
+require ('connect_db.php');
+
+if (isset($_POST['update_profile'])){
+
+    if ($_POST["first_name"]){
+
+$new_first_name = $_POST["first_name"];
+$update = "UPDATE `users` SET `first_name` = '$new_first_name' WHERE `users`.`user_id` = '$user_id'";
+
+}
+
+if ($_POST["last_name"]){
+
+    $new_last_name = $_POST["last_name"];
+$update = "UPDATE `users` SET `last_name` = '$new_last_name' WHERE `users`.`user_id` = '$user_id'";
+
+}
+
+if ($_POST["gender"]){
+
+    $new_gender = $_POST["gender"];
+
+$update = "UPDATE `users` SET `gender` = '$new_gender' WHERE `users`.`user_id` = '$user_id'";
+
+}
+
+if ($_POST["title"]){
+
+    $new_title = $_POST["title"];
+
+$update = "UPDATE `users` SET `first_name` = '$new_title' WHERE `users`.`user_id` = '$user_id'";
+
+}
+
+if ($_POST["cellphone"]){
+
+    $new_number = $_POST["cellphone"];
+
+$update = "UPDATE `users` SET `preferred_title` = '$new_number' WHERE `users`.`user_id` = '$user_id'";
+
+}
+
+if ($_POST["email"]){
+
+    $new_email = $_POST["email"];
+    
+$update = "UPDATE `users` SET `first_name` = '$new_email' WHERE `users`.`user_id` = '$user_id'";
+
+}
+
+if ($_POST["address"]){
+
+    $new_address = $_POST["address"];
+
+$update = "UPDATE `users` SET `address` = '$new_address' WHERE `users`.`user_id` = '$user_id'";
+
+}
+
+if ($_POST["address2"]){
+
+    $new_address2 = $_POST["address2"];
+
+$update = "UPDATE `users` SET `address2` = '$new_address2' WHERE `users`.`user_id` = '$user_id'";
+
+}
+
+if ($_POST["country"]){
+
+    $new_country = $_POST["country"];
+
+$update = "UPDATE `users` SET `country` = '$new_country' WHERE `users`.`user_id` = '$user_id'";
+
+}
+
+if ($_POST["city"]){
+
+    $new_city = $_POST["city"];
+
+$update = "UPDATE `users` SET `city` = '$new_city' WHERE `users`.`user_id` = '$user_id'";
+
+}
+
+
+if ($_POST["date"]){
+    $dob = $_POST["date"]; // Get the input from form
+    $date1 = explode("-", $dob);
+    // explode it with the delimiter
+    $date1 = "$date[2]-$date[0]-$date[1]";
+    $update = "UPDATE `users` SET `date` = '$date1' WHERE `users`.`user_id` = '$user_id'";
+ 
+}
+
+if (mysqli_query($dbc, $update)) {
+
+   echo "Updated Successfuly"; 
+
+}
+
+
+}
+
+
+
+require ('connect_db.php');
+
+    $query = "SELECT * FROM users WHERE users.user_id = '$user_id'";
+
+        $result = mysqli_query($dbc, $query);
+
+        if (mysqli_num_rows($result) > 0) {
+
+            while($row = mysqli_fetch_assoc($result)) {
+
+                                $login_time = $row['login_time'];
+                                $_SESSION['user_image'] = $row['user_image'];
+                                $first_name = $row["first_name"];
+                                $last_name = $row["last_name"];
+                                $gender = $row["gender"];
+                                $title = $row["preferred_title"];
+                                $cellphone= $row["cellphone"];
+                                $email = $row["email"];
+                                $address = $row["address"];
+                                $address2 = $row["address2"];
+                                $country = $row["countryname"];
+                                $city = $row["city"];
+                                $user_image = $row["user_image"];
+                                $reg_date = $row["reg_date"];
+                                $date = $row["date"];
+
+                                $new_date = date("M jS, Y h:i:s", strtotime("reg_date"));  
+                                
+                    }
+
+
+            }else{
+
+                echo "error no info to display";
+
+                exit();
+            }
+
+
+
+//changing TIME from database to actual time in text
+
+    function seconds_from_time($login_time) {
+    list($h, $m, $s) = explode(':', $login_time);
+    return ($h * 3600) + ($m * 60) + $s;
+
+}
+
+$time = seconds_from_time("$login_time");
+
+function secondsToTime($time) {
+    $dtF = new \DateTime('@0');
+    $dtT = new \DateTime("@$time");
+    return $dtF->diff($dtT)->format('%a days %h hours %i minutes');
+
+}
+
+$timelaps = secondsToTime($time);
+$empties = array('0 days', '0 hours', '0 minutes');
+
+
+?>
+
+
+
+
+<!-------Last logged in ------->
+
+<form action="user-profile.php" method="post">
 <div id="status"></div>
-        <div class="container">
+        <div class="container mt-5">
             <div class="row">
-                <div class="col-md-3 text-center">
-                    <div class="card">
+                <div class="col-md-3">
+                    <div class="card p-2 text-center">
+
                     <form>
-                        <div class="img-fluid">
-                         <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="rounded-circle mg-thumbnail" alt="avatar" id="image"/></div>
+                        <div class="img-fluid m-2">
+
+                         <img src=" <?php echo $user_image; ?>"
+
+                          class="rounded-circle img-profile" alt="avatar" id="image"/>
+
+                        </div>
                         <h6>Upload a different photo...</h6>
-                        <input type=file class="img-upload-input-bs" editor="#img-upload-panel" target="#image" status="#status" passurl="" pshape="square" w=300 h=300 size="{150,150}"/></form>
+                        <input type=file class="img-upload-input-bs" editor="#img-upload-panel" target="#image" status="#status" passurl="" pshape="circle" w=300 h=300 size="{150,150}"/></form>
  
                         <hr class="bg-white">
 
-                    <label> <strong>Mrs Rebecca Sanders</strong></label>
-                    <label class="email">Rebecca.S@website.com</label>
+                    <label> <strong><?php echo "$title " . " $first_name " . " $last_name" ?></strong></label>
+                    <label><?php echo $email; ?></label>
+                    <label><small>Last Logged in:</small><small class="text-muted"><?php echo str_replace($empties, '', $timelaps); ?> ago</small></label>
                     <div><h5>Profile <span class="badge badge-danger">Admin</span></h5></div>  
             </div>
         </div>
@@ -41,22 +241,22 @@
                     <div class="form-group row">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">First Name</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="colFormLabel" value="John">
+                          <input type="text" class="form-control" id="colFormLabel" value="<?php echo $first_name; ?>" name="first_name">
                         </div>
                     </div>
 
                       <div class="form-group row">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Last Name</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="colFormLabel" Value="Doe">
+                          <input type="text" class="form-control" id="colFormLabel" Value="<?php echo $last_name; ?>" name="last_name">
                         </div>
                       </div>
 
                         <div class="form-group row">
                             <label for="colFormLabel" class="col-sm-2 col-form-label">Preferred Title</label>
                             <div class="col-sm-10">
-                            <select class="form-control" id="title" name="title" >
-                                <option value="Mr">Mr</option>
+                            <select class="form-control" id="title" name="title">
+                                <option><?php echo $title; ?></option>
                             </select>
                         </div>
                     </div>
@@ -65,7 +265,7 @@
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Gender</label>
                              <div class="col-sm-10">
                               <select class="form-control form-control" id="gender" name="gender">
-                                <option Value="Male"> Male</option>
+                                <option Value="Male"><?php echo $gender; ?></option>
                               </select>
                         </div>
                     </div>
@@ -73,7 +273,7 @@
                     <div class="form-group row">
                       <label for="colFormLabel" class="col-sm-2 col-form-label">Date of Birth</label>
                       <div class="col-sm-10">
-                        <input class="form-control" type="text" name="date" id="date" data-select="datepicker" value="2020-04-1996">
+                        <input class="form-control" type="date" name="date" id="date" data-select="datepicker" value="<?php echo $date; ?>">
                       </div>
                     </div>
 
@@ -84,7 +284,7 @@
                 <div class="form-group row">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="colFormLabel" value="john@mail.com">
+                          <input type="email" class="form-control" id="colFormLabel" value="<?php echo $email; ?>" name="email">
                         </div>
                     </div>
                 
@@ -92,7 +292,7 @@
                 <div class="form-group row">
                           <label for="colFormLabel" class="col-sm-2 col-form-label">Cellphone</label>
                           <div class="col-sm-10">
-                          <input type="tel" class="form-control" id="cellphone" placeholder="eg. 999-999-9999" name="cellphone" value="1-758-456-3456">
+                          <input type="tel" class="form-control" id="cellphone" placeholder="eg. 999-999-9999" name="cellphone" value="<?php echo $cellphone; ?>">
                     </div>
                 </div>
 
@@ -105,32 +305,35 @@
                   <div class="form-group row">
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Address 1</label>
                     <div class="col-sm-10">
-                    <input type="text" class="form-control" id="address" value="1234 Main St" name="address">
+                    <input type="text" class="form-control" id="address" value="<?php echo $address; ?>" name="address">
                   </div>
                   </div>
 
                   <div class="form-group row">
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Address 2</label>
                     <div class="col-sm-10">
-                    <input type="text" class="form-control" id="address2" value="Apartment, studio, or floor" name="address2">
+                    <input type="text" class="form-control" id="address2" value="<?php echo $address2; ?>" name="address2">
                   </div>
               </div>
 
                     <div class="form-group row">
                       <label for="colFormLabel" class="col-sm-2 col-form-label">City</label>
                       <div class="col-sm-10">
-                      <input type="text" class="form-control" id="city" name="city" value="Arima">
+                      <input type="text" class="form-control" id="city" name="city" value="<?php echo $city; ?>">
                     </div>
                 </div>
 
-                    <div class="form-group row">
-                      <label for="colFormLabel" class="col-sm-2 col-form-label">Country</label>
-                      <div class="col-sm-10">
-                      <select class="form-control" id="country" name="country" required>
-                        <option value="Jamaica">Jamaica</option>
-                      </select>
-                    </div> 
-                    </div>
+                     <div class="form-group row">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Country</label>
+                        <div class="form-group col-md-5">
+                            <input type="text" class="form-control input-sm text-mute" id="city" value="<?php echo $country; ?>" disabled>
+                          </div>
+                        <div class="form-group col-md-5 ml-0 pl-0">
+                          <select class="form-control input-sm" id="country" name="country" required>
+                            <option>Change Country...</option> 
+                          </select>
+                        </div>
+                  </div>
 
                     <hr class="bg-white">
 
@@ -145,7 +348,8 @@
         </div>
     </div>
 </form>
-                
+
+
 
  <!-------------------------- Upload image Bootstrap Modal ----------------------->
                           <div class="modal fade" id="img-upload-panel">
@@ -178,6 +382,9 @@
                         </div>
                     </div>
 
+<?php
+mysqli_close($dbc);
+?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
