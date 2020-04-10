@@ -6,7 +6,6 @@
 <html>
 <head>
     <title></title>
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <link rel="stylesheet" href="image_upload/ImgUploader/croppie.css">
@@ -24,121 +23,63 @@
     </style>
 
 
-<?php
+
+
+<?php 
 
 if(isset($_SESSION["user_id"])){
 
     $user_id = $_SESSION["user_id"];
-}
-
 
 # Connect to the database.
 require ('connect_db.php');
 
-if (isset($_POST['update_profile'])){
-
-    if ($_POST["first_name"]){
-
-$new_first_name = $_POST["first_name"];
-$update = "UPDATE `users` SET `first_name` = '$new_first_name' WHERE `users`.`user_id` = '$user_id'";
-
 }
 
-if ($_POST["last_name"]){
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
 
-    $new_last_name = $_POST["last_name"];
-$update = "UPDATE `users` SET `last_name` = '$new_last_name' WHERE `users`.`user_id` = '$user_id'";
+if (!empty($_POST["first_name"])){ $new_first_name = $_POST["first_name"]; }
 
+if (!empty($_POST["last_name"])) { $new_last_name = $_POST["last_name"]; }
+
+if (!empty($_POST["title"])) { $new_title = $_POST["title"]; }
+
+if (!empty($_POST["cellphone"])) { $new_number = $_POST["cellphone"];}
+
+if (!empty($_POST["email"])){ $new_email = $_POST["email"]; }
+
+if (!empty($_POST["address"])) { $new_address = $_POST["address"]; }
+
+if (!empty($_POST["address2"])) { $new_address2 = $_POST["address2"]; }
+
+if (!empty($_POST["country"])) { $new_country = $_POST["country"];}
+
+if (!empty($_POST["city"])) { $new_city = $_POST["city"];}
+
+
+
+$update = "UPDATE `users` SET `first_name` = '$new_first_name', `last_name` = '$new_last_name', `preferred_title` = '$new_title', `cellphone` = '$new_number', `email` = '$new_email', `address` = '$new_address', `address2` = '$new_address2', `countryname` = '$new_country', `city` = '$new_city' WHERE `users`.`user_id` = '$user_id'";
+
+if ($dbc->query($update) === TRUE) {
+
+    echo '<div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Message!</strong> Updated Successfully.
+            </div>';
+
+} else {
+
+    echo "Error updating record: " . $dbc->error;
 }
-
-if ($_POST["gender"]){
-
-    $new_gender = $_POST["gender"];
-
-$update = "UPDATE `users` SET `gender` = '$new_gender' WHERE `users`.`user_id` = '$user_id'";
-
-}
-
-if ($_POST["title"]){
-
-    $new_title = $_POST["title"];
-
-$update = "UPDATE `users` SET `first_name` = '$new_title' WHERE `users`.`user_id` = '$user_id'";
-
-}
-
-if ($_POST["cellphone"]){
-
-    $new_number = $_POST["cellphone"];
-
-$update = "UPDATE `users` SET `preferred_title` = '$new_number' WHERE `users`.`user_id` = '$user_id'";
-
-}
-
-if ($_POST["email"]){
-
-    $new_email = $_POST["email"];
-    
-$update = "UPDATE `users` SET `first_name` = '$new_email' WHERE `users`.`user_id` = '$user_id'";
-
-}
-
-if ($_POST["address"]){
-
-    $new_address = $_POST["address"];
-
-$update = "UPDATE `users` SET `address` = '$new_address' WHERE `users`.`user_id` = '$user_id'";
-
-}
-
-if ($_POST["address2"]){
-
-    $new_address2 = $_POST["address2"];
-
-$update = "UPDATE `users` SET `address2` = '$new_address2' WHERE `users`.`user_id` = '$user_id'";
-
-}
-
-if ($_POST["country"]){
-
-    $new_country = $_POST["country"];
-
-$update = "UPDATE `users` SET `country` = '$new_country' WHERE `users`.`user_id` = '$user_id'";
-
-}
-
-if ($_POST["city"]){
-
-    $new_city = $_POST["city"];
-
-$update = "UPDATE `users` SET `city` = '$new_city' WHERE `users`.`user_id` = '$user_id'";
-
-}
-
-
-if ($_POST["date"]){
-    $dob = $_POST["date"]; // Get the input from form
-    $date1 = explode("-", $dob);
-    // explode it with the delimiter
-    $date1 = "$date[2]-$date[0]-$date[1]";
-    $update = "UPDATE `users` SET `date` = '$date1' WHERE `users`.`user_id` = '$user_id'";
- 
-}
-
-if (mysqli_query($dbc, $update)) {
-
-   echo "Updated Successfuly"; 
-
-}
-
 
 }
 
 
 
-require ('connect_db.php');
 
-    $query = "SELECT * FROM users WHERE users.user_id = '$user_id'";
+
+ $query = "SELECT * FROM users WHERE users.user_id = '$user_id'";
 
         $result = mysqli_query($dbc, $query);
 
@@ -159,10 +100,13 @@ require ('connect_db.php');
                                 $country = $row["countryname"];
                                 $city = $row["city"];
                                 $user_image = $row["user_image"];
-                                $reg_date = $row["reg_date"];
-                                $date = $row["date"];
 
+                                $reg_date = $row["reg_date"];
                                 $new_date = date("M jS, Y h:i:s", strtotime("reg_date"));  
+
+                                $birthdate = $row["date"];
+                                $date = date("M jS, Y", strtotime("birthdate")); 
+
                                 
                     }
 
@@ -171,7 +115,6 @@ require ('connect_db.php');
 
                 echo "error no info to display";
 
-                exit();
             }
 
 
@@ -198,9 +141,6 @@ $empties = array('0 days', '0 hours', '0 minutes');
 
 
 ?>
-
-
-
 
 <!-------Last logged in ------->
 
@@ -238,42 +178,55 @@ $empties = array('0 days', '0 hours', '0 minutes');
 
                 <hr class="bg-white">
 
+                <div class="form-group row">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Preferred Title</label>
+                            <div class="col-sm-10">
+                            <select class="form-control" id="title" name="title">           
+                                <option><?php echo $title; ?> </option>
+                                <option disabled>_________</option>
+
+                                <?php 
+
+                                $query = "SELECT * FROM preferred_title ;";
+                                    $result = mysqli_query($dbc, $query);
+
+                                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+
+                                    { $preferred_title = $row["title"];
+
+                                ?>
+
+                                     <option><?php echo $preferred_title; ?></option>
+
+                                <?php 
+                                    
+
+                                    }  
+                                ?>
+
+
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">First Name</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="colFormLabel" value="<?php echo $first_name; ?>" name="first_name">
+                          <input type="text" class="form-control text-capitalize" id="colFormLabel" value="<?php echo $first_name; ?>" name="first_name">
                         </div>
                     </div>
 
                       <div class="form-group row">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Last Name</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="colFormLabel" Value="<?php echo $last_name; ?>" name="last_name">
+                          <input type="text" class="form-control text-capitalize" id="colFormLabel" Value="<?php echo $last_name; ?>" name="last_name">
                         </div>
                       </div>
-
-                        <div class="form-group row">
-                            <label for="colFormLabel" class="col-sm-2 col-form-label">Preferred Title</label>
-                            <div class="col-sm-10">
-                            <select class="form-control" id="title" name="title">
-                                <option><?php echo $title; ?></option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Gender</label>
-                             <div class="col-sm-10">
-                              <select class="form-control form-control" id="gender" name="gender">
-                                <option Value="Male"><?php echo $gender; ?></option>
-                              </select>
-                        </div>
-                    </div>
 
                     <div class="form-group row">
                       <label for="colFormLabel" class="col-sm-2 col-form-label">Date of Birth</label>
                       <div class="col-sm-10">
-                        <input class="form-control" type="date" name="date" id="date" data-select="datepicker" value="<?php echo $date; ?>">
+                        <input class="form-control" type="text" name="date" value="<?php echo $date ?>" disabled>
                       </div>
                     </div>
 
@@ -319,18 +272,36 @@ $empties = array('0 days', '0 hours', '0 minutes');
                     <div class="form-group row">
                       <label for="colFormLabel" class="col-sm-2 col-form-label">City</label>
                       <div class="col-sm-10">
-                      <input type="text" class="form-control" id="city" name="city" value="<?php echo $city; ?>">
+                      <input type="text" class="form-control text-capitalize" id="city" name="city" value="<?php echo $city; ?>">
                     </div>
                 </div>
 
                      <div class="form-group row">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Country</label>
-                        <div class="form-group col-md-5">
-                            <input type="text" class="form-control input-sm text-mute" id="city" value="<?php echo $country; ?>" disabled>
-                          </div>
-                        <div class="form-group col-md-5 ml-0 pl-0">
-                          <select class="form-control input-sm" id="country" name="country" required>
-                            <option>Change Country...</option> 
+                        <div class="col-sm-10">
+                          <select class="form-control input-sm" id="country" name="country">
+                            <option><?php echo $country; ?></option>
+                            <option disabled>_________</option>
+                            <?php 
+
+                                $query = "SELECT * FROM countries ;";
+                                    $result = mysqli_query($dbc, $query);
+
+                                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+
+                                    { $country_name = $row["Countryname"];
+
+                                ?>
+
+                                     <option><?php echo $country_name; ?></option>
+
+                                <?php 
+                                    
+
+                                    }  
+                                ?>
+
+
                           </select>
                         </div>
                   </div>
@@ -382,15 +353,13 @@ $empties = array('0 days', '0 hours', '0 minutes');
                         </div>
                     </div>
 
-<?php
-mysqli_close($dbc);
-?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="image_upload/ImgUploader/croppie.min.js"></script>
 <script src="image_upload/ImgUploader/imguploader.bs.minify.js"></script>
+
 
 </body>
 </html>

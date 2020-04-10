@@ -11,6 +11,8 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
   # Get connection, load, and validate functions.
   require ( 'login_tools.php' ) ;
 
+  echo "$user_id";
+
   # Check login.
   list ( $check, $data ) = validate ( $dbc, $_POST[ 'email' ], $_POST[ 'pass' ] ) ;
 
@@ -26,13 +28,11 @@ echo "passthrough";
     $_SESSION[ 'user_id' ] = $data[ 'user_id' ] ;
     $_SESSION[ 'first_name' ] = $data[ 'first_name' ] ;
     $_SESSION[ 'last_name' ] = $data[ 'last_name' ] ;
-    $_SESSION[ 'email' ] = $data[ 'email' ] ;
-    $_SESSION[ 'country' ] = $data[ 'country' ] ;
-    $_SESSION[ 'city' ] = $data[ 'city' ] ;
-    $_SESSION[ 'address' ] = $data[ 'address' ] ;
-    $_SESSION[ 'address2' ] = $data[ 'address2' ] ;
-    $_SESSION[ 'cellphone' ] = $data[ 'cellphone' ] ;
-    $_SESSION[ 'date' ] = $data[ 'date' ];
+    $_SESSION[ 'login_time' ] = $data[ 'login_time' ] ;
+
+    print_r($_SESSION);
+
+      exit();
 
     load ( 'home.php' ) ;
 

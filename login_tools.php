@@ -42,19 +42,24 @@ function validate( $dbc, $email = '', $pass = '')
 
   # On success retrieve user_id, first_name, and last name and login_time from 'users' database.
   if ( empty( $errors ) ) 
+
   {
-    $query = "SELECT user_id, first_name, last_name, login_time FROM users WHERE email ='$email' AND pass = SHA1('$pass')" ;  
+    $query = "SELECT user_id, first_name, last_name, login_time FROM users WHERE email ='$email' AND pass = SHA1('$pass')" ; 
+
     $result = mysqli_query ( $dbc, $query ) ;
+
     if(mysqli_num_rows($result) == 1)
+
     {
+
       $row = mysqli_fetch_array ( $result, MYSQLI_ASSOC ) ;
       return array( true, $row ) ; 
-       
-        $_SESSION['login_time'] = $row['login_time'];
 
-        $update = "UPDATE `users` SET `login_time` = NOW() WHERE `email` = '$email'";
+          $user_id = $row["user_id"];
 
-         $result = mysql_query($update);
+        $query = "UPDATE `users` SET `login_time` = NOW() WHERE `email` = '$user_id'";
+
+
 
     }
 
@@ -64,3 +69,5 @@ function validate( $dbc, $email = '', $pass = '')
   # On failure retrieve error message/s.
   return array( false, $errors ) ; 
 }
+
+echo "$user_id";
