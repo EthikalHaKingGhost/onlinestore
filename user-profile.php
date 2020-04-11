@@ -1,18 +1,15 @@
 
-<?php session_start(); ?>
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css">
 <link rel="stylesheet" href="image_upload/ImgUploader/croppie.css">
 
+<?php session_start();
 
-</head>
-<body>
+include "includes/header.php";
+
+ ?>
+
+
+
 
     <style type="text/css">
         .img-fluid .img-profile {
@@ -24,8 +21,10 @@
 
 
 
-
 <?php 
+
+
+
 
 if(isset($_SESSION["user_id"])){
 
@@ -74,9 +73,6 @@ if ($dbc->query($update) === TRUE) {
 }
 
 }
-
-
-
 
 
  $query = "SELECT * FROM users WHERE users.user_id = '$user_id'";
@@ -140,6 +136,7 @@ $timelaps = secondsToTime($time);
 $empties = array('0 days', '0 hours', '0 minutes');
 
 
+
 ?>
 
 <!-------Last logged in ------->
@@ -154,7 +151,7 @@ $empties = array('0 days', '0 hours', '0 minutes');
                     <form>
                         <div class="img-fluid m-2">
 
-                         <img src=" <?php echo $user_image; ?>"
+                         <img src=" <?php echo "images/"."$user_image" ?>"
 
                           class="rounded-circle img-profile" alt="avatar" id="image"/>
 

@@ -8,18 +8,41 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load()
 
 # Set page title and display header section.
 $page_title = 'Post Message' ;
+
 include ( 'includes/header.php' ) ;
+?>
 
-# Display form.
-echo '<form action="post_action.php" method="post" accept-charset="utf-8">
-<p>Subject:<br><input name="subject" type="text" size="64" maxlength="100"></p>
-<p>Message:<br><textarea name="message" rows="5" cols="50"></textarea></p>
-<p><input name="submit" type="submit" value="Submit"></p></form>';
+<div class="container">
+	
+<div class="row">
 
-# Create navigation links.
-echo '<p><a href="forum.php">Forum</a> | <a href="shop.php">Shop</a> | <a href="home.php">Home</a> | <a href="goodbye.php">Logout</a></p>' ;
+	<div class="col-md-6 offset-md-3">
 
-# Display footer section.
+		<form action="post_action.php" method="post" accept-charset="utf-8">
+
+<div class="form-group">
+    <label for="messagebox">Subject:</label>
+<input name="subject" type="text" size="64" class="form-control" class maxlength="100">
+</div>
+
+ <div class="form-group">
+    <label for="messagebox">Message:</label>
+    <textarea class="form-control bg-light" id="messagebox" name="message" rows="5" cols="50"></textarea>
+  </div>
+
+<input name="submit" type="submit" class="btn btn-info btn-block" value="Post"></p>
+
+</form>
+		
+	</div>
+	
+</div>
+
+</div>
+
+
+<?php 
+
 include ( 'includes/footer.php' ) ;
 
 ?>

@@ -269,7 +269,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     {
       //default image for user
-      $default_image = "images/placeholder.png";
+      $default_image = "placeholder.png";
 
       //insert all registered values into database
         $query = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `gender`, `preferred_title`, `cellphone`, `email`, `address`, `address2`, `countryname`, `city`, `pass`, `user_image`, `reg_date`, `date`) VALUES (NULL, '$first_name', '$last_name', '$gender', '$title', '$cellphone', '$email', '$address', '$address2', '$country', '$city', SHA1('$pass'), '$default_image', NOW(), '$date');";

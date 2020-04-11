@@ -22,19 +22,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   # On success add post to forum database.
   if( !empty($_POST['subject']) &&  !empty($_POST['message']) )
+
   {
     # Open database connection.
     require ( 'connect_db.php' ) ;
+
+  $user_id = $_SESSION["user_id"];
+  $firstname = $_SESSION['first_name'];
+  $lastname =  $_SESSION['last_name'];
+  $subject = $_POST['subject'];
+  $message = $_POST['message'];
+
+# Grab the user image and other data
+$query = "SELECT * FROM users WHERE user_id = '$user_id'";
+$result = mysqli_query($dbc, $query);
+
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+
+            $user_image = $row["user_image"];
+ 
+    }
+}
 	
-	$firstname = $_SESSION['first_name'];
-	$lastname =  $_SESSION['last_name'];
-	$subject = $_POST['subject'];
-	$message = $_POST['message'];
   
     # Execute inserting into 'forum' database table.
-    $q = "INSERT INTO forum(first_name,last_name,subject,message,post_date) 
-          VALUES ('$firstname','$lastname','$subject','$message',NOW() )";
-    $r = mysqli_query ( $dbc, $q ) ;
+    $query= "INSERT INTO forum(first_name,last_name,subject,message,post_date,user_image) 
+          VALUES ('$firstname','$lastname','$subject','$message',NOW(),'$user_image' )";
+    $result = mysqli_query ( $dbc, $query ) ;
 
     # Report error on failure.
     if (mysqli_affected_rows($dbc) != 1) { echo '<p>Error</p>'.mysqli_error($dbc); } else { load('forum.php'); }

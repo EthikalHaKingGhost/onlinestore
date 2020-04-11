@@ -11,8 +11,6 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
   # Get connection, load, and validate functions.
   require ( 'login_tools.php' ) ;
 
-  echo "$user_id";
-
   # Check login.
   list ( $check, $data ) = validate ( $dbc, $_POST[ 'email' ], $_POST[ 'pass' ] ) ;
 
@@ -30,9 +28,18 @@ echo "passthrough";
     $_SESSION[ 'last_name' ] = $data[ 'last_name' ] ;
     $_SESSION[ 'login_time' ] = $data[ 'login_time' ] ;
 
-    print_r($_SESSION);
 
-      exit();
+$user_id = $_SESSION[ 'user_id' ];
+
+ require ( 'connect_db.php' ) ;
+
+$update = "UPDATE `users` SET `login_time` = time() WHERE `user_id` = '$user_id'";
+
+if ($dbc->query($update) === TRUE) {
+
+echo "upated";
+
+}
 
     load ( 'home.php' ) ;
 
