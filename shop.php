@@ -30,7 +30,7 @@ require ( 'connect_db.php' ) ;
 		</div>
 		<div class="col-md-3">
 			<div class="card rounded-0">
-                <div class="card-header text-center bg-danger text-white text-uppercase rounded-0"><i class="fa fa-list"></i> Categories</div>
+                <div class="card-header text-center bg-dark text-white text-uppercase rounded-0"><i class="fa fa-list"></i> Categories</div>
                 <ul class="list-group rounded-0 category_block">
 
                 <?php 
@@ -51,18 +51,18 @@ require ( 'connect_db.php' ) ;
 
                     <a href="shop.php" class="text-decoration-none"><li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center rounded-0">All Phones<span class="badge badge-danger badge-pill"><?php echo $rowcount ?></span></li></a>
 
-
-
-
                     
                 <?php 
+
+
 
                 $query = "SELECT *, (SELECT COUNT(*) FROM products WHERE products.category_id = product_category.category_id) num FROM product_category";
 
                 $result = mysqli_query($dbc, $query);
 
                 if (mysqli_num_rows($result) > 0) {
-                    // output data of each row
+
+
                     while($row = mysqli_fetch_assoc($result)) {
 
                         $category_id = $row["category_id"];
@@ -86,19 +86,7 @@ require ( 'connect_db.php' ) ;
 
 		<div class="col-md-9">
 			<div class="row">
-				<div class="col-md-12">
-					
-					<div class="card bg-white p-1 rounded-0">
-						<div class="input-group">
-						  <input type="text" class="form-control" placeholder="Search for product..." aria-label="Recipient's username">
-
-						  <div class="input-group-append">
-						    <span class="input-group-text"><i class="fa fa-search"></i></span>
-						  </div>
-						</div>
-					</div>
-
-				</div>
+				
 
 				<div class="col-md-12">
 					<ul class="list-group">
@@ -119,6 +107,34 @@ if (isset($_GET["cid"])) {
 $result = mysqli_query( $dbc, $query ) ;
 if ( mysqli_num_rows( $result ) > 0 )
 {
+
+
+ if (isset($_GET["search"]) && $_GET["search"] != '') {
+
+                             $search = $_GET["search"];
+
+                                 $sql = "SELECT * FROM products, category WHERE product_name LIKE '%search%' OR product_details LIKE '%search%' category LIKE '%search%'";
+
+                                $result = mysqli_query($dbc, $sql);
+
+                                $searchquery = mysqli_num_rows($result);
+
+                                if ( $searchquery == 0){
+
+
+                                            $feeback = "There are no products found with <h6>" . "$search" . "</h6>";
+
+                                            echo $feedback;
+
+
+
+                                                }
+
+
+                                    }
+
+
+
   while ( $row = mysqli_fetch_array( $result, MYSQLI_ASSOC ))
   {
 
@@ -214,7 +230,7 @@ if ( mysqli_num_rows( $result ) > 0 )
 
                     <?php
 
-                    
+
                     }
 
                      # Close database connection.
@@ -238,6 +254,9 @@ if ( mysqli_num_rows( $result ) > 0 )
 
 
 <?php 
+
+include ( 'includes/latest_arrivals.php' ) ;
+
 
 include ( 'includes/footer.php' ) ;
 

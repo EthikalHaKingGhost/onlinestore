@@ -6,25 +6,6 @@
 
 include "includes/header.php";
 
- ?>
-
-
-
-
-    <style type="text/css">
-        .img-fluid .img-profile {
-        width: 150px;
-        height: 150px;
-        border:1px solid #6c757d;
-}
-    </style>
-
-
-
-<?php 
-
-
-
 
 if(isset($_SESSION["user_id"])){
 
@@ -83,7 +64,7 @@ if ($dbc->query($update) === TRUE) {
 
             while($row = mysqli_fetch_assoc($result)) {
 
-                                $login_time = $row['login_time'];
+                                
                                 $_SESSION['user_image'] = $row['user_image'];
                                 $first_name = $row["first_name"];
                                 $last_name = $row["last_name"];
@@ -98,12 +79,35 @@ if ($dbc->query($update) === TRUE) {
                                 $user_image = $row["user_image"];
 
                                 $reg_date = $row["reg_date"];
-                                $new_date = date("M jS, Y h:i:s", strtotime("reg_date"));  
+                                $new_date = date("M jS, Y h:i:s", strtotime("reg_date")); 
 
                                 $birthdate = $row["date"];
-                                $date = date("M jS, Y", strtotime("birthdate")); 
+                                $dateofbirth = date("M jS, Y", strtotime("birthdate")); 
 
                                 
+                                //processing post date value
+                                $now = strtotime(date("m/d/Y h:i:s a", time()));
+                                $login_time = strtotime($row['login_time']);
+                                
+                                //difference in seconds
+                                $newdate = ($now - $login_time) - 21600;
+                                
+                                if($newdate < 3600){
+                                    //posted within one hour
+                                    $datelogin = round($newdate/60);
+                                    $login_date = $datelogin . " minute(s) ago.";
+                                }
+                                elseif($newdate < 86400){
+                                    //posted within one day
+                                    $datelogin = round($newdate/3600);
+                                    $login_date = $datelogin . " hour(s) ago.";
+                                }
+                                else {
+                                    //posted over a day ago
+                                    $datelogin = round($newdate/86400);
+                                    $login_date = $datelogin . " day(s) ago.";
+                                }
+
                     }
 
 
@@ -113,37 +117,13 @@ if ($dbc->query($update) === TRUE) {
 
             }
 
-
-
-//changing TIME from database to actual time in text
-
-    function seconds_from_time($login_time) {
-    list($h, $m, $s) = explode(':', $login_time);
-    return ($h * 3600) + ($m * 60) + $s;
-
-}
-
-$time = seconds_from_time("$login_time");
-
-function secondsToTime($time) {
-    $dtF = new \DateTime('@0');
-    $dtT = new \DateTime("@$time");
-    return $dtF->diff($dtT)->format('%a days %h hours %i minutes');
-
-}
-
-$timelaps = secondsToTime($time);
-$empties = array('0 days', '0 hours', '0 minutes');
-
-
-
 ?>
 
 <!-------Last logged in ------->
 
 <form action="user-profile.php" method="post">
 <div id="status"></div>
-        <div class="container mt-5">
+        <div class="container mt-5 text-dark">
             <div class="row">
                 <div class="col-md-3">
                     <div class="card p-2 text-center">
@@ -162,8 +142,8 @@ $empties = array('0 days', '0 hours', '0 minutes');
                         <hr class="bg-white">
 
                     <label> <strong><?php echo "$title " . " $first_name " . " $last_name" ?></strong></label>
-                    <label><?php echo $email; ?></label>
-                    <label><small>Last Logged in:</small><small class="text-muted"><?php echo str_replace($empties, '', $timelaps); ?> ago</small></label>
+                    <label><em><?php echo $email; ?></em></label>
+                    <label><small>Last Logged in:</small><small class="text-muted"> <?php echo $login_date ?></small></label>
                     <div><h5>Profile <span class="badge badge-danger">Admin</span></h5></div>  
             </div>
         </div>
@@ -223,7 +203,7 @@ $empties = array('0 days', '0 hours', '0 minutes');
                     <div class="form-group row">
                       <label for="colFormLabel" class="col-sm-2 col-form-label">Date of Birth</label>
                       <div class="col-sm-10">
-                        <input class="form-control" type="text" name="date" value="<?php echo $date ?>" disabled>
+                        <input class="form-control" type="text" name="date" value="<?php echo $dateofbirth ?>" disabled>
                       </div>
                     </div>
 

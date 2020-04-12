@@ -1,14 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-header > h1 { border-bottom: 1px dashed black ; font-style: italic ; font-size: x-large; }
-footer > p { border-top: 1px dashed black ; font-style: italic ; }
-table { border-spacing:5px; width:530px;}
-th { color:#FFF; background:#000; text-align:left; }
-td { border-bottom:1px solid black; background:#F0F0F0; padding:3px; text-align:left; vertical-align:top;}
 p #err_msg { color:#F00 !important; font-weight:bold; }
 
 button:focus {
+
     outline: 0;
 }
 
@@ -17,7 +13,7 @@ ul{
 }
 
 html body{
-	color:white  !important;
+	
 }
 
 .bg-black{
@@ -128,3 +124,9 @@ span[aria-label]:hover:after {
 	color: black;
 }
 
+
+ .img-fluid .img-profile {
+        width: 150px;
+        height: 150px;
+        border:1px solid #eee;
+}
