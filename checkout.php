@@ -18,14 +18,13 @@ if ( isset( $_GET['total'] ) && ( $_GET['total'] > 0 ) && (!empty($_SESSION['car
   
   # Store buyer and order total in 'orders' database table.
   $q = "INSERT INTO orders ( user_id, total, order_date ) VALUES (". $_SESSION['user_id'].",".$_GET['total'].", NOW() ) ";
-  
   $r = mysqli_query ($dbc, $q);
   
   # Retrieve current order number.
   $order_id = mysqli_insert_id($dbc) ;
   
   # Retrieve cart items from 'shop' database table.
-  $q = "SELECT * FROM shop WHERE item_id IN (";
+  $q = "SELECT * FROM itemsforsale WHERE item_id IN (";
   foreach ($_SESSION['cart'] as $id => $value) { $q .= $id . ','; }
   $q = substr( $q, 0, -1 ) . ') ORDER BY item_id ASC';
   $r = mysqli_query ($dbc, $q);

@@ -34,7 +34,7 @@
         <div class="carousel-caption d-none d-md-block">
           <h2>SAMSUNG</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <a href="shop.php"><button class="btn btn-danger btn-lg">Shop Now</button></a>
+          <a href="shop.php"><button class="btn btn-warning btn-lg">Shop Now</button></a>
         </div>
       </div>
       <div class="carousel-item">
@@ -42,7 +42,7 @@
         <div class="carousel-caption d-none d-md-block">
           <h2>HUAWEI</h2>
           <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-          <a href="shop.php"><button class="btn btn-danger btn-lg">Shop Now</button></a>
+          <a href="shop.php"><button class="btn btn-primary btn-lg">Shop Now</button></a>
         </div>
       </div>
     </div>

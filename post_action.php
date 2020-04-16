@@ -11,7 +11,8 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) { load() ; }
 
 # Set page title and display header section.
 $page_title = 'Post Error' ;
-include ( 'includes/header.html' ) ;
+
+//include ( 'includes/header.php' ) ;
 
 # Check form submitted.
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -48,8 +49,8 @@ if (mysqli_num_rows($result) > 0) {
 	
   
     # Execute inserting into 'forum' database table.
-    $query= "INSERT INTO forum(first_name,last_name,subject,message,post_date,user_image) 
-          VALUES ('$firstname','$lastname','$subject','$message',NOW(),'$user_image' )";
+    $query= "INSERT INTO forum(user_id,first_name,last_name,subject,message,post_date,user_image) 
+          VALUES ('$user_id','$firstname','$lastname','$subject','$message',NOW(),'$user_image' )";
     $result = mysqli_query ( $dbc, $query ) ;
 
     # Report error on failure.
@@ -64,6 +65,6 @@ if (mysqli_num_rows($result) > 0) {
 echo '<p><a href="forum.php">Forum</a>' ;
  
 # Display footer section.
-include ( 'includes/footer.html' ) ;
+include ( 'includes/footer.php' ) ;
 
 ?>

@@ -16,44 +16,6 @@ require ('connect_db.php');
 
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
-
-if (!empty($_POST["first_name"])){ $new_first_name = $_POST["first_name"]; }
-
-if (!empty($_POST["last_name"])) { $new_last_name = $_POST["last_name"]; }
-
-if (!empty($_POST["title"])) { $new_title = $_POST["title"]; }
-
-if (!empty($_POST["cellphone"])) { $new_number = $_POST["cellphone"];}
-
-if (!empty($_POST["email"])){ $new_email = $_POST["email"]; }
-
-if (!empty($_POST["address"])) { $new_address = $_POST["address"]; }
-
-if (!empty($_POST["address2"])) { $new_address2 = $_POST["address2"]; }
-
-if (!empty($_POST["country"])) { $new_country = $_POST["country"];}
-
-if (!empty($_POST["city"])) { $new_city = $_POST["city"];}
-
-
-
-$update = "UPDATE `users` SET `first_name` = '$new_first_name', `last_name` = '$new_last_name', `preferred_title` = '$new_title', `cellphone` = '$new_number', `email` = '$new_email', `address` = '$new_address', `address2` = '$new_address2', `countryname` = '$new_country', `city` = '$new_city' WHERE `users`.`user_id` = '$user_id'";
-
-if ($dbc->query($update) === TRUE) {
-
-    echo '<div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Message!</strong> Updated Successfully.
-            </div>';
-
-} else {
-
-    echo "Error updating record: " . $dbc->error;
-}
-
-}
 
 
  $query = "SELECT * FROM users WHERE users.user_id = '$user_id'";
@@ -117,29 +79,146 @@ if ($dbc->query($update) === TRUE) {
 
             }
 
+
+
+if (isset($_POST["update_profile"]))
+{
+
+if (!empty($_POST["first_name"])){ $new_first_name = $_POST["first_name"]; }else{ $new_first_name = $first_name; }
+
+if (!empty($_POST["last_name"])) { $new_last_name = $_POST["last_name"]; }else{$new_last_name = $last_name;}
+
+if (!empty($_POST["title"])) { $new_title = $_POST["title"]; }else{$new_title = $title;}
+
+if (!empty($_POST["cellphone"])) { $new_number = $_POST["cellphone"];}else{$new_number = $cellphone;}
+
+if (!empty($_POST["email"])){ $new_email = $_POST["email"]; }else{$new_email = $email;}
+
+if (!empty($_POST["address"])) { $new_address = $_POST["address"]; }else{$new_address = $address;}
+
+if (!empty($_POST["address2"])) { $new_address2 = $_POST["address2"]; }else{$new_address2 = $address2;}
+
+if (!empty($_POST["country"])) { $new_country = $_POST["country"];}else{$new_country = $country;}
+
+if (!empty($_POST["city"])) { $new_city = $_POST["city"];}else{$new_city = $city;}
+
+
+$update = "UPDATE `users` SET `first_name` = '$new_first_name', `last_name` = '$new_last_name', `preferred_title` = '$new_title', `cellphone` = '$new_number', `email` = '$new_email', `address` = '$new_address', `address2` = '$new_address2', `countryname` = '$new_country', `city` = '$new_city' WHERE `users`.`user_id` = '$user_id'";
+
+echo "<meta http-equiv='refresh' content='3'>";
+
+if (mysqli_query($dbc, $update)) {
+
+    echo '<div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Message!</strong> Updated Successfully.
+            </div>';
+
+} else {
+
+    echo "Error updating record: " . $dbc->error;
+}
+
+}
+
+//Image Upload to server
+
+if(isset($_POST["uploadimg"])) {
+
+    require 'connect_db.php';
+    $uploadOk = 1;
+
+if ($_FILES['fileToUpload']['error'] == 0){
+
+
+echo '<div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Message!</strong> the file is ok to upload.
+            </div>';
+  
+    require ('upload.php');
+
+}else{
+
+echo '<div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Message!</strong> error uploading file or no file selected.
+            </div>';
+}
+
+if ($uploadOk == 1){
+
+        $sql = "UPDATE `users` SET `user_image` = '$target_file' WHERE `users`.`user_id` = '$user_id';";
+
+        echo "<meta http-equiv='refresh' content='3'>";
+
+        $queryresult = mysqli_query($dbc, $sql);
+
+    }
+
+}
+
 ?>
+
+
 
 <!-------Last logged in ------->
 
-<form action="user-profile.php" method="post">
 <div id="status"></div>
         <div class="container mt-5 text-dark">
             <div class="row">
                 <div class="col-md-3">
                     <div class="card p-2 text-center">
 
-                    <form>
                         <div class="img-fluid m-2">
 
-                         <img src=" <?php echo "images/"."$user_image" ?>"
+                         <a href="<?php echo $user_image; ?>"><img src="<?php echo $user_image; ?>"
 
-                          class="rounded-circle img-profile" alt="avatar" id="image"/>
+                          class="rounded-circle img-profile" alt="avatar" id="image"/></a>
 
                         </div>
                         <h6>Upload a different photo...</h6>
-                        <input type=file class="img-upload-input-bs" editor="#img-upload-panel" target="#image" status="#status" passurl="" pshape="circle" w=300 h=300 size="{150,150}"/></form>
- 
-                        <hr class="bg-white">
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#confirmImage">
+                        Change Image
+                        </button>  
+                 
+
+                    <!-- The Modal -->
+                    <div class="modal" id="confirmImage">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h4 class="modal-title">Change Image</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+
+                          <!-- Modal body -->
+                          <div class="modal-body">
+                            <label>Are you sure you want to change this image?</label>
+                            <div>
+                                <img src="<?php echo $user_image; ?>" class="img-fluid rounded-circle" width="100">
+                            </div>
+                          </div>
+
+                          <!-- Modal footer -->
+                        <form action="user-profile.php" method="post" enctype="multipart/form-data">
+                          <div class="modal-footer">
+                            Select image:
+                            <input type="file" name="fileToUpload" name="" class="btn btn-dark" id="fileToUpload">
+                            <input type="submit" value="Upload Image" name="uploadimg" class="btn btn-info">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </form>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+            <hr class="bg-white">
 
                     <label> <strong><?php echo "$title " . " $first_name " . " $last_name" ?></strong></label>
                     <label><em><?php echo $email; ?></em></label>
@@ -154,6 +233,8 @@ if ($dbc->query($update) === TRUE) {
                     <h4>Personal Info</h4>
 
                 <hr class="bg-white">
+
+        <form action="user-profile.php" id="profileimg" method="post">
 
                 <div class="form-group row">
                             <label for="colFormLabel" class="col-sm-2 col-form-label">Preferred Title</label>
@@ -235,28 +316,28 @@ if ($dbc->query($update) === TRUE) {
                   <div class="form-group row">
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Address 1</label>
                     <div class="col-sm-10">
-                    <input type="text" class="form-control" id="address" value="<?php echo $address; ?>" name="address">
+                    <input type="text" class="form-control" id="colFormLabel" value="<?php echo $address; ?>" name="address">
                   </div>
                   </div>
 
                   <div class="form-group row">
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Address 2</label>
                     <div class="col-sm-10">
-                    <input type="text" class="form-control" id="address2" value="<?php echo $address2; ?>" name="address2">
+                    <input type="text" class="form-control" id="colFormLabel" value="<?php echo $address2; ?>" name="address2">
                   </div>
               </div>
 
                     <div class="form-group row">
                       <label for="colFormLabel" class="col-sm-2 col-form-label">City</label>
                       <div class="col-sm-10">
-                      <input type="text" class="form-control text-capitalize" id="city" name="city" value="<?php echo $city; ?>">
+                      <input type="text" class="form-control text-capitalize" id="colFormLabel" name="city" value="<?php echo $city; ?>">
                     </div>
                 </div>
 
                      <div class="form-group row">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Country</label>
                         <div class="col-sm-10">
-                          <select class="form-control input-sm" id="country" name="country">
+                          <select class="form-control input-sm" id="colFormLabel" name="country">
                             <option><?php echo $country; ?></option>
                             <option disabled>_________</option>
                             <?php 
@@ -298,44 +379,14 @@ if ($dbc->query($update) === TRUE) {
 </form>
 
 
-
- <!-------------------------- Upload image Bootstrap Modal ----------------------->
-                          <div class="modal fade" id="img-upload-panel">
-                            <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Upload Profile Photo</h4>
-                                <button type="button" class="img-remove-btn-bs close">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row container">
-                                <div class="col">
-                                    <div class="img-edit-container"></div>
-                                </div>
-                                </div>
-                                <div class="row container text-center">
-                                <div class="col">
-                                    <button type="button" class="btn btn-secondary img-rotate-left"><i class="fas fa-undo"></i></button>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-secondary img-rotate-right"><i class="fas fa-redo"></i></button>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary img-remove-btn-bs">Close</button>
-                                <button type="button" class="btn btn-primary img-upload-btn-bs" name="upload_image">Upload</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 <script src="image_upload/ImgUploader/croppie.min.js"></script>
 <script src="image_upload/ImgUploader/imguploader.bs.minify.js"></script>
+
+
 
 
 </body>

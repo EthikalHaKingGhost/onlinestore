@@ -44,13 +44,13 @@ function validate( $dbc, $email = '', $pass = '')
   if ( empty( $errors ) ) 
 
   {
-    $query = "SELECT user_id, first_name, last_name, login_time FROM users WHERE email ='$email' AND pass = SHA1('$pass')" ; 
+    $loginquery = "SELECT user_id, first_name, last_name, login_time FROM users WHERE email ='$email' AND pass = SHA1('$pass')" ; 
 
-    $result = mysqli_query($dbc, $query) ;
+    $loginresult = mysqli_query($dbc, $loginquery) ;
 
-    if(mysqli_num_rows($result) == 1){  
+    if(mysqli_num_rows($loginresult) == 1){  
 
-    $row = mysqli_fetch_array ( $result, MYSQLI_ASSOC );
+    $row = mysqli_fetch_array ( $loginresult, MYSQLI_ASSOC );
 
     return array( true, $row ) ; 
 

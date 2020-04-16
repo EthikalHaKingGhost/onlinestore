@@ -30,7 +30,7 @@
 	}
 
 	//sql statement using parameter as criteria
-	$query = "SELECT * FROM products, product_category WHERE product_id = '$product_id' AND product_category.category_id = products.category_id";
+	$query = "SELECT * FROM products, product_category, category_assign WHERE products.product_id = '$product_id' AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id";
 	
 	//create query to execute sql on db
 	$query = mysqli_query($dbc, $query);
@@ -137,8 +137,8 @@
 
 				<?php
 
-				# Retrieve items from 'shop' database table.
-				$query = "SELECT * FROM products, product_category WHERE product_category.category_id = products.category_id AND product_category.category_id = '$category_id'" ;
+				# Retrieve items from 'shop' database table, display similar items except item displayed.
+				$query = "SELECT * FROM products, product_category, category_assign WHERE product_category.category_id = '$category_id' AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id AND products.product_id <> '$product_id' LIMIT 4" ;
 
 				$result = mysqli_query( $dbc, $query ) ;
 
