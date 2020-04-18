@@ -14,6 +14,58 @@ $page_title = 'Shop';
 
 include ('includes/header.php');
 
+
+if (isset($_GET["cid"])){
+
+        $idforcat = $_GET["cid"];
+        
+        $idforcatsql = "SELECT product_name, category FROM products, product_category, category_assign WHERE category_assign.category_id = '$idforcat' AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id";
+
+        $idforcatresult = mysqli_query($dbc, $idforcatsql);
+
+        if (mysqli_num_rows($idforcatresult) > 0) {
+            // output data of each row
+            while($row = mysqli_fetch_assoc($idforcatresult)) {
+            
+            $catforpro = $row["category"];
+
+        }
+        
+
+}
+mysqli_close($dbc);
+}
+
+
+?>
+
+ <div class="row">
+        <div class="col-md-12 pt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-light rounded-0">
+                    <li class="breadcrumb-item"><a href="home.php" class="text-decoration-none text-dark">Home</a></li>
+                    <li class="breadcrumb-item"><a href="shop.php" class="text-decoration-none text-dark">Shop</a></li>
+                    <li class="breadcrumb-item active text-danger font-weight-bold" aria-current="page">
+
+                        <?php
+                        if (isset($_GET["cid"])){
+
+                            echo $catforpro;
+
+                        }else{
+
+                            echo "All Phones";
+                        }
+
+                          ?></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+<?php
+
 require ('connect_db.php');
 
     //checking if sort was applied
@@ -23,39 +75,13 @@ require ('connect_db.php');
 
 ?>
 
-<div class="container shop-container pt-5">
-		
-	<div class="row">
-		<div class="col-md-12 pt-3">
-			<nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-white rounded-0">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="category.html">Category</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Sub-category</li>
-                </ol>
-            </nav>
-		</div>
-		<div class="col-md-3 ">
-            <div class="col-md-12 p-0 m-0">
-                <form action="shop.php" method="post">
-                    <select name="orderA"> 
-                        <option value="product_name">Name</option>
-                        <option value="product_price">Price</option>
-                        <option value="sale_price">Sale</option>
-                    </select>
+<div class="container pt-5">
+<div class="row">
+		<div class="col-md-3 border border-left-0 border-bottom-0 border-top-0 ">
 
-
-                    <select name="sort"> 
-                        <option value="ASC">Ascending</option>
-                        <option value="DESC">Descending</option>
-                    </select>
-                    <input type="submit" value="Sort Products">
-                </form>
-            </div>
-      
-			<div class="card rounded-0">
+			<div class="card rounded-0 border border-0">
                 <div class="card-header text-center bg-dark text-white text-uppercase rounded-0"><i class="fa fa-list"></i> Categories</div>
-                <ul class="list-group rounded-0 category_block">
+                <ul class="list-group rounded-0  category_block">
 
                 <!------- Categories selection  in card  --------------->
 
@@ -111,18 +137,21 @@ require ('connect_db.php');
 
 
 
-<style type="text/css">
+ <div class="col-md-12 pt-3 p-0 m-0">
+                <form action="shop.php" method="post">
+                    <select class="browser-default custom-select custom-select-sm" name="orderA">
+                      <option value="product_name">Name</option>
+                        <option value="product_price">Price</option>
+                        <option value="sale_price">Sale</option>
+                    </select>
 
-    input .price_filter1[type="number"]:disabled, input .price_filter2[type="number"]:disabled{
-        background: #eee;
-    }
-
-    input .price_filter1[disabled="disabled"], input .price_filter1[disabled="disabled"]{
-        background: #eee;
-    }
-
-
-</style>
+                    <select class="browser-default custom-select custom-select-sm my-2" name="sort">
+                      <option value="ASC">Ascending</option>
+                        <option value="DESC">Descending</option>
+                    </select>
+                    <input type="submit" value="Sort Products" class="btn btn-grad btn-block btn-sm">
+                </form>
+            </div>
 
 
 
@@ -146,15 +175,16 @@ require ('connect_db.php');
         </div>
         <div class="form-group shop-filter_price">
           <div class="row p-0 m-0">
-              <button type="submit" class="btn btn-grad btn-block" id="filter_button">Go</button>
+              <button type="submit" class="btn btn-grad btn-block btn-sm" id="filter_button">Go</button>
             </div>
           </div>
       </form>
 </div>
 
 <!-- Checkboxes -->
-<div class="col-md-12 pt-3">
+
 <form action="shop.php" method="post">
+    <div class="col-md-12 pt-3 m-0 p-1">
         <h5 class="headline">
           <span>Screen Resolution</span>
         </h5>
@@ -173,7 +203,7 @@ require ('connect_db.php');
         </div>
     <div class="form-group shop-filter_price">
           <div class="row p-0 m-0">
-              <button type="submit" class="btn btn-grad btn-block" id="resolution">Go</button>
+              <button type="submit" class="btn btn-grad btn-block btn-sm" id="resolution">Go</button>
             </div>
           </div>
     </div>    
@@ -290,7 +320,7 @@ if (isset($_POST["search"]) && $_POST["search"] !== '')
 
 ?>
                 
-                 <li class="list-group-item rounded-0">
+                 <li class="list-group-item rounded-0 border border-right-0 border-left-0 border-bottom-0">
                         <div class="row"> 
                         <div class="col-md-3">
                             <a href="<?php echo $link; ?>" class="text-decoration-none text-dark ">
@@ -300,7 +330,7 @@ if (isset($_POST["search"]) && $_POST["search"] !== '')
 
                             <div class="col-md-9 m-0 p-0">
                             <a href="<?php echo $link; ?>" class="text-decoration-none text-dark">
-                                <h6 class="font-weight-bold mb-2"><?php echo "$product_name" . ", " . "$battery" . ", " . "$camera" . ", " . " $ram " . "()"; ?></h6>
+                                <h6 class="font-weight-bold mb-2"><?php echo "$product_name" . ", " . "$battery" . ", " . "$camera" . ", " . " $ram "; ?></h6>
                             </a>
 
                              <ul class="list-inline small">
@@ -394,7 +424,7 @@ if (isset($_POST["search"]) && $_POST["search"] !== '')
 
 ?>
                 <!-- list group item-->
-                 <li class="list-group-item rounded-0">
+                 <li class="list-group-item rounded-0 border border-right-0 border-left-0 border-bottom-0">
                     <!-- Custom content-->
                         <div class="row"> 
                         <div class="col-md-3">
@@ -405,7 +435,7 @@ if (isset($_POST["search"]) && $_POST["search"] !== '')
 
                             <div class="col-md-9 m-0 p-0">
                             <a href="<?php echo $link ?>" class="text-decoration-none text-dark">
-                                <h6 class="font-weight-bold mb-2"><?php echo "$product_name" . ", " . "$battery" . ", " . "$camera" . ", " . " $ram " . "()" ?></h6>
+                                <h6 class="font-weight-bold mb-2"><?php echo "$product_name" . ", " . "$battery" . ", " . "$camera" . ", " . " $ram "; ?></h6>
                             </a>
 
                              <ul class="list-inline small">
@@ -495,28 +525,4 @@ else
 
 include ('includes/latest_arrivals.php');
 
-
-
-?>
-
-<!----------- radio button for price -------------->
-<script>
-
-function enable(enabled){
-    
-  var price1 = document.getElementById('price_filter1'), 
-  price2 = document.getElementById('price_filter2');
-      
-  if(enable){
-    price1.removeAttribute('disabled');
-    price2.removeAttribute('disabled');
-
-  } else {
-    price1.setAttribute('disabled','disabled');
-    price2.setAttribute('disabled','disabled');
-  }
-}
-
-</script>
-
-<?php include ('includes/footer.php'); ?>
+include ('includes/footer.php'); ?>

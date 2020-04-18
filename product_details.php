@@ -11,6 +11,54 @@
 
 	include ( 'includes/header.php' ) ;
 
+		require 'connect_db.php';
+
+	if (isset($_GET["pid"])){
+
+		$idforcat = $_GET["pid"];
+		
+		$idforcatsql = "SELECT product_name, category FROM products, product_category, category_assign WHERE products.product_id = '$idforcat' AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id";
+
+		$idforcatresult = mysqli_query($dbc, $idforcatsql);
+
+		if (mysqli_num_rows($idforcatresult) > 0) {
+		    // output data of each row
+		    while($row = mysqli_fetch_assoc($idforcatresult)) {
+			
+
+			$nameforcat = $row["product_name"];
+			$catforpro = $row["category"];
+
+		}
+		
+
+}
+mysqli_close($dbc);
+}
+
+	?>
+
+
+
+ <div class="row">
+        <div class="col-md-12 pt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-light rounded-0">
+                    <li class="breadcrumb-item"><a href="home.php" class="text-decoration-none text-dark">Home</a></li>
+                    <li class="breadcrumb-item"><a href="shop.php" class="text-decoration-none text-dark">Shop</a></li>
+                    <li class="breadcrumb-item"><a href="shop.php?cid=<?php echo $idforcat; ?>" class="text-decoration-none text-dark"><?php echo $catforpro ?></a></li>
+                    <li class="breadcrumb-item active text-danger font-weight-bold" aria-current="page"><?php echo $nameforcat; ?></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+	<?php
+
+
+
+
 	# Open database connection.
 	require ( 'connect_db.php' ) ;
 	
@@ -28,6 +76,8 @@
 
 		exit();
 	}
+
+
 
 	//sql statement using parameter as criteria
 	$query = "SELECT * FROM products, product_category, category_assign WHERE products.product_id = '$product_id' AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id";

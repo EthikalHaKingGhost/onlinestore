@@ -10,6 +10,7 @@ function fill_country($dbc)
     $output = '';
 
     $query = "SELECT * FROM countries;";
+
     $result = mysqli_query($dbc, $query);
 
     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
@@ -29,6 +30,7 @@ function title($dbc)
     $output = '';
 
     $query = "SELECT * FROM preferred_title ;";
+
     $result = mysqli_query($dbc, $query);
 
     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
@@ -325,22 +327,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <form action="register.php" method="post">
   <div class="form-row mt-4">
     <div class="form-group col-md-6">
-      <label for="first_name" autocomplete="off"><small>First name</small></label>
-      <input type="text" class="form-control form-control-sm" id="first_name" name="first_name">
+      <label for="first_name"><small>First name</small></label>
+      <input type="text" class="form-control form-control-sm" autocomplete="off" id="first_name" pattern="[a-zA-Z]+" name="first_name" required>
     </div>
     <div class="form-group col-md-6">
       <label for="last_name"><small>Last name</small></label>
-      <input type="text" class="form-control form-control-sm" id="last_name" name="last_name">
+      <input type="text" autocomplete="off" class="form-control form-control-sm" id="last_name"pattern="[a-zA-Z]+" name="last_name" required>
     </div>
   </div>
   <div class="form-row" autocomplete="off">
     <div class="form-group col-md-6">
       <label for="email"><small>Email</small></label>
-      <input type="email" name="email" class="form-control form-control-sm" id="email">
+      <input type="email" autocomplete="off" name="email" class="form-control form-control-sm" id="email" pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$" required>
     </div>
-    <div class="form-group col-md-3" autocomplete="off">
+    <div class="form-group col-md-3">
       <label><small>Gender</small></label>
-      <select class="form-control form-control-sm" id="gender" name="gender">
+      <select class="form-control form-control-sm" id="gender" name="gender" required>
         <?php echo fill_gender($dbc) ?>
       </select>
     </div>
@@ -355,30 +357,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="form-row">
     <div class="form-group col-md-6">
   <label for="date-input"><small>Date of Birth</small></label>
-    <input class="form-control form-control-sm" type="text" name="date" id="date" data-select="datepicker">
+    <input class="form-control form-control-sm" type="text" name="date" id="date" data-select="datepicker" required>
   </div>
     <div class="form-group col-md-6">
       <label for="cellphone"><small>Phone</small></label>
-      <input type="tel" class="form-control form-control-sm" id="cellphone" placeholder="eg. 999-999-9999" name="cellphone">
+      <input type="tel" class="form-control form-control-sm" id="cellphone" autocomplete="off" placeholder="eg. 999-999-9999" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="cellphone" required="">
     </div>
   </div>
   <div class="form-group">
     <label for="address" autocomplete="off"><small>Address</small></label>
-    <input type="text" class="form-control form-control-sm" id="address" placeholder="1234 Main St" name="address">
+    <input type="text" pattern="([A-Za-z0-9\-_]+)" class="form-control form-control-sm" id="address" autocomplete="off" placeholder="1234 Main St" name="address" required>
   </div>
   <div class="form-group">
-    <label for="address2" autocomplete="off"><small>Address 2</small></label>
-    <input type="text" class="form-control form-control-sm" id="address2" placeholder="Apartment, studio, or floor" name="address2">
+    <label for="address2"><small>Address 2</small></label>
+    <input type="text" pattern="([A-Za-z0-9\-_]+)" class="form-control form-control-sm" id="address2" autocomplete="off" placeholder="Apartment, studio, or floor" name="address2">
   </div>
 
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="city" autocomplete="off"><small>City</small></label>
-      <input type="text" class="form-control form-control-sm input-sm" id="city" name="city">
+      <label for="city"><small>City</small></label>
+      <input type="text" pattern="([A-Za-z0-9\-_]+)" class="form-control form-control-sm input-sm" id="city" autocomplete="off" name="city" required>
     </div>
     <div class="form-group col-md-6">
       <label><small>Country</small></label>
-      <select class="form-control form-control-sm input-sm" id="country" name="country" required>
+      <select class="form-control form-control-sm input-sm" id="country" autocomplete="off" name="country" required>
         <option>Choose...</option>
         <?php echo fill_country($dbc); ?> 
       </select>
@@ -389,12 +391,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="form-row">
     <div class="col-md-6 form-group">
     <label><small>Create password</small></label>
-      <input class="form-control form-control-sm" type="password" name="pass">
+      <input class="form-control form-control-sm" type="password" name="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" minlength="8" maxlength="20" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
       <span class="help-block text-light small">Password must be 8-20 characters long</span>
   </div> <!-- form-group end.// -->  
   <div class="col-md-6 form-group">
     <label><small>Confirm password</small></label>
-      <input class="form-control form-control-sm password-input" type="password" name="pass2">
+      <input class="form-control form-control-sm password-input" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" type="password" name="pass2" required>
   </div> 
   </div> 
 

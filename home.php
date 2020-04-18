@@ -13,8 +13,6 @@ include ( 'includes/topbar.php' );
 
 include ( 'includes/header.php' );
 
-
-
 include ('includes/slider1.php'); ?>
 
 

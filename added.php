@@ -31,11 +31,10 @@ if ( mysqli_num_rows( $result ) == 1 )
   if ( isset( $_SESSION['cart'][$pid] ) )
 
   { 
+    
 
     # Add one more of this product.
     $_SESSION['cart'][$pid]['quantity']++; 
-
-
 
 
 
@@ -50,11 +49,10 @@ if ( mysqli_num_rows( $result ) == 1 )
 
   {
 
-
-
+$time = time();
 
     # Or add one of this product to the cart.
-    $_SESSION['cart'][$pid]= array ( 'quantity' => 1, 'price' => $row['product_price'] ) ;
+    $_SESSION['cart'][$pid]= array( 'quantity' => 1, 'price' => $row['product_price'], 'cart_time' => $time ) ;
     echo '<p>A '.$row["product_name"].' has been added to your cart</p>' ;
 
 

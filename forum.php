@@ -13,6 +13,55 @@ include ( 'includes/header.php' ) ;
 # Open database connection.
 require ( 'connect_db.php' ) ;
 
+?>
+
+<div class="container-fluid m-0 p-0">
+
+<div class="text-center">
+
+<div class="container-fluid py-5 bg-dark text-danger">
+	<span class="h2">How to Setup your New Phone ?</span>
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-3">
+	
+</div>
+
+<div class="col-md-6 text-justify">
+
+<div class="text-center py-3">
+<img src="images/setupphone.jpg" class="img-fluid" >
+</div>
+
+<p>
+	What a lovely new iPhone you have! Here’s how to get acquainted with it to ensure a two-to-four year lifetime, give or take, of happiness. Or just one, if you’re an annual upgrade person.</p>
+
+<p>When you turn on your new iPhone, you’ll be greeted by the Setup Assistant, through which you’ll establish essentials like your Wi-Fi network and six-digit passcode, Face ID, your Apple ID and iCloud account, and whether you want to activate Find My Phone and Location Services. You’ll also be asked if you want to set up Siri (you do!), which includes saying a few phrases so the assistant can get to know your voice.</p>
+
+<p>It sounds like a lot of decisions and inputs, but the whole process takes only a few minutes. Better yet, none of these choices are binding; you can find them all again later under Settings.</p>
+
+
+<iframe width="655" height="340" src="https://www.youtube.com/embed/9P_TIzw6nIY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<p class="pt-2">After you’re done with the basics, it’s time to make that beauty truly yours, by topping it off with all of your contacts, apps, and content. You can do this the easy way or the hard way. Which path you choose will likely depend on whether this is your first iPhone or iPad.</p>
+
+<p>If you’re an Apple vet, you can simply select Restore from iCloud Backup or Restore from iTunes Backup (speaking of which, make sure to back up your old device before you do this). Then enter your Apple ID and password, and go grab a peppermint mocha while your iPhone restarts with all of your settings, preferences, apps, and more in place. In other words, it’ll be just like your old device, but … newer.</p>
+
+</div>
+
+<div class="col-md-3">
+	
+</div>
+
+</div>
+
+<?php 
+
 //user clicks Like button
 if(isset($_GET['like'])){
 	$postid = $_GET['like'];
@@ -54,7 +103,6 @@ if(isset($_GET['dislike'])){
 }
 
 
-
 //user clicks unLike button
 if(isset($_GET['unlike'])){
 	$postid = $_GET['unlike'];
@@ -81,19 +129,24 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 {
 ?>
 
-<div class="container-fluid">
+<div class="comments section">
 
 <div class="row">
+
 
 <div class="col-md-3">
 
 </div>	
 
-<div class="col-md-7">	
-  
+
+<div class="col-md-6">
+
+<div class="h2 pb-2">Comments</div>	
+<p class="font-italic pb-2 pl-1"><a href="#typecomment" class="text-decoration-none">Type a comment</a></p>
+
 <?php
-  while ( $row = mysqli_fetch_array( $forumqry, MYSQLI_ASSOC ))
-  {
+
+  while ( $row = mysqli_fetch_array( $forumqry, MYSQLI_ASSOC )){
 	  
 	//processing post date value
 	$now = strtotime(date("m/d/Y h:i:s a", time()));
@@ -118,14 +171,13 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 	}
 ?>
 
-
-<div class="card box-shadow rounded-0 text-dark">
+<div class="card box-shadow rounded-0 text-dark border border-left-0 border-right-0 border-bottom-0">
 	<div class=" my-0 mx-3 card-body">
 			<div class="row my-0">              
 				
 				<label class="text-capitalize pb-0 h5"><img class="rounded-circle" width="50" src="<?php echo "images/"."$user_image" ?>" alt="Image">
 
-		<a href="profile.php?userid=<?php echo $row['user_id']; ?>">
+		<a href="profile.php?userid=<?php echo $row['user_id']; ?>" class="text-decoration-none">
 			<?php echo $row['first_name'] .' '. $row['last_name']; ?>
 		</a>
 
@@ -145,6 +197,34 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 			//assign variable for PostID
 			$likepost = $row['post_id'];
 
+			//like count
+ 			$countsql1 = "SELECT feedback_type, post_id FROM post_feedback WHERE feedback_type = 'like' AND post_id = '$likepost'";
+
+                if ($countqry = mysqli_query($dbc, $countsql1))
+
+                {
+                    // Return the number of rows in result set
+                    $likes = mysqli_num_rows($countqry);
+
+                    mysqli_free_result($countqry);
+
+                }
+
+
+               //dislike count 
+                $countsql2 = "SELECT feedback_type, post_id FROM post_feedback WHERE feedback_type = 'dislike' AND post_id = '$likepost'";
+
+                if ($countqry2 = mysqli_query($dbc, $countsql2))
+
+                {
+                    // Return the number of rows in result set
+                    $dislikes = mysqli_num_rows($countqry2);
+
+                    mysqli_free_result($countqry2);
+
+                }
+
+
 
 			//checking database for a like record
 				$checksql1 = "SELECT * FROM post_feedback WHERE user_id = {$_SESSION[ 'user_id' ]} AND post_id = '$likepost'";
@@ -161,15 +241,15 @@ if ( mysqli_num_rows( $forumqry) > 0 )
                <ul class="list-inline d-sm-flex ml-auto my-0">
                 <li class="list-inline-item">
                   <a class="text-decoration-none text-info" href="forum.php?like=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
-                    <i class="far fa-thumbs-up"></i>
-                    178
+                    <i class="far fa-thumbs-up fa-x1"></i>
+                    <?php echo $likes ?>
                   </a>
                 </li>
 
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" href="href="forum.php?dislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>"">
-                    <i class="far fa-thumbs-down"></i>
-                    34
+                  <a class="text-decoration-none text-info" href="forum.php?dislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                    <i class="far fa-thumbs-down fa-x1"></i>
+                    <?php echo $dislikes ?>
                   </a>
                 </li>
             </div>
@@ -194,15 +274,15 @@ if ( mysqli_num_rows( $forumqry) > 0 )
                <ul class="list-inline d-sm-flex ml-auto my-0">
                 <li class="list-inline-item">
                 	<a class="text-decoration-none text-info" href="forum.php?like=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
-					<i class="far fa-thumbs-up"></i>
-                    178
+					<i class="far fa-thumbs-up fa-x1"></i>
+                    <?php echo $likes ?>
                   </a>
                 </li>
 
                 <li class="list-inline-item">
                   <a class="text-decoration-none text-info" href="forum.php?undislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
-                    <i class="fas fa-thumbs-down"></i>
-                    34
+                    <i class="fas fa-thumbs-down fa-x1"></i>
+                    <?php echo $dislikes ?>
                   </a>
                 </li>
             </div>
@@ -223,16 +303,16 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 			<div class="row">
                <ul class="list-inline d-sm-flex ml-auto my-0">
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" href="forum.php?unlike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
-                    <i class="fas fa-thumbs-up"></i>
-                    178
+                  <a class="text-decoration-none text-info" id="feedback" href="forum.php?unlike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                    <i class="fas fa-thumbs-up fa-x1"></i>
+                    <?php echo $likes ?>
                   </a>
                 </li>
 
                 <li class="list-inline-item">
                   <a class="text-decoration-none text-info" href="forum.php?dislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
-                    <i class="far fa-thumbs-down"></i>
-                    34
+                    <i class="far fa-thumbs-down fa-x1"></i>
+                    <?php echo $dislikes ?>
                   </a>
                 </li>
             </div>
@@ -252,31 +332,68 @@ if ( mysqli_num_rows( $forumqry) > 0 )
   }
 
 ?>
+<?php
+
+				//Posts count all distinct posts from post_feedback table
+
+                $postsql = "SELECT DISTINCT post_id FROM post_feedback";
+
+                if ($postsresults = mysqli_query($dbc, $postsql))
+
+                {
+                    // Return the number of rows in result set
+                    $posts = mysqli_num_rows($postsresults);
+
+                    mysqli_free_result($postsresults);
+
+                }
+?>
 
 
-<div class="col-md-2">
+<hr>
+		
+
+		<p class="font-italic inline-text pl-1 float-left py-3" id="typecomment">Add a comment or <a href="goodbye.php">logout?</a></p>
+
+		<b class="font-italic inline-text font-weight-bold float-right py-3"><?php echo "$posts " . " post(s)"; ?></b>
+
+
+
+
+<div class="col-md-3">
 	
 </div>
-
 </div>
 </div>
 </div>
-
 
 <?php
-}
-else { echo '<p>There are currently no messages.</p>' ; }
 
-# Create navigation links.
-echo '<p><a href="post.php">Post Message</a> | <a href="shop.php">Shop</a> | <a href="home.php">Home</a> | <a href="goodbye.php">Logout</a></p>' ;
+}
+
+else {
+
+ echo '<p>There are currently no messages.</p>' ;
+  }
+?>
+
+<?php include 'includes/post.html'; ?>
+
+</div>
+
+<?php
 
 # Close database connection.
 mysqli_close( $dbc ) ;
-  
+
+?>
+
+
+ <?php 
+
 # Display footer section.
 include ( 'includes/footer.php' ) ;
 
 ?>
-
 
 
