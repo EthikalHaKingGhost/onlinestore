@@ -10,21 +10,9 @@
 }
 </style>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Login</title>
-</head>
-<link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<link rel="stylesheet" href="includes/style.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<body>
-
 <?php # DISPLAY COMPLETE LOGIN PAGE.
 
-# Set page title and display header section.
+	# Set page title and display header section.
 $page_title = 'Login' ;
 
 # Display any error messages if present.
@@ -36,7 +24,20 @@ if ( isset( $errors ) && !empty( $errors ) )
 }
 ?>
 
-<div class="container-fluid text-white pl-5 pr-5">
+<!DOCTYPE html>
+<html>
+<head>
+<title><?php echo $page_title ?></title>
+</head>
+<link rel="stylesheet" type="text/css" href="fonts/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="includes/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<body>
+
+
+<div class="container-fluid text-white pl-5 pr-5 pt-5s">
 
 <div class="text-center">
 

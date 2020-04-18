@@ -98,6 +98,12 @@ span[aria-label]:hover:after {
 
 }
 
+.spacer{
+	padding-bottom: 200px;
+}
+
+
+
  .img-fluid .img-profile {
         width: 150px;
         height: 150px;

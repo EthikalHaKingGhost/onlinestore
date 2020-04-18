@@ -3,6 +3,8 @@
 # Access session.
 session_start() ;
 
+
+
 # Redirect if not logged in.
 if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load() ; }
 
@@ -38,10 +40,10 @@ if ( isset( $_GET['total'] ) && ( $_GET['total'] > 0 ) && (!empty($_SESSION['car
   while ($row = mysqli_fetch_array ($productres, MYSQLI_ASSOC))
   {
 
-    $query = "INSERT INTO order_contents ( order_id, product_id, quantity, price )
+    $query = "INSERT INTO order_contents (order_id, product_id, quantity, price )
     VALUES ( $order_id, ".$row['product_id'].",".$_SESSION['cart'][$row['product_id']]['quantity'].",".$_SESSION['cart'][$row['product_id']]['price'].")" ;
 
-    $result = mysqli_query($dbc,$query);
+    $result = mysqli_query($dbc, $query);
   }
   
   # Close database connection.

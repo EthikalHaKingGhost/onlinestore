@@ -1,7 +1,7 @@
 <?php include "connect_db.php"; ?>
 
 
-<div class="container text-dark">
+<div class="container text-dark pb-5">
 
     <h5 class="pt-5 pb-0 mb-0">Latest Arrivals</h5>
     <label class="figure-caption">View our Latest products</label>

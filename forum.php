@@ -16,7 +16,7 @@ require ( 'connect_db.php' ) ;
 
 ?>
 
-<div class="container-fluid m-0 p-0">
+<div class="container-fluid m-0 p-0 ">
 
 <div class="text-center">
 
@@ -75,7 +75,7 @@ if(isset($_GET['like'])){
 	
 	if($likeqry){
 
-		$dellikesql = "DELETE FROM post_feedback WHERE post_id='$postid' AND user_id = {$_SESSION['user_id']} AND feedback_type = 'dislike'";
+		$dellikesql = "DELETE FROM post_feedback WHERE post_id = '$postid' AND user_id = {$_SESSION['user_id']} AND feedback_type = 'dislike'";
 
 		$dellikeqry = mysqli_query($dbc, $dellikesql);
 	}
@@ -259,14 +259,14 @@ if ( mysqli_num_rows( $forumqry) > 0 )
            <div class="row">
                <ul class="list-inline d-sm-flex ml-auto my-0">
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" id="likes" href="forum.php?like=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                  <a class="text-decoration-none text-info" id="refresh" href="forum.php?like=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
                     <i class="far fa-thumbs-up fa-x1"></i>
                     <?php echo $likes ?>
                   </a>
                 </li>
 
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" id="likes" href="forum.php?dislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                  <a class="text-decoration-none text-info" id="refresh1" href="forum.php?dislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
                     <i class="far fa-thumbs-down fa-x1"></i>
                     <?php echo $dislikes ?>
                   </a>
@@ -292,14 +292,14 @@ if ( mysqli_num_rows( $forumqry) > 0 )
            <div class="row">
                <ul class="list-inline d-sm-flex ml-auto my-0">
                 <li class="list-inline-item">
-                	<a class="text-decoration-none text-info" id="likes" href="forum.php?like=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                	<a class="text-decoration-none text-info" id="refresh" href="forum.php?like=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
 					<i class="far fa-thumbs-up fa-x1"></i>
                     <?php echo $likes ?>
                   </a>
                 </li>
 
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" id="likes" href="forum.php?undislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                  <a class="text-decoration-none text-info" id="refresh" href="forum.php?undislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
                     <i class="fas fa-thumbs-down fa-x1"></i>
                     <?php echo $dislikes ?>
                   </a>
@@ -322,14 +322,14 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 			<div class="row">
                <ul class="list-inline d-sm-flex ml-auto my-0">
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" id="likes" href="forum.php?unlike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                  <a class="text-decoration-none text-info" id="refresh" href="forum.php?unlike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
                     <i class="fas fa-thumbs-up fa-x1"></i>
                     <?php echo $likes ?>
                   </a>
                 </li>
 
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" id="likes" href="forum.php?dislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                  <a class="text-decoration-none text-info" id="refresh" href="forum.php?dislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
                     <i class="far fa-thumbs-down fa-x1"></i>
                     <?php echo $dislikes ?>
                   </a>
@@ -411,6 +411,7 @@ else {
 mysqli_close( $dbc ) ;
 
 ?>
+
 
 
  <?php 

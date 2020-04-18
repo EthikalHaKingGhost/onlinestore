@@ -2,17 +2,17 @@
 
 # Access session.
 session_start() ;
-
+ 
 # Redirect if not logged in.
 if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load() ; }
 
 # Set page title and display header section.
 $page_title = 'Cart' ;
+
 include ( 'includes/header.php' ) ;
 
 
 ?>
-
  <div class="row">
         <div class="col-md-12 pt-3">
             <nav aria-label="breadcrumb">
@@ -52,8 +52,6 @@ $total = 0;
 if (!empty($_SESSION['cart']))
 {
 
-  print_r($_SESSION);
-
   # Connect to the database.
   require ('connect_db.php');
   
@@ -67,7 +65,7 @@ if (!empty($_SESSION['cart']))
 ?>
 
 <form action="cart.php" method="post">
-  <div class="container">
+  <div class="container pb-5">
    <div class="card shopping-cart">
             <div class="card-header bg-dark text-light">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -94,7 +92,6 @@ if (!empty($_SESSION['cart']))
   $price =  $row['product_price'];
   $newsubtotal = number_format($subtotal, 2); 
   $_SESSION['total_price'] = number_format($total, 2);
-
 
 
     # Display the rows:
@@ -137,6 +134,8 @@ if (!empty($_SESSION['cart']))
   </div>
 </div>
 </div>
+</div>
+
 
   <?php
   
@@ -149,8 +148,6 @@ if (!empty($_SESSION['cart']))
 # Display the total.
   ?> 
   
-
-
 <div class="card-footer">
  <div class="row">
   
@@ -158,15 +155,18 @@ if (!empty($_SESSION['cart']))
     <input type="submit" class="btn btn-grad" name="submit" value="Update My Cart">
 </div>
 
-<div class="col-md-9">
+ 
+<div class="col-md-7 p-0 my-auto">
   <span class="float-right">
     Total = <em class=" font-weight-bold">$<?php echo number_format($total, 2); ?></em></span>
  </div>
 
-</div>
+ <div class="col-md-2 pl-2">
+    <a href="checkout.php?total=<?php echo $total; ?>" class="btn btn-success text-white">Checkout<i class="fas fa-cart-arrow-down"></i></a>
 </div>
 
-
+</div>
+</div>
 
 </div>
 </div>
@@ -185,7 +185,7 @@ else
 ?>
 
  <section class="slice sct-color-1">
-                        <div class="container">
+                        <div class="container pb-5">
                             <div class="row justify-content-center">
                                 <div class="col-lg-7">
                                     <div class="text-center">
@@ -212,10 +212,6 @@ else
 }
 
 ?>
-
-
-
-<p><a href="shop.php">Shop</a> | <a href="checkout.php?total='.$total.'">Checkout</a> | <a href="forum.php">Forum</a> | <a href="home.php">Home</a> | <a href="goodbye.php">Logout</a></p>
 
 
 <?php 

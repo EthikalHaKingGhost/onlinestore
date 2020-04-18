@@ -138,6 +138,9 @@ require ('connect_db.php');
 
 
  <div class="col-md-12 pt-3 p-0 m-0">
+    <h5 class="headline">
+          <span>Sorting</span>
+        </h5>
                 <form action="shop.php" method="post">
                     <select class="browser-default custom-select custom-select-sm" name="orderA">
                       <option value="product_name">Name</option>
@@ -210,28 +213,59 @@ require ('connect_db.php');
 </form>
                 
 
-<div class="col-md-12 pt-3">
+<form action="shop.php" method="post">
+    <div class="col-md-12 pt-3 m-0 p-1">
         <h5 class="headline">
           <span>Battery Capacity</span>
         </h5>
-        <div class="checkbox">
-          <input type="checkbox" value="" name="battery" id="shop-filter-checkbox_1" checked="">
-          <label for="shop-filter-checkbox_1">2900mah</label>
+
+        <div class="radio">
+          <input type="radio" value="battery_size >= 1500 AND battery_size <= 3000" name="battery" id="shop-filter-radio" checked>
+          <label for="shop-filter-radio">1500mah - 3000mah</label>
         </div>
-    </div>  
-
-
-    <div class="col-md-12 pt-3">
+        <div class="radio">
+          <input type="radio" value="battery_size >= 3000 AND battery_size <= 4000" name="battery" id="shop-filter-radio">
+          <label for="shop-filter-radio">3000mah - 4000mah</label>
+        </div>
+        <div class="radio">
+          <input type="radio" value="battery_size >= 4000 AND battery_size <= 5000" name="battery" id="shop-filter-radio">
+          <label for="shop-filter-radio">4000mah - 5000mah</label>
+        </div>
+    <div class="form-group shop-filter_price">
+          <div class="row p-0 m-0">
+              <button type="submit" class="btn btn-grad btn-block btn-sm" id="battery">Go</button>
+            </div>
+          </div>
+    </div>    
+</form>
+          
+<form action="shop.php" method="post">
+    <div class="col-md-12 pt-3 m-0 p-1">
         <h5 class="headline">
-          <span>RAM</span>
+          <span>RAM Storage</span>
         </h5>
-        <div class="checkbox">
-          <input type="checkbox" value="" name="" id="shop-filter-checkbox_1" checked="">
-          <label for="shop-filter-checkbox_1">4GB</label>
-        </div>
-    </div>  
-</div>
 
+        <div class="radio">
+          <input type="radio" value="ram >= 2 AND ram <= 4" name="ram" id="shop-filter-radio" checked>
+          <label for="shop-filter-radio">2GB - 4GB</label>
+        </div>
+        <div class="radio">
+          <input type="radio" value="ram >= 4 AND ram <= 6" name="ram" id="shop-filter-radio">
+          <label for="shop-filter-radio">4GB - 6GB</label>
+        </div>
+        <div class="radio">
+          <input type="radio" value="ram >= 6 AND ram <= 8" name="ram" id="shop-filter-radio">
+          <label for="shop-filter-radio">6GB - 8GB</label>
+        </div>
+    <div class="form-group shop-filter_price">
+          <div class="row p-0 m-0">
+              <button type="submit" class="btn btn-grad btn-block btn-sm" id="ram">Go</button>
+            </div>
+          </div>
+    </div>    
+</form>
+
+  </div>
 		<div class="col-md-9">
 			<div class="row">
 

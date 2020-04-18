@@ -52,7 +52,7 @@ if ( mysqli_num_rows( $result ) == 1 )
 $time = time();
 
     # Or add one of this product to the cart.
-    $_SESSION['cart'][$pid]= array( 'quantity' => 1, 'price' => $row['product_price'], 'cart_time' => $time ) ;
+    $_SESSION['cart'][$pid]= array( 'quantity' => 1, 'price' => $row['product_price']) ;
     echo '<p>A '.$row["product_name"].' has been added to your cart</p>' ;
 
 
