@@ -4,7 +4,25 @@
 
 <?php session_start();
 
+$page_title = "{$_SESSION["first_name"]} " . " {$_SESSION["last_name"]}";
+
 include "includes/header.php";
+
+
+?>
+    <div class="row">
+        <div class="col-md-12 pt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-light rounded-0">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-dark">Home</a></li>
+                    <li class="breadcrumb-item"><a href="category.html" class="text-decoration-none text-dark">Category</a></li>
+                    <li class="breadcrumb-item active text_danger font-weight-bold" aria-current="page">Sub-category</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+<?php
+
 
 
 if(isset($_SESSION["user_id"])){
@@ -39,6 +57,7 @@ require ('connect_db.php');
                                 $country = $row["countryname"];
                                 $city = $row["city"];
                                 $user_image = $row["user_image"];
+                                $bio = $row["bio"];
 
                                 $reg_date = $row["reg_date"];
                                 $new_date = date("M jS, Y h:i:s", strtotime("reg_date")); 
@@ -90,6 +109,8 @@ if (!empty($_POST["last_name"])) { $new_last_name = $_POST["last_name"]; }else{$
 
 if (!empty($_POST["title"])) { $new_title = $_POST["title"]; }else{$new_title = $title;}
 
+if (!empty($_POST["bio"])){ $new_bio = $_POST["bio"]; }else{$new_bio = $bio;}
+
 if (!empty($_POST["cellphone"])) { $new_number = $_POST["cellphone"];}else{$new_number = $cellphone;}
 
 if (!empty($_POST["email"])){ $new_email = $_POST["email"]; }else{$new_email = $email;}
@@ -103,7 +124,7 @@ if (!empty($_POST["country"])) { $new_country = $_POST["country"];}else{$new_cou
 if (!empty($_POST["city"])) { $new_city = $_POST["city"];}else{$new_city = $city;}
 
 
-$update = "UPDATE `users` SET `first_name` = '$new_first_name', `last_name` = '$new_last_name', `preferred_title` = '$new_title', `cellphone` = '$new_number', `email` = '$new_email', `address` = '$new_address', `address2` = '$new_address2', `countryname` = '$new_country', `city` = '$new_city' WHERE `users`.`user_id` = '$user_id'";
+$update = "UPDATE `users` SET `first_name` = '$new_first_name', `last_name` = '$new_last_name', `preferred_title` = '$new_title', `cellphone` = '$new_number', `email` = '$new_email', `address` = '$new_address', `address2` = '$new_address2', `countryname` = '$new_country', `city` = '$new_city', `bio` = '$new_bio' WHERE `users`.`user_id` = '$user_id'";
 
 echo "<meta http-equiv='refresh' content='3'>";
 
@@ -234,10 +255,10 @@ if ($uploadOk == 1){
 
                 <hr class="bg-white">
 
-        <form action="user-profile.php" id="profileimg" method="post">
+        <form action="user-profile.php" id="userupdate" method="post">
 
                 <div class="form-group row">
-                            <label for="colFormLabel" class="col-sm-2 col-form-label">Preferred Title</label>
+                            <label for="title" class="col-sm-2 col-form-label">Preferred Title</label>
                             <div class="col-sm-10">
                             <select class="form-control" id="title" name="title">           
                                 <option><?php echo $title; ?> </option>
@@ -268,23 +289,31 @@ if ($uploadOk == 1){
                     </div>
 
                     <div class="form-group row">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">First Name</label>
+                        <label for="fname" class="col-sm-2 col-form-label">First Name</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control text-capitalize" id="colFormLabel" value="<?php echo $first_name; ?>" name="first_name">
+                          <input type="text" class="form-control text-capitalize" pattern="[a-zA-Z]+" id="fname" value="<?php echo $first_name; ?>" name="first_name">
                         </div>
                     </div>
 
                       <div class="form-group row">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Last Name</label>
+                        <label for="lname" class="col-sm-2 col-form-label">Last Name</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control text-capitalize" id="colFormLabel" Value="<?php echo $last_name; ?>" name="last_name">
+                          <input type="text" class="form-control text-capitalize" pattern="[a-zA-Z]+" id="lname" Value="<?php echo $last_name; ?>" name="last_name">
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="bio" class="col-sm-2 col-form-label">About You</label>
+                        <div class="col-sm-10">
+                          <textarea type="text" maxlength="350" minlength="20" rows="5" cols="45" class="form-control text-capitalize"  id="bio" name="bio"><?php echo $bio; ?></textarea>
+                          <label  class="figure-caption">Maximum 350 characters long.</label>
                         </div>
                       </div>
 
                     <div class="form-group row">
-                      <label for="colFormLabel" class="col-sm-2 col-form-label">Date of Birth</label>
+                      <label for="birthday" class="col-sm-2 col-form-label">Date of Birth</label>
                       <div class="col-sm-10">
-                        <input class="form-control" type="text" name="date" value="<?php echo $dateofbirth ?>" disabled>
+                        <input class="form-control" type="text" id="birthday" name="date" value="<?php echo $dateofbirth ?>" disabled>
                       </div>
                     </div>
 
@@ -293,17 +322,17 @@ if ($uploadOk == 1){
                 <hr class="bg-white">
 
                 <div class="form-group row">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Email</label>
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="colFormLabel" value="<?php echo $email; ?>" name="email">
+                          <input type="email" class="form-control" pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$" id="email" value="<?php echo $email; ?>" name="email">
                         </div>
                     </div>
                 
 
                 <div class="form-group row">
-                          <label for="colFormLabel" class="col-sm-2 col-form-label">Cellphone</label>
+                          <label for="cellphone" class="col-sm-2 col-form-label">Cellphone</label>
                           <div class="col-sm-10">
-                          <input type="tel" class="form-control" id="cellphone" placeholder="eg. 999-999-9999" name="cellphone" value="<?php echo $cellphone; ?>">
+                          <input type="tel" class="form-control" id="cellphone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="eg. 999-999-9999" name="cellphone" value="<?php echo $cellphone; ?>">
                     </div>
                 </div>
 
@@ -314,30 +343,30 @@ if ($uploadOk == 1){
 
   
                   <div class="form-group row">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Address 1</label>
+                    <label for="address" class="col-sm-2 col-form-label">Address 1</label>
                     <div class="col-sm-10">
-                    <input type="text" class="form-control" id="colFormLabel" value="<?php echo $address; ?>" name="address">
+                    <input type="text" pattern="[A-Za-z0-9\-_]+" class="form-control" id="address" value="<?php echo $address; ?>" name="address">
                   </div>
                   </div>
 
                   <div class="form-group row">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Address 2</label>
+                    <label for="address2" class="col-sm-2 col-form-label">Address 2</label>
                     <div class="col-sm-10">
-                    <input type="text" class="form-control" id="colFormLabel" value="<?php echo $address2; ?>" name="address2">
+                    <input type="text" pattern="[A-Za-z0-9\-_]+" class="form-control" id="address2" value="<?php echo $address2; ?>" name="address2">
                   </div>
               </div>
 
                     <div class="form-group row">
-                      <label for="colFormLabel" class="col-sm-2 col-form-label">City</label>
+                      <label for="city" class="col-sm-2 col-form-label">City</label>
                       <div class="col-sm-10">
-                      <input type="text" class="form-control text-capitalize" id="colFormLabel" name="city" value="<?php echo $city; ?>">
+                      <input type="text" pattern="[A-Za-z0-9\-_]+" class="form-control text-capitalize" id="city" name="city" value="<?php echo $city; ?>">
                     </div>
                 </div>
 
                      <div class="form-group row">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Country</label>
+                        <label for="country" class="col-sm-2 col-form-label">Country</label>
                         <div class="col-sm-10">
-                          <select class="form-control input-sm" id="colFormLabel" name="country">
+                          <select class="form-control input-sm" id="country" name="country">
                             <option><?php echo $country; ?></option>
                             <option disabled>_________</option>
                             <?php 
@@ -377,7 +406,6 @@ if ($uploadOk == 1){
         </div>
     </div>
 </form>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
