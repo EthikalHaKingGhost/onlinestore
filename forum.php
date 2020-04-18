@@ -8,6 +8,7 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load()
 
 # Set page title and display header section.
 $page_title = 'Forum' ;
+
 include ( 'includes/header.php' ) ;
 
 # Open database connection.
@@ -64,6 +65,7 @@ require ( 'connect_db.php' ) ;
 
 //user clicks Like button
 if(isset($_GET['like'])){
+
 	$postid = $_GET['like'];
 	
 	//like record insertion
@@ -105,6 +107,7 @@ if(isset($_GET['dislike'])){
 
 //user clicks unLike button
 if(isset($_GET['unlike'])){
+
 	$postid = $_GET['unlike'];
 	
 		$delunlikesql = "DELETE FROM post_feedback WHERE post_id='$postid' AND user_id = {$_SESSION['user_id']} AND feedback_type = 'like'";
@@ -114,6 +117,7 @@ if(isset($_GET['unlike'])){
 
 //user clicks unLike button
 if(isset($_GET['undislike'])){
+
 	$postid = $_GET['undislike'];
 	
 		$delundislikesql = "DELETE FROM post_feedback WHERE post_id='$postid' AND user_id = {$_SESSION['user_id']} AND feedback_type = 'dislike'";
@@ -122,11 +126,14 @@ if(isset($_GET['undislike'])){
 }
 
 
-# Display body section, retrieving from 'forum' database table.
-$forumsql = "SELECT * FROM forum" ;
+# Display body section, retrieving from 'forum and users table for extra validation.
+$forumsql = "SELECT * FROM forum, users WHERE users.user_id = forum.user_id ORDER BY `forum`.`post_date` DESC";
 $forumqry = mysqli_query( $dbc, $forumsql ) ;
 if ( mysqli_num_rows( $forumqry) > 0 )
+
 {
+
+
 ?>
 
 <div class="comments section">
@@ -141,12 +148,15 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 
 <div class="col-md-6">
 
-<div class="h2 pb-2">Comments</div>	
+<h2 class="h2 pb-2">Comments</h2>
+
 <p class="font-italic pb-2 pl-1"><a href="#typecomment" class="text-decoration-none">Type a comment</a></p>
 
 <?php
 
   while ( $row = mysqli_fetch_array( $forumqry, MYSQLI_ASSOC )){
+
+  	$postuser = $row["user_id"];
 	  
 	//processing post date value
 	$now = strtotime(date("m/d/Y h:i:s a", time()));
@@ -171,26 +181,35 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 	}
 ?>
 
-<div class="card box-shadow rounded-0 text-dark border border-left-0 border-right-0 border-bottom-0">
-	<div class=" my-0 mx-3 card-body">
-			<div class="row my-0">              
-				
-				<label class="text-capitalize pb-0 h5"><img class="rounded-circle" width="50" src="<?php echo "images/"."$user_image" ?>" alt="Image">
+<hr>
+<div class="row pl-2 pr-3">
 
+	<div class="col-sm-2">
+		<img class="rounded-circle" width="50" height="50px" src="<?php echo $user_image; ?>" alt="Image">
+	</div>
+
+
+<div class="col-sm-10">
+
+<div class="row pr-3">
+
+	<div class="text-capitalize h5">
 		<a href="profile.php?userid=<?php echo $row['user_id']; ?>" class="text-decoration-none">
 			<?php echo $row['first_name'] .' '. $row['last_name']; ?>
 		</a>
 
-		<span class="text-muted text-lowercase mt-0 pt-0 small"><?php echo $posted ?></span></label>
+		<span class="text-muted text-lowercase small"><?php echo $posted ?></span>
 
-            </div>
+	</div>
+</div>
+            
             
           	<div class="row">
 			<p class="list-inline-item m-0 font-weight-bold text-capitalize"><?php echo $row['subject']; ?></p>
         	</div>
 
         	<div class="row">
-              <p class="text-justify"><?php echo $row['message']; ?></p>
+              <p class="text-justify font-italic"><?php echo $row['message']; ?></p>
             </div>
 
             <?php 
@@ -240,14 +259,14 @@ if ( mysqli_num_rows( $forumqry) > 0 )
            <div class="row">
                <ul class="list-inline d-sm-flex ml-auto my-0">
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" href="forum.php?like=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                  <a class="text-decoration-none text-info" id="likes" href="forum.php?like=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
                     <i class="far fa-thumbs-up fa-x1"></i>
                     <?php echo $likes ?>
                   </a>
                 </li>
 
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" href="forum.php?dislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                  <a class="text-decoration-none text-info" id="likes" href="forum.php?dislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
                     <i class="far fa-thumbs-down fa-x1"></i>
                     <?php echo $dislikes ?>
                   </a>
@@ -273,14 +292,14 @@ if ( mysqli_num_rows( $forumqry) > 0 )
            <div class="row">
                <ul class="list-inline d-sm-flex ml-auto my-0">
                 <li class="list-inline-item">
-                	<a class="text-decoration-none text-info" href="forum.php?like=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                	<a class="text-decoration-none text-info" id="likes" href="forum.php?like=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
 					<i class="far fa-thumbs-up fa-x1"></i>
                     <?php echo $likes ?>
                   </a>
                 </li>
 
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" href="forum.php?undislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                  <a class="text-decoration-none text-info" id="likes" href="forum.php?undislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
                     <i class="fas fa-thumbs-down fa-x1"></i>
                     <?php echo $dislikes ?>
                   </a>
@@ -303,14 +322,14 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 			<div class="row">
                <ul class="list-inline d-sm-flex ml-auto my-0">
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" id="feedback" href="forum.php?unlike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                  <a class="text-decoration-none text-info" id="likes" href="forum.php?unlike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
                     <i class="fas fa-thumbs-up fa-x1"></i>
                     <?php echo $likes ?>
                   </a>
                 </li>
 
                 <li class="list-inline-item">
-                  <a class="text-decoration-none text-info" href="forum.php?dislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
+                  <a class="text-decoration-none text-info" id="likes" href="forum.php?dislike=<?php echo $row['post_id']; ?>" title="PostID=<?php echo $row['post_id']; ?>">
                     <i class="far fa-thumbs-down fa-x1"></i>
                     <?php echo $dislikes ?>
                   </a>
@@ -324,7 +343,8 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 
 				}
 					?>
-				</div>
+
+					</div>				
 			</div>
 
 <?php
@@ -336,7 +356,7 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 
 				//Posts count all distinct posts from post_feedback table
 
-                $postsql = "SELECT DISTINCT post_id FROM post_feedback";
+                $postsql = "SELECT post_id FROM forum";
 
                 if ($postsresults = mysqli_query($dbc, $postsql))
 
@@ -350,19 +370,23 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 ?>
 
 
-<hr>
-		
+			<hr>
 
+<div class="row p-1">
+<div class="col">
 		<p class="font-italic inline-text pl-1 float-left py-3" id="typecomment">Add a comment or <a href="goodbye.php">logout?</a></p>
 
 		<b class="font-italic inline-text font-weight-bold float-right py-3"><?php echo "$posts " . " post(s)"; ?></b>
+</div>
+</div>
 
 
 
 
+
+</div>
 <div class="col-md-3">
 	
-</div>
 </div>
 </div>
 </div>
@@ -395,5 +419,6 @@ mysqli_close( $dbc ) ;
 include ( 'includes/footer.php' ) ;
 
 ?>
+
 
 

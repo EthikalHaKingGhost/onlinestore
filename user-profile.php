@@ -4,10 +4,11 @@
 
 <?php session_start();
 
+if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load() ; }
+
 $page_title = "{$_SESSION["first_name"]} " . " {$_SESSION["last_name"]}";
 
 include "includes/header.php";
-
 
 ?>
     <div class="row">
