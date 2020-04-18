@@ -15,19 +15,20 @@
 
 	if (isset($_GET["pid"])){
 
-		$idforcat = $_GET["pid"];
+		$idforpro = $_GET["pid"];
 		
-		$idforcatsql = "SELECT product_name, category FROM products, product_category, category_assign WHERE products.product_id = '$idforcat' AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id";
+		$idforprosql = "SELECT product_name, category, product_category.category_id FROM products, product_category, category_assign WHERE products.product_id = '$idforpro' AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id";
 
-		$idforcatresult = mysqli_query($dbc, $idforcatsql);
+		$idforproresult = mysqli_query($dbc, $idforprosql);
 
-		if (mysqli_num_rows($idforcatresult) > 0) {
+		if (mysqli_num_rows($idforproresult) > 0) {
 		    // output data of each row
-		    while($row = mysqli_fetch_assoc($idforcatresult)) {
+		    while($row = mysqli_fetch_assoc($idforproresult)) {
 			
 
 			$nameforcat = $row["product_name"];
 			$catforpro = $row["category"];
+			$catid = $row['category_id'];
 
 		}
 		
@@ -46,7 +47,7 @@ mysqli_close($dbc);
                 <ol class="breadcrumb bg-light rounded-0">
                     <li class="breadcrumb-item"><a href="home.php" class="text-decoration-none text-dark">Home</a></li>
                     <li class="breadcrumb-item"><a href="shop.php" class="text-decoration-none text-dark">Shop</a></li>
-                    <li class="breadcrumb-item"><a href="shop.php?cid=<?php echo $idforcat; ?>" class="text-decoration-none text-dark"><?php echo $catforpro ?></a></li>
+                    <li class="breadcrumb-item"><a href="shop.php?cid=<?php echo $catid; ?>" class="text-decoration-none text-dark"><?php echo $catforpro ?></a></li>
                     <li class="breadcrumb-item active text-danger font-weight-bold" aria-current="page"><?php echo $nameforcat; ?></li>
                 </ol>
             </nav>
@@ -80,7 +81,8 @@ mysqli_close($dbc);
 
 
 	//sql statement using parameter as criteria
-	$query = "SELECT * FROM products, product_category, category_assign WHERE products.product_id = '$product_id' AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id";
+
+	$query = "SELECT * FROM products, product_category, category_assign, images  WHERE products.product_id = '$product_id' AND products.product_id = images.product_id  AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id";
 	
 	//create query to execute sql on db
 	$query = mysqli_query($dbc, $query);
@@ -102,6 +104,10 @@ mysqli_close($dbc);
                   $sale_price = $row["sale_price"];
                   $category = $row["category"];
                   $category_id = $row["category_id"];
+                  $image_1 = $row["image_1"];
+                  $image_2 = $row["image_2"];
+                  $image_3 = $row["image_3"];
+        
 
 		}
 
@@ -111,13 +117,38 @@ mysqli_close($dbc);
 
 		?>
 
+
+<!--- image slider for detail page ---->
+
+
 		<div class="container-fluid pt-5 text-dark">
 
-		<div class="row">
+		<div class="row m-0 p-0">
 		<!-- creating structure for single item -->
-		<div class="col-md-4 text-center">
-			<img class="img-thumbnail" src="images/<?php echo $product_image; ?>" width="350" height="350" />
-		</div>
+<div class="col-md-5 m-0 p-0 justify-content-center">
+
+<div class=" m-0 p-0 row">
+
+
+<!-------------------- Image carousel for products ------------------>
+
+			<div class="col-md-3 pl-3 justify-content-center">
+
+			<div class="row pl-5 pb-2"><a class="img1" href="images/<?php echo $image_1 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_1 ?>"></a></div>
+
+			<div class="row pl-5 pb-2"><a class="img1" href="images/<?php echo $image_2 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_2 ?>"></a></div>
+
+			<div class="row pl-5 pb-2"><a class="img1" href="images/<?php echo $image_3 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_3 ?>"></a>
+
+			</div>
+			</div>
+
+			<div class="col-md-9 p-0 m-0 imgBox">
+			<img class="img-thumbnail p-0 m-0" src="images/<?php echo $image_1 ?>" width="400" height="400"/>
+			</div>
+			</div>
+			</div>
+			
 		
 		<div class="col-md-4">
 			<h2 class="text-uppercase"><?php echo $product_name; ?></h2>
@@ -135,7 +166,7 @@ mysqli_close($dbc);
 			</ul>
 		</div>
 		
-		<div class="col-md-4 pl-5">
+		<div class="col-md-3 pl-3">
 			<div class="card" style="width: 18rem;">
 			  <div class="card-body text-dark">
 				<h5 class="card-title"><?php echo $category; ?></h5>
@@ -242,5 +273,25 @@ mysqli_close($dbc);
 </div>
 </div>
 
+
+
 <?php include ( 'includes/footer.php' ) ; ?>
-	
+
+
+<!----JQuery for Product images and thumbnails----->
+
+<script type="text/javascript">
+
+//setting up function
+$(document).ready(function(){ 
+
+//mouse hover to activate function
+$('.img1').mouseover(function(e){ 
+e.preventDefault();
+
+//change the image in the image box 
+$('.imgBox img').attr("src", $(this).attr("href")); 
+  });
+  
+});
+</script>
