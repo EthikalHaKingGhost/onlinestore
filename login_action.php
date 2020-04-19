@@ -29,6 +29,10 @@ echo "passthrough";
     $_SESSION[ 'login_time' ] = $data[ 'login_time' ] ;
     $_SESSION[ 'usertype' ] = $data[ 'usertype' ] ;
     $_SESSION[ 'user_image' ] = $data[ 'user_image' ] ;
+    $_SESSION["address"] = $data[ 'address' ] ;
+    $_SESSION["address2"] = $data[ 'address2' ] ;
+    $_SESSION["country"] = $data[ 'countryname' ] ;
+    $_SESSION["city"] = $data[ 'city' ] ;
     $user_id = $_SESSION[ 'user_id' ];
 
     print_r ($_SESSION[ 'usertype' ]);

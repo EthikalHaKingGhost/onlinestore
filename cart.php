@@ -89,9 +89,17 @@ if (!empty($_SESSION['cart']))
     $name =  $row['product_name'];
    $new_quantity =  "qty[{$row["product_id"]}]";
    $quantity = $_SESSION['cart'][$row['product_id']]['quantity'];
-  $price =  $row['product_price'];
-  $newsubtotal = number_format($subtotal, 2); 
-  $_SESSION['total_price'] = number_format($total, 2);
+   $newsubtotal = number_format($subtotal, 2); 
+   $_SESSION['total_price'] = number_format($total, 2);
+
+   if ($row['sale_price'] > 0) {
+
+      $price = $row['sale_price'];
+      
+    }else{
+
+      $price = $row['product_price'];
+    }
 
 
     # Display the rows:
@@ -134,7 +142,7 @@ if (!empty($_SESSION['cart']))
   </div>
 </div>
 </div>
-</div>
+
 
 
   <?php
@@ -147,27 +155,26 @@ if (!empty($_SESSION['cart']))
 
 # Display the total.
   ?> 
-  
-<div class="card-footer">
- <div class="row">
-  
-  <div class="col-md-3">
-    <input type="submit" class="btn btn-grad" name="submit" value="Update My Cart">
+
 </div>
+<div class="card-footer">
+  
+    <input type="submit" class="btn btn-grad" name="submit" value="Update My Cart">
+
+
+    <a href="checkout.php?total=<?php echo $total; ?>" class="btn btn-success text-white">Checkout<i class="fas fa-cart-arrow-down"></i></a>
+
 
  
-<div class="col-md-7 p-0 my-auto">
-  <span class="float-right">
+<div class="my-auto float-right">
     Total = <em class=" font-weight-bold">$<?php echo number_format($total, 2); ?></em></span>
  </div>
 
- <div class="col-md-2 pl-2">
-    <a href="checkout.php?total=<?php echo $total; ?>" class="btn btn-success text-white">Checkout<i class="fas fa-cart-arrow-down"></i></a>
+ 
+
 </div>
 
 </div>
-</div>
-
 </div>
 </div>
 </form>

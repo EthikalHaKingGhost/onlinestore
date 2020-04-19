@@ -58,6 +58,19 @@ if ( isset( $_GET['total'] ) && ( $_GET['total'] > 0 ) && (!empty($_SESSION['car
   # Display order number.
   echo "<p>Thanks for your order. Your Order Number Is #".$order_id."</p>";
 
+
+
+
+
+
+
+
+
+
+
+
+  
+
   # Remove cart items.  
   $_SESSION['cart'] = NULL ;
 }

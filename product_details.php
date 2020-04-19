@@ -13,6 +13,7 @@
 
 		require 'connect_db.php';
 
+
 	if (isset($_GET["pid"])){
 
 		$idforpro = $_GET["pid"];
@@ -96,7 +97,6 @@ mysqli_close($dbc);
 	}
 
 
-
 	//sql statement using parameter as criteria
 
 	$query = "SELECT * FROM products, product_category, category_assign, images  WHERE products.product_id = '$product_id' AND products.product_id = images.product_id  AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id";
@@ -132,30 +132,78 @@ mysqli_close($dbc);
 			echo "no data to display";
 		}
 
-		?>
 
+//product add to cart create session for product quantity
+
+?>
 
 <!--- image slider for detail page ---->
+<div class="container-fluid pt-3 text-dark">
+
+<!--- Pagination for switching product ---->
+  <div class="row">
+
+          <?php 
+
+  $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
+
+  $sql ="SELECT * FROM products WHERE product_id < $product_id ORDER BY product_id DESC LIMIT 1";
+      $query = mysqli_query($dbconnect, $sql);
+          if($query){
+            while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
+                
+              $prevproduct_id = $row["product_id"];
+
+              }
+
+              }
+
+            ?>
+<div class="col-md-12 pb-4">
+<div class="float-right">
+ <a href="product_details.php?pid=<?php echo $prevproduct_id; ?>" title="previous product" class="btn btn-dark rounded"><i class="fas fa-angle-left fa-2x text-light"></i></a>
 
 
-		<div class="container-fluid pt-5 text-dark">
 
-		<div class="row m-0 p-0">
+
+
+<?php 
+
+$dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
+
+  $sql ="SELECT * FROM products WHERE product_id > $product_id ORDER BY product_id ASC LIMIT 1";
+      $query = mysqli_query($dbconnect, $sql);
+          if($query){
+            while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
+                
+              $nextproduct_id = $row["product_id"];
+
+              }
+
+              }
+
+            ?>
+
+<a href="product_details.php?pid=<?php echo $nextproduct_id; ?>" title="Next product" class="btn btn-dark rounded"><i class="fas fa-angle-right fa-2x text-light"></i></a>
+</div>
+</div>
+</div>
+
+<div class="row m-0 p-0">
 		<!-- creating structure for single item -->
 <div class="col-md-5 m-0 p-0 justify-content-center">
 
 <div class=" m-0 p-0 row">
 
-
 <!-------------------- Image carousel for products ------------------>
 
 			<div class="col-md-3 pl-3 justify-content-center">
 
-			<div class="row pl-5 pb-2"><a class="img1" href="images/<?php echo $image_1 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_1 ?>"></a></div>
+			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="images/<?php echo $image_1 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_1 ?>"></a></div>
 
-			<div class="row pl-5 pb-2"><a class="img1" href="images/<?php echo $image_2 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_2 ?>"></a></div>
+			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="images/<?php echo $image_2 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_2 ?>"></a></div>
 
-			<div class="row pl-5 pb-2"><a class="img1" href="images/<?php echo $image_3 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_3 ?>"></a>
+			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="images/<?php echo $image_3 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_3 ?>"></a>
 
 			</div>
 			</div>
@@ -182,27 +230,69 @@ mysqli_close($dbc);
 		    </li>	
 			</ul>
 		</div>
-		
-		<div class="col-md-3 pl-3">
-			<div class="card" style="width: 18rem;">
-			  <div class="card-body text-dark">
-				<h5 class="card-title"><?php echo $category; ?></h5>
-				<h5 class="font-weight-bold">Price: <?php 
+
+
+		<div class="col-md-3">
+
+
+			<div class="card">
+				
+
+
+			  	<div class="card-body text-dark">
+
+
+
+			  	
+				<div class="card-title font-weight-bold font-italic text-danger">Brand: <?php echo $category; ?></div>
+				
+
+				<h6>Product will be Shipped to:</h6>
+
+				<hr>
+
+				<p class="figure-caption">
+				Address: <?php echo  $_SESSION["address"]; ?>
+				</p>
+
+
+				<p class="figure-caption">
+				Address #2: <?php echo  $_SESSION["address2"]; ?>
+				</p>
+
+				
+				<p class="figure-caption">
+				Country: <?php echo  $_SESSION["country"]; ?>
+				</p>
+
+				<p class="figure-caption">
+				City: <?php echo  $_SESSION["city"]; ?>
+				</p>
+
+				<hr>
+
+				<div class="font-weight-bold">
+
+				<?php 
+
                     if($sale_price <> 0 ){
 
-                    echo '<s class="text-dark h5" "> $'.$product_price. ' TTD </s>';
+                    echo '<s class="text-dark h5"> $'.$product_price. ' TTD </s>';
 
                   }else{
 
-                    echo '<span class="text-dark font-weight-bold h4"> $'.$product_price. ' TTD </span>'; 
+                    echo '<span class="text-dark font-weight-bold h5"> $'.$product_price. ' TTD </span>'; 
                     
                   }
                   ?>
 
+               </div>
+
+
+
         <!----remove sale price when value is 0 ------>
 
-            <span class="text-danger font-weight-bold h4"> 
-
+            <h5 class="text-danger font-weight-bold"> 
                     <?php 
 
                     if($sale_price != 0){
@@ -216,13 +306,34 @@ mysqli_close($dbc);
 
                       ?>
 
-             </span>
-         </h5>
-				<a href="added.php?add=<?php echo $product_id; ?>" class="btn btn-warning text-dark">Add to Cart<br/></a>
-			  </div>
+            </h5>
+         </div>
+
+ 
+
+           <form action="added.php" method="get">
+          
+			<div class="text-center">
+  			  <label>Quantity</label>
+  			  	<div class="col-md-4 offset-md-4"> 
+				  <input for="cartitems" class="form-control form-control-sm text-center" value="1" type="number" name="qnty" title="set number of products">
+				</div>
 			</div>
+
+			 <hr>
+
+			  
+				<button class="btn btn-warning btn-sm btn-block text-light" type="submit" id="cartitems" name="add" value="<?php echo $product_id ?>">Add to Cart</button>
+			
+
+				<a href="shop.php" class="btn btn-danger btn-sm text-white btn-block">Continue Shopping</a>
+		
+
+		 </form>
 		</div>
 		</div>
+	</div>
+
 
 		<hr>
 		
@@ -285,8 +396,6 @@ mysqli_close($dbc);
 		<hr>
 
 		<div class="row text-centerp-5">
-
-			
 
 		</div>
 </div>
