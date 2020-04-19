@@ -41,6 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     $forumres = mysqli_query ( $dbc, $forumsql ) ;
 
+
+    $fullname = $_SESSION['first_name']." ".$_SESSION['last_name'];
+
+    $postid = mysqli_insert_id($dbc);
+
+    $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$postid', 'postedmessage', current_timestamp());";
+
+      $activity_qry = mysqli_query($dbc, $activity);
+
+
     # Report error on failure.
     if (mysqli_affected_rows($dbc) != 1) { echo '<p>Error</p>'.mysqli_error($dbc); } else { load('forum.php'); }
     

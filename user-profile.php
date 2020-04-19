@@ -127,6 +127,15 @@ if (!empty($_POST["city"])) { $new_city = $_POST["city"];}else{$new_city = $city
 
 $update = "UPDATE `users` SET `first_name` = '$new_first_name', `last_name` = '$new_last_name', `preferred_title` = '$new_title', `cellphone` = '$new_number', `email` = '$new_email', `address` = '$new_address', `address2` = '$new_address2', `countryname` = '$new_country', `city` = '$new_city', `bio` = '$new_bio' WHERE `users`.`user_id` = '$user_id'";
 
+//updated profile activity
+
+    $fullname = $first_name." ".$last_name;
+
+    $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '{$_SESSION["user_id"]}', 'updatedprofile', current_timestamp());";
+
+      $activity_qry = mysqli_query($dbc, $activity);
+
+
 echo "<meta http-equiv='refresh' content='3'>";
 
 if (mysqli_query($dbc, $update)) {
@@ -151,12 +160,6 @@ if(isset($_POST["uploadimg"])) {
     $uploadOk = 1;
 
 if ($_FILES['fileToUpload']['error'] == 0){
-
-
-echo '<div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Message!</strong> the file is ok to upload.
-            </div>';
   
     require ('upload.php');
 
@@ -171,6 +174,14 @@ echo '<div class="alert alert-danger alert-dismissible">
 if ($uploadOk == 1){
 
         $sql = "UPDATE `users` SET `user_image` = '$target_file' WHERE `users`.`user_id` = '$user_id';";
+
+
+        $fullname = $first_name." ".$last_name;
+
+        $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '$user_id', '$fullname', '$user_image', '$user_id', 'updateprofilepic', current_timestamp());";
+
+      $activity_qry = mysqli_query($dbc, $activity);
+
 
         echo "<meta http-equiv='refresh' content='3'>";
 
@@ -245,7 +256,23 @@ if ($uploadOk == 1){
                     <label> <strong><?php echo "$title " . " $first_name " . " $last_name" ?></strong></label>
                     <label><em><?php echo $email; ?></em></label>
                     <label><small>Last Logged in:</small><small class="text-muted"> <?php echo $login_date ?></small></label>
-                    <div><h5>Profile <span class="badge badge-danger">Admin</span></h5></div>  
+                    <div><h5>Profile <span class="badge badge-danger">
+
+                    <?php
+
+                    if (!empty($_SESSION["usertype"])) {
+                        
+                        $usertype = $_SESSION["usertype"];
+
+                        echo $usertype;
+
+                    }else{
+
+                        echo "unknown";
+                    }
+?>
+
+                    </span></h5></div>  
             </div>
         </div>
             <div class="col-md-9">
@@ -306,7 +333,7 @@ if ($uploadOk == 1){
                       <div class="form-group row">
                         <label for="bio" class="col-sm-2 col-form-label">About You</label>
                         <div class="col-sm-10">
-                          <textarea type="text" maxlength="350" minlength="20" rows="5" cols="45" class="form-control text-capitalize"  id="bio" name="bio"><?php echo $bio; ?></textarea>
+                          <textarea type="text" maxlength="350" minlength="20" rows="5" cols="45" class="form-control font-italic"  id="bio" name="bio"><?php echo $bio; ?></textarea>
                           <label  class="figure-caption">Maximum 350 characters long.</label>
                         </div>
                       </div>
@@ -346,21 +373,21 @@ if ($uploadOk == 1){
                   <div class="form-group row">
                     <label for="address" class="col-sm-2 col-form-label">Address 1</label>
                     <div class="col-sm-10">
-                    <input type="text" pattern="[A-Za-z0-9\-_]+" class="form-control" id="address" value="<?php echo $address; ?>" name="address">
+                    <input type="text" pattern="([^\s][A-z0-9À-ž\s]+)" class="form-control" id="address" value="<?php echo $address; ?>" name="address">
                   </div>
                   </div>
 
                   <div class="form-group row">
                     <label for="address2" class="col-sm-2 col-form-label">Address 2</label>
                     <div class="col-sm-10">
-                    <input type="text" pattern="[A-Za-z0-9\-_]+" class="form-control" id="address2" value="<?php echo $address2; ?>" name="address2">
+                    <input type="text" pattern="([^\s][A-z0-9À-ž\s]+)" class="form-control" id="address2" value="<?php echo $address2; ?>" name="address2">
                   </div>
               </div>
 
                     <div class="form-group row">
                       <label for="city" class="col-sm-2 col-form-label">City</label>
                       <div class="col-sm-10">
-                      <input type="text" pattern="[A-Za-z0-9\-_]+" class="form-control text-capitalize" id="city" name="city" value="<?php echo $city; ?>">
+                      <input type="text" pattern="([^\s][A-z0-9À-ž\s]+)" class="form-control text-capitalize" id="city" name="city" value="<?php echo $city; ?>">
                     </div>
                 </div>
 

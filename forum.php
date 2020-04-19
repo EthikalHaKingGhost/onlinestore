@@ -63,6 +63,9 @@ require ( 'connect_db.php' ) ;
 
 <?php 
 
+
+$fullname = $_SESSION["first_name"]." ".$_SESSION["last_name"];
+
 //user clicks Like button
 if(isset($_GET['like'])){
 
@@ -78,6 +81,12 @@ if(isset($_GET['like'])){
 		$dellikesql = "DELETE FROM post_feedback WHERE post_id = '$postid' AND user_id = {$_SESSION['user_id']} AND feedback_type = 'dislike'";
 
 		$dellikeqry = mysqli_query($dbc, $dellikesql);
+
+
+  		$activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$postid', 'liked', current_timestamp());";
+
+  		$activity_qry = mysqli_query($dbc, $activity);
+
 	}
 
 	else { echo "We were unable to record your like feedback "; }
@@ -98,6 +107,11 @@ if(isset($_GET['dislike'])){
 		$deldislikesql = "DELETE FROM post_feedback WHERE post_id = '$postid' AND user_id = {$_SESSION['user_id']} AND feedback_type = 'like'";
 
 		$deldislikeqry = mysqli_query($dbc, $deldislikesql);
+
+		$activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$postid', 'disliked', current_timestamp());";
+
+  		$activity_qry = mysqli_query($dbc, $activity);
+
 	}
 
 	else { echo "We were unable to record your feedback "; }
@@ -113,7 +127,13 @@ if(isset($_GET['unlike'])){
 		$delunlikesql = "DELETE FROM post_feedback WHERE post_id='$postid' AND user_id = {$_SESSION['user_id']} AND feedback_type = 'like'";
 
 		$delunlikeqry = mysqli_query($dbc, $delunlikesql);
+
+		$activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$postid', 'unliked', current_timestamp());";
+
+  		$activity_qry = mysqli_query($dbc, $activity);
 }
+
+
 
 //user clicks unLike button
 if(isset($_GET['undislike'])){
@@ -123,7 +143,13 @@ if(isset($_GET['undislike'])){
 		$delundislikesql = "DELETE FROM post_feedback WHERE post_id='$postid' AND user_id = {$_SESSION['user_id']} AND feedback_type = 'dislike'";
 
 		$delundislikeqry = mysqli_query($dbc, $delundislikesql);
+
+		$activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$postid', 'undisliked', current_timestamp());";
+
+  		$activity_qry = mysqli_query($dbc, $activity);
 }
+
+
 
 
 # Display body section, retrieving from 'forum and users table for extra validation.
@@ -157,6 +183,7 @@ if ( mysqli_num_rows( $forumqry) > 0 )
   while ( $row = mysqli_fetch_array( $forumqry, MYSQLI_ASSOC )){
 
   	$postuser = $row["user_id"];
+
 	  
 	//processing post date value
 	$now = strtotime(date("m/d/Y h:i:s a", time()));
@@ -185,7 +212,7 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 <div class="row pl-2 pr-3">
 
 	<div class="col-sm-2">
-		<img class="rounded-circle" width="50" height="50px" src="<?php echo $user_image; ?>" alt="Image">
+		<img class="rounded-circle" width="50" height="50px" src="<?php echo $row["user_image"]; ?>" alt="Image">
 	</div>
 
 

@@ -280,13 +280,15 @@ mysqli_close($dbc);
 
 <div class="container text-dark">
 
-		<h5 class="pt-5 pb-0 mb-0">Product Reviews</h5>
-		<label class="figure-caption">Rate our product</label>
+		<h5 class="pt-5 pb-0 mb-0">Product Discussion</h5>
+		<label class="figure-caption">Discuss our product</label>
 		<hr>
+
 		<div class="row text-centerp-5">
 
+			
 
-</div>
+		</div>
 </div>
 </div>
 

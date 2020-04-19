@@ -271,23 +271,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     {
       //default image for user
-      $default_image = "placeholder.png";
+      $default_image = "images/placeholder.png";
 
       //insert all registered values into database
         $query = "INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `gender`, `preferred_title`, `cellphone`, `email`, `address`, `address2`, `countryname`, `city`, `pass`, `user_image`, `reg_date`, `date`) VALUES (NULL, '$first_name', '$last_name', '$gender', '$title', '$cellphone', '$email', '$address', '$address2', '$country', '$city', SHA1('$pass'), '$default_image', NOW(), '$date');";
 
         if (@mysqli_query($dbc, $query)){
 
-          echo "register succesful!";
 
-          header("location: login.php");
+        //check activity of user on page
+          $user_id = mysqli_insert_id($dbc);
 
-        }
+          $fullname = $first_name." ".$last_name;
 
-        # Close database connection.
-        mysqli_close($dbc);
+          $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_log`, `acitivity_date`) VALUES (NULL, '$user_id', '$fullname', '$default_image', 'Registered', current_timestamp());";
 
-        exit();
+          $activity_qry = mysqli_query($dbc, $activity);
+
+            if ( $pkt < 1 OR $user_id == 0) {
+
+    $message = 'Registeration Successful, Please Login';
+
+    echo "<script> 
+        alert('$message')
+        window.location.replace('login.php');
+          </script>";
+
+    mysql_close();
+
+     
+}
+ 
+exit();
+
+}
+
+       
 
     }
 
@@ -366,17 +385,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </div>
   <div class="form-group">
     <label for="address" autocomplete="off"><small>Address</small></label>
-    <input type="text" pattern="([A-Za-z0-9\-_]+)" class="form-control form-control-sm" id="address" autocomplete="off" placeholder="1234 Main St" name="address" required>
+    <input type="text" pattern="([^\s][A-z0-9À-ž\s]+)" class="form-control form-control-sm" id="address" autocomplete="off" placeholder="1234 Main St" name="address" required>
   </div>
   <div class="form-group">
     <label for="address2"><small>Address 2</small></label>
-    <input type="text" pattern="([A-Za-z0-9\-_]+)" class="form-control form-control-sm" id="address2" autocomplete="off" placeholder="Apartment, studio, or floor" name="address2">
+    <input type="text" pattern="([^\s][A-z0-9À-ž\s]+)" class="form-control form-control-sm" id="address2" autocomplete="off" placeholder="Apartment, studio, or floor" name="address2">
   </div>
 
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="city"><small>City</small></label>
-      <input type="text" pattern="([A-Za-z0-9\-_]+)" class="form-control form-control-sm input-sm" id="city" autocomplete="off" name="city" required>
+      <input type="text" pattern="([^\s][A-z0-9À-ž\s]+)" class="form-control form-control-sm input-sm" id="city" autocomplete="off" name="city" required>
     </div>
     <div class="form-group col-md-6">
       <label><small>Country</small></label>

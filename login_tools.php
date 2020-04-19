@@ -44,7 +44,7 @@ function validate( $dbc, $email = '', $pass = '')
   if ( empty( $errors ) ) 
 
   {
-    $loginquery = "SELECT user_id, first_name, last_name, login_time FROM users WHERE email ='$email' AND pass = SHA1('$pass')" ; 
+    $loginquery = "SELECT * FROM users WHERE email ='$email' AND pass = SHA1('$pass')" ;
 
     $loginresult = mysqli_query($dbc, $loginquery) ;
 
@@ -52,12 +52,13 @@ function validate( $dbc, $email = '', $pass = '')
 
     $row = mysqli_fetch_array ( $loginresult, MYSQLI_ASSOC );
 
-    return array( true, $row ) ; 
+    return array( true, $row ) ;
 
     }
 
     # Or on failure set error message.
     else { $errors[] = 'Email address and password not found.' ; }
+
   }
   # On failure retrieve error message/s.
   return array( false, $errors ) ; 

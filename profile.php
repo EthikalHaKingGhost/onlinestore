@@ -3,54 +3,45 @@
 
 if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load() ; }
 
-$page_title = "{$_SESSION["first_name"]} " . " {$_SESSION["last_name"]}";
 
-include "includes/header.php";
-
-include "connect_db.php";
 
 if (isset($_GET["userid"])) {
 
 $userprofileid = $_GET["userid"];
 
+$page_title = "Profile Page";
+
 }else{
 
-?>
-  					<section class="slice sct-color-1">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-7">
-                                    <div class="text-center">
-                                        <div class="d-block p-2">
-                                            <i class="fas fa-user-times text-danger fa-5x"></i>
-                                        </div>
-                                        <h2 class="heading heading-3 strong-600">OOPS!</h2>
-                                        <p class="mt-5 px-5">
-                                            No user was selected, please check your url or select a user.
-                                        </p>
-                                        <button class="btn btn-danger" onclick="history.go(-1)"; ><i class="fas fa-backward"></i> Previous Page</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+header("location: profile.php?userid=".$_SESSION["user_id"]);
 
-  <?php
-
-  exit();
+exit();
 
 }
 
 
+$icon = " ";
+
+include "connect_db.php";
+
+include "includes/header.php";
 
 //creating the follow record in the DB
 	if(isset($_GET['follow'])){
 
-		$icon = " ";
+		
 
 	$followersql = "INSERT INTO `followers` (`connect_id`, `follower_id`, `followed_id`, `connect_date`) VALUES (NULL, {$_SESSION[ 'user_id' ]}, '$userprofileid', current_timestamp());";
 
 	$followerqry = mysqli_query($dbc, $followersql);
+
+
+     $fullname = $_SESSION["first_name"]." ".$_SESSION["last_name"];
+
+    $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$userprofileid', 'followed', current_timestamp());";
+
+    $activity_qry = mysqli_query($dbc, $activity);
+
 	
 	if($followerqry){
 
@@ -71,6 +62,14 @@ $userprofileid = $_GET["userid"];
 		$delfollowsql = "DELETE FROM followers WHERE followed_id = '$userprofileid' AND follower_id = {$_SESSION['user_id']}";
 
 		$delfollowqry = mysqli_query($dbc, $delfollowsql);
+
+        $fullname = $_SESSION["first_name"]." ".$_SESSION["last_name"];
+
+        $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$userprofileid', 'unfollowed', current_timestamp());";
+
+        $activity_qry = mysqli_query($dbc, $activity);
+
+        
 
 		if($delfollowqry){
 
@@ -246,7 +245,38 @@ $userprofileid = $_GET["userid"];
 
              	<div class="row bg-white m-0 justify-content-center">
              		<div class="p-3">
-             	Followers: <span class=" badge rounded-1 bg-secondary text-white p-2">54</span>
+             	Followers: <span class=" badge rounded-1 bg-secondary text-white p-2">
+                  
+                  <?php
+
+                  //Posts count all distinct posts from post_feedback table
+
+                $flwcountsql = "SELECT * FROM followers WHERE followed_id = $userprofileid";
+
+                if ($flwcountqry = mysqli_query($dbc, $flwcountsql))
+
+                {
+                    // Return the number of rows in result set
+                    $count = mysqli_num_rows($flwcountqry);
+
+                    mysqli_free_result($flwcountqry);
+
+                }
+
+                if($count > 0)
+
+                echo $count;
+
+            else{
+
+                echo "No Followers";
+                
+                }
+
+
+                  ?>
+
+                </span>
              		</div>
              	</div>
 

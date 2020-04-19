@@ -19,8 +19,11 @@ $page_title = 'Login' ;
 if ( isset( $errors ) && !empty( $errors ) )
 {
  echo '<p id="err_msg">Oops! There was a problem:<br>' ;
+
  foreach ( $errors as $msg ) { echo " - $msg<br>" ; }
+
  echo 'Please try again or <a href="register.php">Register</a></p>' ;
+ 
 }
 ?>
 
@@ -37,7 +40,7 @@ if ( isset( $errors ) && !empty( $errors ) )
 <body>
 
 
-<div class="container-fluid text-white pl-5 pr-5 pt-5s">
+<div class="container-fluid text-white pl-5 pr-5 pt-5">
 
 <div class="text-center">
 

@@ -27,11 +27,21 @@ echo "passthrough";
     $_SESSION[ 'first_name' ] = $data[ 'first_name' ] ;
     $_SESSION[ 'last_name' ] = $data[ 'last_name' ] ;
     $_SESSION[ 'login_time' ] = $data[ 'login_time' ] ;
+    $_SESSION[ 'usertype' ] = $data[ 'usertype' ] ;
+    $_SESSION[ 'user_image' ] = $data[ 'user_image' ] ;
+    $user_id = $_SESSION[ 'user_id' ];
 
+    print_r ($_SESSION[ 'usertype' ]);
 
-$user_id = $_SESSION[ 'user_id' ];
 
  require ( 'connect_db.php' ) ;
+
+          $fullname = $_SESSION["first_name"]." ".$_SESSION["last_name"];
+
+          $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '{$_SESSION["user_id"]}', 'Logged in', current_timestamp());";
+
+          $activity_qry = mysqli_query($dbc, $activity);
+          
 
 $update = "UPDATE `users` SET `login_time` = time() WHERE `user_id` = '$user_id'";
 

@@ -13,7 +13,11 @@ include ( 'includes/topbar.php' );
 
 include ( 'includes/header.php' );
 
-include ('includes/slider1.php'); ?>
+include ('includes/slider1.php'); 
+
+print_r($_SESSION);
+
+?>
 
 
 <!--------------------->

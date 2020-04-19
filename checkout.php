@@ -27,6 +27,12 @@ if ( isset( $_GET['total'] ) && ( $_GET['total'] > 0 ) && (!empty($_SESSION['car
   
   # Retrieve current order number.
   $order_id = mysqli_insert_id($dbc) ;
+
+  $fullname = $_SESSION["first_name"]." ".$_SESSION["last_name"];
+
+  $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$order_id', 'placeorder', current_timestamp());";
+
+  $activity_qry = mysqli_query($dbc, $activity);
   
   # Retrieve cart items from 'shop' database table.
   $productsql = "SELECT * FROM products WHERE product_id IN (";
