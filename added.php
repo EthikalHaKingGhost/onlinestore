@@ -35,20 +35,39 @@ if ( mysqli_num_rows( $result ) == 1 )
 
   # Check cart for product
 
-  if ( isset( $_SESSION['cart'][$pid] ) )
+  if ( isset( $_SESSION['cart'][$pid]) )
 
   { 
 
-    # Add one more of this product.
-    $_SESSION['cart'][$pid]['quantity']++; 
+  # Add one more of this product.
+
+    $_SESSION['cart'][$pid]['quantity'] = $_SESSION['cart'][$pid]['quantity'] + $qnty; 
 
 
-    echo '<p>Another '.$row["product_name"].' has been added to your cart</p>';
+  echo ' <section class="slice sct-color-1">
+                        <div class="container pb-5">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-7">
+                                    <div class="text-center">
+                                        <div class="d-block p-2">
+                                            <i class="fas fa-cart-plus fa-5x"></i>
+                                        <h2 class="heading heading-3 strong-600">Item Added!</h2>
+                                        <p class="mt-3 px-5">'. $qnty.' more '.$row["product_name"].'(s) has been added to your cart</p>
+                                        <a href="shop.php" class="btn btn-grad btn-md mt-4">
+                                            Continue shopping
+                                        </a>
+                                        <a href="cart.php" class="btn btn-primary text-white btn-md mt-4">
+                                            Go to cart
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>' ;
 
   } 
 
   else
-
 
   {
 
@@ -69,9 +88,31 @@ if ( mysqli_num_rows( $result ) == 1 )
 
     # Or add one of this product to the cart.
     $_SESSION['cart'][$pid]= array( 'quantity' => $qnty, 'price' => $price) ;
-    echo '<p>A '.$row["product_name"].' has been added to your cart</p>' ;
+
+
+    echo ' <section class="slice sct-color-1">
+                        <div class="container pb-5">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-7">
+                                    <div class="text-center">
+                                        <div class="d-block p-2">
+                                         <i class="fas fa-cart-plus fa-5x"></i></div>
+                                        <h2 class="heading heading-3 strong-600">Item Added!</h2>
+                                        <p class="mt-3 px-5"> '.$row["product_name"].' has been added to your cart</p>
+                                        <a href="shop.php" class="btn btn-grad btn-md mt-4">
+                                            continue shopping
+                                        </a>
+                                        <a href="cart.php" class="btn btn-primary text-white btn-md mt-4">
+                                            Go to cart
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>' ;
     
   }
+
 }
 
 # Close database connection.
@@ -85,10 +126,10 @@ mysqli_close($dbc);
                                 <div class="col-lg-7">
                                     <div class="text-center">
                                         <div class="d-block p-2"> 
-                                            <i class="fas fa-times text-danger fa-5x"></i>
+                                            <i class="fas fa-times fa-5x"></i>
                                         </div>
                                         <h2 class="heading heading-3 strong-600">OOPS!</h2>
-                                        <p class="mt-5 px-5">
+                                        <p class="mt-3 px-5">
                                             Please select the number of products you would like to purchase!
                                         </p>
                                         <button class="btn btn-danger" onclick="history.go(-1)"; ><i class="fas fa-backward"></i> Previous Page</button>

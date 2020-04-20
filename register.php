@@ -67,19 +67,7 @@ function fill_gender($dbc)
 ?>    
 
 
-<style type="text/css">
 
- body {
-  background: grey;
-  font-family: 'Montserrat', sans-serif;
-  font-size:10px;
-  background-image: url(images/background.jpg);
-  background-repeat: none;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
-</style>
 
 <!DOCTYPE html>
 <html>
@@ -139,6 +127,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     {
         $title = mysqli_real_escape_string($dbc, trim($_POST['title']));
+    }else{
+
+      //do nothing
     }
 
     if (empty($_POST['address']))
@@ -153,16 +144,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         $address = mysqli_real_escape_string($dbc, trim($_POST['address']));
     }
 
-    if (empty($_POST['address2']))
-
-    {
-        $errors[] = 'Enter your alternate Address.';
-    }
-
-    else
+    if (!empty($_POST['address2']))
 
     {
         $address2 = mysqli_real_escape_string($dbc, trim($_POST['address2']));
+        
+    }else{
+
+      //do nothing
     }
 
     if (empty($_POST['city']))
@@ -279,16 +268,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         if (@mysqli_query($dbc, $query)){
 
 
+
+
         //check activity of user on page
           $user_id = mysqli_insert_id($dbc);
 
           $fullname = $first_name." ".$last_name;
 
-          $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_log`, `acitivity_date`) VALUES (NULL, '$user_id', '$fullname', '$default_image', 'Registered', current_timestamp());";
+          $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_log`, `activity_date`) VALUES (NULL, '$user_id', '$fullname', '$default_image', 'Registered', current_timestamp());";
 
           $activity_qry = mysqli_query($dbc, $activity);
 
-            if ( $pkt < 1 OR $user_id == 0) {
+            
 
     $message = 'Registeration Successful, Please Login';
 
@@ -297,25 +288,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         window.location.replace('login.php');
           </script>";
 
-    mysql_close();
+mysql_close();
+exit();
 
      
 }
  
-exit();
+
 
 }
 
        
-
-    }
 
     # Or report errors.
     else
 
     {
 
-        echo '<h1>Error!</h1><p id="err_msg">The following error(s) occurred:<br>';
+        echo '<h1 class="text-dark font-weight-bold">Error!</h1><p class="text-danger font-weight-bold" id="err_msg">The following error(s) occurred:<br>';
 
         foreach ($errors as $msg)
 
@@ -328,15 +318,17 @@ exit();
         
     }
 
-}
+  }
+
+
 
 ?>
 
 
-<div class="container-fluid pl-5 pr-5 text-white">
+<div class="container-fluid pl-5 pr-5 text-dark">
 <div class="text-center">
 
-  <a href="shop.php"><img src="images/logo2.png" height="175" loading="lazy" >
+  <a href="shop.php"><img src="images/logo3.png" height="175" loading="lazy" >
   <span aria-label="Click me to go back to Shop"></a></span>
 
 </div> 
@@ -385,17 +377,17 @@ exit();
   </div>
   <div class="form-group">
     <label for="address" autocomplete="off"><small>Address</small></label>
-    <input type="text" pattern="([^\s][A-z0-9À-ž\s]+)" class="form-control form-control-sm" id="address" autocomplete="off" placeholder="1234 Main St" name="address" required>
+    <input type="text" pattern="([^\s][A-z0-9À-ž\s] [\^$.|?*+())" class="form-control form-control-sm" id="address" autocomplete="off" placeholder="1234 Main St" name="address" required>
   </div>
   <div class="form-group">
     <label for="address2"><small>Address 2</small></label>
-    <input type="text" pattern="([^\s][A-z0-9À-ž\s]+)" class="form-control form-control-sm" id="address2" autocomplete="off" placeholder="Apartment, studio, or floor" name="address2">
+    <input type="text" pattern="([^\s][A-z0-9À-ž\s] [\^$.|?*+())" class="form-control form-control-sm" id="address2" autocomplete="off" placeholder="Apartment, studio, or floor" name="address2">
   </div>
 
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="city"><small>City</small></label>
-      <input type="text" pattern="([^\s][A-z0-9À-ž\s]+)" class="form-control form-control-sm input-sm" id="city" autocomplete="off" name="city" required>
+      <input type="text" pattern="([^\s][A-z0-9À-ž\s] [\^$.|?*+())" class="form-control form-control-sm input-sm" id="city" autocomplete="off" name="city" required>
     </div>
     <div class="form-group col-md-6">
       <label><small>Country</small></label>
@@ -411,7 +403,7 @@ exit();
     <div class="col-md-6 form-group">
     <label><small>Create password</small></label>
       <input class="form-control form-control-sm" type="password" name="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" minlength="8" maxlength="20" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-      <span class="help-block text-light small">Password must be 8-20 characters long</span>
+      <span class="help-block text-dark small">Password must be 8-20 characters long</span>
   </div> <!-- form-group end.// -->  
   <div class="col-md-6 form-group">
     <label><small>Confirm password</small></label>
@@ -423,7 +415,7 @@ exit();
         <button type="submit" class="btn btn-grad btn-block p-0" value="register"><strong>Register</strong></button>
     </div> <!-- form-group// --> 
 <div class="text-center pb-3">
-    <small class="text-light">By clicking the 'Register' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>
+    <small class="text-dark">By clicking the 'Register' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>
 </div>                                          
 </div> <!-- card-body end .// -->
 <div class="border-top card-body text-center pt-2 pb-5"><small>Have an account?<a href="login.php">Log In</a></small></div>

@@ -83,7 +83,7 @@ if(isset($_GET['like'])){
 		$dellikeqry = mysqli_query($dbc, $dellikesql);
 
 
-  		$activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$postid', 'liked', current_timestamp());";
+  		$activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `activity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$postid', 'liked', current_timestamp());";
 
   		$activity_qry = mysqli_query($dbc, $activity);
 
@@ -108,7 +108,7 @@ if(isset($_GET['dislike'])){
 
 		$deldislikeqry = mysqli_query($dbc, $deldislikesql);
 
-		$activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$postid', 'disliked', current_timestamp());";
+		$activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `activity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$postid', 'disliked', current_timestamp());";
 
   		$activity_qry = mysqli_query($dbc, $activity);
 

@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   {
     # Open database connection.
     require ( 'connect_db.php' ) ;
+
   
     # Execute inserting into 'forum' database table.
 
@@ -41,12 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     $forumres = mysqli_query ( $dbc, $forumsql ) ;
 
+unset($_SESSION["post_image"]);
 
     $fullname = $_SESSION['first_name']." ".$_SESSION['last_name'];
 
     $postid = mysqli_insert_id($dbc);
 
-    $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$postid', 'postedmessage', current_timestamp());";
+    $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `activity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$postid', 'postedmessage', NOW())";
 
       $activity_qry = mysqli_query($dbc, $activity);
 

@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-p #err_msg { color:#F00 !important; font-weight:bold; }
-
 ul{
 	font-family: 'Montserrat', sans-serif;
 }
@@ -89,11 +87,11 @@ span[aria-label]:hover:after {
 /* link color */
 .container-fluid a, .container a{
 	text-decoration: none !important;
-	text-decoration: none !important;
 	color:#d9534f;
 }
 
 .container-fluid a:hover, .container a:hover{
+	text-decoration: none !important;
 	color:#DC143C;
 
 }
@@ -111,13 +109,14 @@ span[aria-label]:hover:after {
 }
 
 .menu-link:hover{
-
-	padding:5px 18px 5px 18px;
+	text-decoration: none !important;
+	padding: 5px 18px 5px 18px;
 	background-color: #d9534f ;
 	color:#fff !important;
 }
 
-.menu-link:active{
+.menu-link: active{
+	text-decoration: none !important;
 		padding:5px 18px 5px 18px;
 	background-color: #d9534f ;
 	color:#fff !important;

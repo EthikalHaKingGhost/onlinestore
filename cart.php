@@ -123,6 +123,7 @@ if (!empty($_SESSION['cart']))
       <input class="form-control form-control-sm text-center" type="number" 
       name="<?php echo $new_quantity; ?>" 
       value="<?php echo $quantity; ?>" 
+      min="0" max="99"
       title="A zero value removes this item">
   </div>
 

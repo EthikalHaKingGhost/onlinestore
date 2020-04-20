@@ -42,7 +42,7 @@ echo "passthrough";
 
           $fullname = $_SESSION["first_name"]." ".$_SESSION["last_name"];
 
-          $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '{$_SESSION["user_id"]}', 'Logged in', current_timestamp());";
+          $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `activity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '{$_SESSION["user_id"]}', 'Logged in', current_timestamp());";
 
           $activity_qry = mysqli_query($dbc, $activity);
           

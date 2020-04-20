@@ -1,14 +1,4 @@
-<style type="text/css">
-	body{
-	font-family: 'Montserrat', sans-serif;
-	font-size:10px;
-	background-image: url(images/background.jpg);
-	background-repeat: none;
-	background-attachment: ;
-	background-size: cover;
-	background-position: center;
-}
-</style>
+
 
 <?php # DISPLAY COMPLETE LOGIN PAGE.
 
@@ -40,11 +30,11 @@ if ( isset( $errors ) && !empty( $errors ) )
 <body>
 
 
-<div class="container-fluid text-white pl-5 pr-5 pt-5">
+<div class="container-fluid text-dark pl-5 pr-5 pt-5">
 
 <div class="text-center">
 
-  <a href="shop.php"><img src="images/logo2.png" loading="lazy" width="150px" height="150px">
+  <a href="shop.php"><img src="images/logo3.png" loading="lazy" width="150px" height="150px">
   <span aria-label="Click me to go back to Shop"></span></a>
   
 </div> 

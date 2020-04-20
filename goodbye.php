@@ -15,9 +15,11 @@ require "connect_db.php";
 
 $fullname = $_SESSION["first_name"]." ".$_SESSION["last_name"];
 
-   $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '{$_SESSION["user_id"]}', 'Logged out', current_timestamp());";
+   $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `activity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '{$_SESSION["user_id"]}', 'Logged out', current_timestamp());";
 
    $activity_qry = mysqli_query($dbc, $activity);
+
+
 
 //close database
 mysqli_close($dbc);
@@ -27,6 +29,9 @@ $_SESSION = array() ;
   
 # Destroy the session.
 session_destroy() ;
+
+
+
 
 # Display body section.
 echo '
@@ -41,10 +46,11 @@ echo '
                                         </div>
                                         <h2 class="heading heading-3 strong-400 font-italic">To See You Leave!</h2>
                                         <p class="mt-3 px-3">
-                                           Thank you for shopping with us, Please click below to login again.  
+                                           Thank you for shopping with us, Please click below to login again or visit our homepage.  
                                            <i class="fas fa-smile-beam text-danger"></i>
                                         </p>
                                         <a href="login.php" class="btn btn-danger text-decoration-none text-white"><i class="fas fa-user"></i> Login</a>
+                                        <a href="home.php" class="btn btn-info text-decoration-none text-white"><i class="fas fa-home"></i> Home</a>
                                     </div>
                                 </div>
                             </div>

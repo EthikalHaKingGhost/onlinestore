@@ -5,11 +5,13 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load()
 
 
 
+$page_title = "My Profile";
+
 if (isset($_GET["userid"])) {
 
 $userprofileid = $_GET["userid"];
 
-$page_title = "Profile Page";
+$page_title = "User Profile";
 
 }else{
 
@@ -26,65 +28,65 @@ include "connect_db.php";
 
 include "includes/header.php";
 
+
 //creating the follow record in the DB
-	if(isset($_GET['follow'])){
+    if(isset($_GET['follow'])){
 
-		
+        
+    $followersql = "INSERT INTO `followers` (`connect_id`, `follower_id`, `followed_id`, `connect_date`) VALUES (NULL, {$_SESSION[ 'user_id' ]}, '$userprofileid', current_timestamp());";
 
-	$followersql = "INSERT INTO `followers` (`connect_id`, `follower_id`, `followed_id`, `connect_date`) VALUES (NULL, {$_SESSION[ 'user_id' ]}, '$userprofileid', current_timestamp());";
-
-	$followerqry = mysqli_query($dbc, $followersql);
+    $followerqry = mysqli_query($dbc, $followersql);
 
 
      $fullname = $_SESSION["first_name"]." ".$_SESSION["last_name"];
 
-    $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$userprofileid', 'followed', current_timestamp());";
+    $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `activity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$userprofileid', 'followed', current_timestamp());";
 
     $activity_qry = mysqli_query($dbc, $activity);
 
-	
-	if($followerqry){
+    
+    if($followerqry){
 
-		$icon = '<i class="fas fa-user-friends fa-1x"></i>';
+        $icon = '<i class="fas fa-user-friends fa-1x"></i>';
 
-	}
+    }
 
-	else { echo "We were unable to record your follow request "; }
+    else { echo "We were unable to record your follow request "; }
 
-	}
-	
+    }
+    
 
 
 
-	//removing record for an Unfollow
-	if(isset($_GET['unfollow'])){
+    //removing record for an Unfollow
+    if(isset($_GET['unfollow'])){
 
-		$delfollowsql = "DELETE FROM followers WHERE followed_id = '$userprofileid' AND follower_id = {$_SESSION['user_id']}";
+        $delfollowsql = "DELETE FROM followers WHERE followed_id = '$userprofileid' AND follower_id = {$_SESSION['user_id']}";
 
-		$delfollowqry = mysqli_query($dbc, $delfollowsql);
+        $delfollowqry = mysqli_query($dbc, $delfollowsql);
 
         $fullname = $_SESSION["first_name"]." ".$_SESSION["last_name"];
 
-        $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$userprofileid', 'unfollowed', current_timestamp());";
+        $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `activity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '$userprofileid', 'unfollowed', current_timestamp());";
 
         $activity_qry = mysqli_query($dbc, $activity);
 
         
 
-		if($delfollowqry){
+        if($delfollowqry){
 
-			$icon = " ";
+            $icon = " ";
 
-		}
+        }
 
-		else { 
+        else { 
 
-			echo '<div class="alert alert-warning alert-dismissible">
+            echo '<div class="alert alert-warning alert-dismissible">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Message!</strong> We were unable to record your feedback 
             </div>';
-		 }
-		}
+         }
+        }
 
 
 
@@ -97,7 +99,7 @@ include "includes/header.php";
         if (mysqli_num_rows($userprofileqry) > 0) {
 
             while($row = mysqli_fetch_assoc($userprofileqry)) {
-
+                                $activeuser = $row["user_id"];
                                 $first_name = $row["first_name"];
                                 $last_name = $row["last_name"];
                                 $gender = $row["gender"];
@@ -111,7 +113,7 @@ include "includes/header.php";
                                 $user_image = $row["user_image"];
                                 $bio = $row["bio"];
 
-        						$reg_date = $row["reg_date"];
+                                $reg_date = $row["reg_date"];
                                 $new_date = date("M jS, Y h:i:s", strtotime("reg_date")); 
 
                                 $birthdate = $row["date"];
@@ -152,7 +154,7 @@ include "includes/header.php";
 
 ?>
 <!-------User profile using wrap ------------>
-<div class="container-fluid bg-dark" style="background-image: url(images/background.jpg);">
+<div class="container-fluid bg-light">
 <div class="row justify-content-center">
 <div class="col-md-8">
             <div class="wrap bg-secondary text-center" style="background-image: url(images/blur-background10.jpg); background-size: cover; background-position: center;">
@@ -160,92 +162,92 @@ include "includes/header.php";
                 
                 <?php 
 
-             	if ($_SESSION["user_id"] == $userprofileid){
+                if ($_SESSION["user_id"] == $userprofileid){
 
-             		echo '<a href="user-profile.php" title="Edit profile"><img class="blockico rounded-circle bg-light border border-secondary" src="'.$user_image.'" width="200px" height="200px"></a>';
-             		
-             	}else{
+                    echo '<a href="user-profile.php" title="Edit profile"><img class="blockico rounded-circle bg-light border border-secondary" src="'.$user_image.'" width="200px" height="200px"></a>';
+                    
+                }else{
 
-             		echo '<img class="blockico rounded-circle bg-light border border-secondary" src="'.$user_image.'" width="200px" height="200px">';
-             	}
-
-
-             	?>
-             	</div>
-             	<div class="row m-0 pt-5 bg-white justify-content-center">
-             	<h1 class="pt-5 pb-3">
-
-             	<?php 
-
-             	if ($_SESSION["user_id"] == $userprofileid){
-
-             		?>
-
-             		 <a href="user-profile.php" class="text-dark" title="Edit profile"><?php echo "$title " . " $first_name " . " $last_name "; ?> <i class="fas fa-edit"></i></a>
-
-             		<?php
-             		
-             	}else{
-
-             	
-
-             	echo "$title " . " $first_name " . " $last_name " . " $icon";
-
-             	}
+                    echo '<img class="blockico rounded-circle bg-light border border-secondary" src="'.$user_image.'" width="200px" height="200px">';
+                }
 
 
-             	?>
+                ?>
+                </div>
+                <div class="row m-0 pt-5 bg-white justify-content-center">
+                <h1 class="pt-5 pb-3">
 
-             				</h1>
-             	</div>
-             	<div class="row m-0 bg-white">
-             		<div class="col-md-2 offset-md-5">
+                <?php 
 
-             	<?php
+                if ($_SESSION["user_id"] == $userprofileid){
 
-             	//checking database for a follow record
-				$followsql = "SELECT * FROM followers WHERE follower_id = {$_SESSION[ 'user_id' ]} AND followed_id ='$userprofileid'";
-			
-				$followqry = mysqli_query($dbc, $followsql);
-				
-				//if no records exist
-				if(mysqli_num_rows($followqry) == 0)
-				{
-					
-					//if it's the viewer's profile
-					if($_SESSION[ 'user_id' ] !== $userprofileid){
-						//allow user to follow profile
-					?>
+                    ?>
 
-						<a class="btn btn-primary btn-sm btn-block" href="profile.php?userid=<?php echo $userprofileid; ?>&follow=<?php echo $userprofileid; ?>" title="UserID=<?php echo $userprofileid; ?>">
-							<span class="text-dark font-weight-bold">follow</span>
-						</a>
-				
-					<?php
+                     <a href="user-profile.php" class="text-dark" title="Edit profile"><?php echo "$title " . " $first_name " . " $last_name "; ?> <i class="fas fa-edit"></i></a>
 
-					}else{
+                    <?php
+                    
+                }else{
 
-						//do nothing 
-					}
+                
+
+                echo "$title " . " $first_name " . " $last_name " . " $icon";
+
+                }
 
 
-				}else{
-							//allow user to Unfollow profile
-					?>
-					
-					<a class="btn btn-outline-primary btn-sm btn-block" href="profile.php?userid=<?php echo $userprofileid; ?>&unfollow=<?php echo $userprofileid; ?>" title="UserID=<?php echo $userprofileid; ?>"><span class="text-dark font-weight-bold">Unfollow</span>
-					</a>	
+                ?>
 
-					<?php
-						}
-					?>
+                            </h1>
+                </div>
+                <div class="row m-0 bg-white">
+                    <div class="col-md-2 offset-md-5">
 
-             		</div>
-             	</div>
+                <?php
 
-             	<div class="row bg-white m-0 justify-content-center">
-             		<div class="p-3">
-             	Followers: <span class=" badge rounded-1 bg-secondary text-white p-2">
+                //checking database for a follow record
+                $followsql = "SELECT * FROM followers WHERE follower_id = {$_SESSION[ 'user_id' ]} AND followed_id ='$userprofileid'";
+            
+                $followqry = mysqli_query($dbc, $followsql);
+                
+                //if no records exist
+                if(mysqli_num_rows($followqry) == 0)
+                {
+                    
+                    //if it's the viewer's profile
+                    if($_SESSION[ 'user_id' ] !== $userprofileid){
+                        //allow user to follow profile
+                    ?>
+
+                        <a class="btn btn-primary btn-sm btn-block" href="profile.php?userid=<?php echo $userprofileid; ?>&follow=<?php echo $userprofileid; ?>" title="UserID=<?php echo $userprofileid; ?>">
+                            <span class="text-dark font-weight-bold">follow</span>
+                        </a>
+                
+                    <?php
+
+                    }else{
+
+                        //do nothing 
+                    }
+
+
+                }else{
+                            //allow user to Unfollow profile
+                    ?>
+                    
+                    <a class="btn btn-outline-primary btn-sm btn-block" href="profile.php?userid=<?php echo $userprofileid; ?>&unfollow=<?php echo $userprofileid; ?>" title="UserID=<?php echo $userprofileid; ?>"><span class="text-dark font-weight-bold">Unfollow</span>
+                    </a>    
+
+                    <?php
+                        }
+                    ?>
+
+                    </div>
+                </div>
+
+                <div class="row bg-white m-0 justify-content-center">
+                    <div class="p-3">
+                Followers: <span class=" badge rounded-1 bg-secondary text-white p-2">
                   
                   <?php
 
@@ -277,54 +279,235 @@ include "includes/header.php";
                   ?>
 
                 </span>
-             		</div>
-             	</div>
+                    </div>
+                </div>
 
-             		<div class="row m-0 p-5 pt-5 bg-white">
-             		<div class="col-sm-2">
-             			<label class="h6">Phone</label>
-             		</div>
-             		<div class="col-sm-10">
-             		<p><?php echo $cellphone; ?></p>
-             		</div>
-             	
-             		
-             		<div class="col-sm-2">
-             			<label class="h6">Email</label>
-             		</div>
-             		<div class="col-sm-10">
-             		<p><?php echo $email; ?></p>
-             		</div>
-             		
-             		
-             		<div class="col-sm-2">
-             			<label class="h6">Gender</label>
-             		</div>
-             		<div class="col-sm-10">
-             		<p>Male</p>
-             		</div>
-             		
-					
-             		<div class="col-sm-2">
-             			<label class="h6">Date of Birth</label>
-             		</div>
-             		<div class="col-sm-10">
-             		<p><?php echo $dateofbirth; ?></p>
-             		</div>
-             		
+                    <div class="row m-0 p-5 pt-5 bg-white">
+                    <div class="col-sm-2">
+                        <label class="h6">Phone</label>
+                    </div>
+                    <div class="col-sm-10">
+                    <p><?php echo $cellphone; ?></p>
+                    </div>
+                
+                    
+                    <div class="col-sm-2">
+                        <label class="h6">Email</label>
+                    </div>
+                    <div class="col-sm-10">
+                    <p><?php echo $email; ?></p>
+                    </div>
+                    
+                    
+                    <div class="col-sm-2">
+                        <label class="h6">Gender</label>
+                    </div>
+                    <div class="col-sm-10">
+                    <p>Male</p>
+                    </div>
+                    
+                    
+                    <div class="col-sm-2">
+                        <label class="h6">Date of Birth</label>
+                    </div>
+                    <div class="col-sm-10">
+                    <p><?php echo $dateofbirth; ?></p>
+                    </div>
+                    
 
-             		<div class="col-sm-2 spacer">
-             			<label class="h6">Bio</label>
-             		</div>
-             		<div class="col-sm-10 pr-5 text-justify">
-             		<p class="font-italic"><?php echo $bio; ?></p>
-             			</div>
-             		
-             	</div>
+                    <div class="col-sm-2 spacer">
+                        <label class="h6">Bio</label>
+                    </div>
+                    <div class="col-sm-10 pr-5 text-justify">
+                    <p class="font-italic"><?php echo $bio; ?></p>
+                        </div>
+                    
+                </div>
             </div>
         </div>
 
+
+
+<?php 
+
+
+$activitysql = "SELECT * FROM followers WHERE follower_id = {$_SESSION[ 'user_id' ]} AND followed_id ='$userprofileid'";
+
+        $activityqry = mysqli_query($dbc, $activitysql);
+
+        if (mysqli_num_rows($activityqry) > 0) {
+
+            while($row = mysqli_fetch_assoc($activityqry)) {
+           
+
+            
+        
+?>
+
+<?php
+
+
+if(!empty($row["followed_id"]) && ($row["followed_id"] == $userprofileid)){
+
+?>
+
+<div class="col-md-6 offset-md-3 p-5">
+ <h2>Recent Activity</h2>
+ <!-- <hr class="my-4"> -->
+
+ <div class="card">
+ <div class="card-body">
+
+ <?php
+ $activitysql = "SELECT * FROM user_activity WHERE user_id = $userprofileid ORDER BY user_activity.activity_date LIMIT 5";
+ $activityqry = mysqli_query( $dbc, $activitysql ) ;
+
+ if(mysqli_num_rows($activityqry) > 0){
+
+ while ($row = mysqli_fetch_array( $activityqry, MYSQLI_ASSOC ))
+ {
+
+ $fullname = $row['fullname'];
+ $activity_log = $row['activity_log'];
+ $activity_date = strtotime($row['activity_date']);
+ $activity_details = $row['activity_details'];
+
+ //processing post date value
+ $now = strtotime(date("m/d/Y h:i:s a", time()));
+ //difference in seconds
+ $actdate = ($now - $activity_date) - 21600;
+
+
+ if($actdate < 3600){
+ //posted within one hour
+ $newdate = round($actdate/60);
+ $activitytime = $newdate . " minute(s) ago.";
+ }
+ elseif($actdate < 86400){
+ //posted within one day
+ $newdate = round($actdate/3600);
+ $activitytime = $newdate . " hour(s) ago.";
+ }
+ else {
+ //posted over a day ago
+ $newdate = round($actdate/86400);
+ $activitytime = $newdate . " day(s) ago.";
+ }
+
+ if($activity_log == 'placeorder'){
+ ?>
+ <div class="alert alert-success" role="alert">
+ <?php echo $fullname." placed an order. <b>".$activitytime.
+"</b>"; ?>
+ </div>
+ <?php
+ }
+ elseif($activity_log == 'posted message'){
+ ?>
+ <div class="alert alert-primary" role="alert">
+ <?php echo $fullname." created a post. <b>".$activitytime."</b>"
+; ?>
+ </div>
+
+ <?php
+ }
+ elseif($activity_log == 'liked'){
+ ?>
+ <div class="alert alert-info" role="alert">
+ <?php echo $fullname." liked a post. <b>".$activitytime."</b>";
+?>
+ </div>
+
+ <?php
+ }
+ elseif($activity_log == 'unliked'){
+ ?>
+ <div class="alert alert-danger" role="alert">
+ <?php echo $fullname." Unliked a post. <b>".$activitytime."</b>";
+?>
+ </div>
+
+ <?php
+ }
+ elseif($activity_log == 'disliked'){
+ ?>
+ <div class="alert alert-secondary" role="alert">
+ <?php echo $fullname." disliked a post. <b>".$activitytime."</b>";
+?>
+ </div>
+
+ <?php
+ }
+ elseif($activity_log == 'undisliked'){
+ ?>
+ <div class="alert alert-success" role="alert">
+ <?php echo $fullname." removed diliked from post. <b>".$activitytime."</b>";
+?>
+ </div>
+
+ <?php
+ }
+ elseif($activity_log == 'followed'){
+ ?>
+ <div class="alert alert-warning" role="alert">
+ <?php echo $fullname." followed user. <b>".$activitytime."</b>";
+?>
+ </div>
+ <?php
+ }
+ elseif($activity_log == 'unfollowed'){
+ ?>
+ <div class="alert alert-danger" role="alert">
+ <?php echo $fullname." unfollowed user. <b>".$activitytime.
+"</b>"; ?>
+ </div>
+
+ <?php
+ }
+ elseif($activity_log == 'Registered'){
+
+ $currentuser = $_SESSION['user_id'];
+
+ if($currentuser == $userprofileid){
+ ?>
+ <div class="alert alert-secondary" role="alert">
+ <?php echo "You registered. <b>".$activitytime."</b>"; ?>
+ </div>
+
+ <?php
+ }
+ else {
+ ?>
+ <div class="alert alert-secondary" role="alert">
+ <?php echo $fullname." registered. <b>".$activitytime."</b>"; ?>
+ </div>
+
+ <?php
+ }
+ }
+
+ //close loop
+ }
+ }
+ else {
+ echo "No recent activity";
+ }
+ ?>
+ </div>
+ </div>
+ </div>
+<?php 
+
+}
+}
+}
+
+
+?>
+
   </div>
+
+
 
 
 <?php include "includes/footer.php"; ?>

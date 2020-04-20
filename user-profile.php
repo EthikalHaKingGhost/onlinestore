@@ -8,19 +8,19 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) { require ( 'login_tools.php' ) ; load()
 
 $page_title = "{$_SESSION["first_name"]} " . " {$_SESSION["last_name"]}";
 
-include "includes/header.php";
+include ('includes/topbar.php');
+
+include ('includes/header.php');
 
 ?>
-    <div class="row">
-        <div class="col-md-12 pt-3">
+    <div class="container-fluid p-0">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-light rounded-0">
                     <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-dark">Home</a></li>
-                    <li class="breadcrumb-item"><a href="category.html" class="text-decoration-none text-dark">Category</a></li>
-                    <li class="breadcrumb-item active text_danger font-weight-bold" aria-current="page">Sub-category</li>
+                    <li class="breadcrumb-item"><a href="category.html" class="text-decoration-none text-dark">Account</a></li>
+                    <li class="breadcrumb-item active font-weight-bold text-danger" aria-current="page">My Profile</li>
                 </ol>
             </nav>
-        </div>
     </div>
 <?php
 
@@ -131,7 +131,7 @@ $update = "UPDATE `users` SET `first_name` = '$new_first_name', `last_name` = '$
 
     $fullname = $first_name." ".$last_name;
 
-    $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `acitivity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '{$_SESSION["user_id"]}', 'updatedprofile', current_timestamp());";
+    $activity = "INSERT INTO `user_activity` (`activity_id`, `user_id`, `fullname`, `user_image`, `activity_details`, `activity_log`, `activity_date`) VALUES (NULL, '{$_SESSION["user_id"]}', '$fullname', '{$_SESSION["user_image"]}', '{$_SESSION["user_id"]}', 'updatedprofile', current_timestamp());";
 
       $activity_qry = mysqli_query($dbc, $activity);
 
@@ -239,7 +239,7 @@ if ($uploadOk == 1){
                         <form action="user-profile.php" method="post" enctype="multipart/form-data">
                           <div class="modal-footer">
                             Select image:
-                            <input type="file" name="fileToUpload" name="" class="btn btn-dark" id="fileToUpload">
+                            <input type="file" name="fileToUpload" class="btn btn-dark" id="fileToUpload">
                             <input type="submit" value="Upload Image" name="uploadimg" class="btn btn-info">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </form>

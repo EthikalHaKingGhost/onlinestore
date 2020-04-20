@@ -6,11 +6,14 @@ session_start();
 if (!isset($_SESSION['user_id']))
 {
     require ('login_tools.php');
+    
     load();
 }
 
 # Set page title and display header section.
 $page_title = 'Shop';
+
+include ( 'includes/topbar.php' );
 
 include ('includes/header.php');
 
@@ -39,8 +42,7 @@ mysqli_close($dbc);
 
 ?>
 
- <div class="row">
-        <div class="col-md-12 pt-3">
+ <div class="container-fluid p-0">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-light rounded-0">
                     <li class="breadcrumb-item"><a href="home.php" class="text-decoration-none text-dark">Home</a></li>
@@ -61,7 +63,7 @@ mysqli_close($dbc);
                 </ol>
             </nav>
         </div>
-    </div>
+ 
 
 
 <?php
@@ -77,9 +79,9 @@ require ('connect_db.php');
 
 <div class="container pt-5">
 <div class="row">
-		<div class="col-md-3 border border-left-0 border-bottom-0 border-top-0 ">
+        <div class="col-md-3 border border-left-0 border-bottom-0 border-top-0 ">
 
-			<div class="card rounded-0 border border-0">
+            <div class="card rounded-0 border border-0">
                 <div class="card-header text-center bg-dark text-white text-uppercase rounded-0"><i class="fa fa-list"></i> Categories</div>
                 <ul class="list-group rounded-0  category_block">
 
@@ -266,11 +268,11 @@ require ('connect_db.php');
 </form>
 
   </div>
-		<div class="col-md-9">
-			<div class="row">
+        <div class="col-md-9">
+            <div class="row">
 
-				<div class="col-md-12">
-					<ul class="list-group">
+                <div class="col-md-12">
+                    <ul class="list-group">
                     
 <?php
 
@@ -546,12 +548,12 @@ else
 
 ?>
               
-           		</ul> <!-- list group item -->
-				  </div>
-				</div>
-			</div>
-		</div>
-	</div>
+                </ul> <!-- list group item -->
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

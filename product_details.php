@@ -9,6 +9,8 @@
 	# Set page title and display header section.
 	$page_title = 'Product Details' ;
 
+	include ( 'includes/topbar.php' );
+
 	include ( 'includes/header.php' ) ;
 
 		require 'connect_db.php';
