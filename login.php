@@ -8,7 +8,7 @@ $page_title = 'Login' ;
 # Display any error messages if present.
 if ( isset( $errors ) && !empty( $errors ) )
 {
- echo '<p id="err_msg">Oops! There was a problem:<br>' ;
+ echo '<p class="text-danger" id="err_msg">Oops! There was a problem:<br>' ;
 
  foreach ( $errors as $msg ) { echo " - $msg<br>" ; }
 

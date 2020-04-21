@@ -161,6 +161,7 @@ if(isset($_POST["uploadimg"])) {
 
 if ($_FILES['fileToUpload']['error'] == 0){
   
+  $target_dir = "uploads/";
     require ('upload.php');
 
 }else{
@@ -231,7 +232,7 @@ if ($uploadOk == 1){
                           <div class="modal-body">
                             <label>Are you sure you want to change this image?</label>
                             <div>
-                                <img src="<?php echo $user_image; ?>" class="img-fluid rounded-circle" width="100">
+                                <img src="<?php echo $user_image; ?>" class="img-fluid rounded-circle" width="100" height="100">
                             </div>
                           </div>
 
@@ -251,7 +252,7 @@ if ($uploadOk == 1){
                     </div>
 
 
-            <hr class="bg-white">
+            <hr>
 
                     <label> <strong><?php echo "$title " . " $first_name " . " $last_name" ?></strong></label>
                     <label><em><?php echo $email; ?></em></label>
@@ -279,9 +280,8 @@ if ($uploadOk == 1){
                 <div class="row">
                 <div class="col-md-12">
 
-                    <h4>Personal Info</h4>
+                    <h4 class="mb-3 border-bottom">Personal Info</h4>
 
-                <hr class="bg-white">
 
         <form action="user-profile.php" id="userupdate" method="post">
 
@@ -345,9 +345,8 @@ if ($uploadOk == 1){
                       </div>
                     </div>
 
-                <h4 class="pt-5">Contact Info</h4>
-
-                <hr class="bg-white">
+                <h4 class="mb-3 pt-5 border-bottom">Contact Info</h4>
+               
 
                 <div class="form-group row">
                         <label for="email" class="col-sm-2 col-form-label">Email</label>
@@ -365,9 +364,7 @@ if ($uploadOk == 1){
                 </div>
 
 
-                <h4 class="pt-5">Address</h4>
-
-                <hr class="bg-white">
+                <h4 class="mb-3 pt-5 border-bottom">Address</h4>
 
   
                   <div class="form-group row">
@@ -421,7 +418,7 @@ if ($uploadOk == 1){
                         </div>
                   </div>
 
-                    <hr class="bg-white">
+                    <hr>
 
                     <div class="row">
                         <div class="col-md-6 offset-md-6 pb-5">

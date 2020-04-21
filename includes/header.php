@@ -44,7 +44,7 @@
 
 require ("connect_db.php");
 
-?> <p><a href="shop.php"><strong class="sub-menu-heading h6 border-bottom">Products</a></strong></p>
+?> <p><a href="shop.php"><strong class="sub-menu-heading h6 border-bottom">Shop</a></strong></p>
 
 <?php
 

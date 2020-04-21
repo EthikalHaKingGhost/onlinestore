@@ -16,6 +16,17 @@ require ( 'connect_db.php' ) ;
 
 ?>
 
+<div class="container-fluid m-0 p-0">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-light rounded-0">
+                    <li class="breadcrumb-item"><a href="home.php" class="text-decoration-none text-dark">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-dark">Discussion</a></li>
+                    <li class="breadcrumb-item active text-danger font-weight-bold" aria-current="page">How to Set Up Your New Phone?</li>
+                </ol>
+            </nav>
+        </div>
+
+
 <div class="container-fluid m-0 p-0 ">
 
 <div class="text-center">
@@ -150,7 +161,32 @@ if(isset($_GET['undislike'])){
 }
 
 
+if(isset($_GET["del"])){
 
+    $deletepost = $_GET["del"];
+
+// sql to delete a record in multiple tables using left join
+$deletesql = "DELETE FROM forum WHERE forum.post_id = '$deletepost';";
+
+ $deleted = mysqli_query($dbc, $deletesql);
+
+ $deletesql2 = "DELETE FROM post_feedback WHERE post_feedback.post_id = '$deletepost'";
+
+ $deleted2 = mysqli_query($dbc, $deletesql);
+
+if (($deleted && $deleted2) > 0){
+
+     echo '<div class="col-md-6 offset-md-3">
+     <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Message! </strong> Post ID '.$deletepost.' deleted Successfully.
+            </div></div>';
+}else{
+
+	echo "failed";
+}
+
+}
 
 # Display body section, retrieving from 'forum and users table for extra validation.
 $forumsql = "SELECT * FROM forum, users WHERE users.user_id = forum.user_id ORDER BY `forum`.`post_date` DESC";
@@ -216,7 +252,78 @@ if ( mysqli_num_rows( $forumqry) > 0 )
 	</div>
 
 
+
 <div class="col-sm-10">
+	<?php 
+
+	//if ($_SESSION["usertype"] !== 'Admin') {
+		
+
+
+
+		$delforum = "SELECT * FROM forum WHERE forum.user_id = '{$_SESSION['user_id']}' AND forum.post_id = '{$row['post_id']}'";
+
+		$delforumqry = mysqli_query( $dbc, $delforum );
+
+  	
+		//if no records exist
+				if(mysqli_num_rows($delforumqry) > 0)
+				{
+					
+					//if it's the viewer's profile
+					if($_SESSION[ 'user_id' ] !== $postuser){
+						//allow user to follow profile
+						
+					}
+					else{
+						
+						?>
+						
+					<a href="javascript:void(0);" data-toggle="modal" data-target="#myModal"><span class="float-right" ><i class="fas fa-trash-alt text-dark"></i></span></a>
+					<?php
+
+					}
+				}
+
+				else 
+
+				{
+							//allow user to Unfollow profile
+					
+				}
+
+?>
+ 							<div class="col-md-6 offset-md-3">
+
+                                  <!-- The Modal -->
+                                  <div class="modal" id="myModal">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                      
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">Delete</h4>
+                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                        
+                                          Are you sure you want to delete  this post ?
+                                        </div>
+                                        
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <a class="btn btn-danger btn-sm text-light" href="forum.php?del=<?php echo $row['post_id']; ?>">Delete</a>
+                                          <button type="button" class="btn btn-info btn-sm" data-dismiss="modal">Close</button>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
 
 <div class="row pr-3">
 

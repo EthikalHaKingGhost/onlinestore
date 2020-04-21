@@ -11,7 +11,7 @@
 
 <?php
 
-$sql ="SELECT * FROM `products` WHERE sale_price ORDER BY `products`.`sale_price` DESC LIMIT 4";
+$sql ="SELECT * FROM products, images WHERE products.product_id = images.product_id AND sale_price ORDER BY `products`.`product_id` DESC LIMIT 4";
 
       $result = mysqli_query($dbc, $sql);
 
@@ -22,7 +22,7 @@ $sql ="SELECT * FROM `products` WHERE sale_price ORDER BY `products`.`sale_price
           $product_id = $row["product_id"];
           $product_name =$row["product_name"];
           $product_details = $row["product_details"];
-          $product_image = $row["product_image"];
+          $image1 = $row["image_1"];
           $product_price =$row["product_price"];
           $sale_price = $row["sale_price"];
           $link = "product_details.php?pid=$product_id";
@@ -35,7 +35,7 @@ $sql ="SELECT * FROM `products` WHERE sale_price ORDER BY `products`.`sale_price
   <div class="col-md-3 text-center">
             
             <br/>
-            <img class="img-thumbnail" src="images/<?php echo $product_image;?>" width="150" height="150" alt="phone">
+            <img class="img-thumbnail" src="<?php echo $image1;?>" width="150" height="150" alt="phone">
             <br/>
             <h5><?php echo $product_name; ?></h5>
             <a href="<?php echo $link ?>" class="btn btn-dark text-light">View Product<br/></a>

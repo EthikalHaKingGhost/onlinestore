@@ -36,7 +36,7 @@ include 'includes/header.php';
 
 require ('connect_db.php');
 
-    $orderdetails = "SELECT * FROM `orders`, products, order_contents WHERE products.product_id = order_contents.product_id AND order_contents.order_id = orders.order_id AND orders.user_id = {$_SESSION['user_id']} ORDER BY `orders`.`order_date` DESC LIMIT 15";
+    $orderdetails = "SELECT * FROM `orders`, products, order_contents, images WHERE products.product_id = images.product_id AND products.product_id = order_contents.product_id AND order_contents.order_id = orders.order_id AND orders.user_id = {$_SESSION['user_id']} ORDER BY `orders`.`order_date` DESC LIMIT 15";
 
 
                   $orderqry = mysqli_query($dbc, $orderdetails);
@@ -54,7 +54,7 @@ require ('connect_db.php');
 
                 <div class="row border border-right-0 border-left-0 border-bottom-0 border-right-0">
                     <div class="col-sm-2">
-                      <img src="images/<?php echo $row["product_image"]; ?>" class="img-fluid">
+                      <img src="<?php echo $row['images_1'];?>" class="img-fluid">
                     </div>
                     <div class="col-sm my-auto">
                       <p class=""><?php echo $row["product_name"]; ?></p>

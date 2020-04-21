@@ -20,7 +20,7 @@
 
 		$idforpro = $_GET["pid"];
 		
-		$idforprosql = "SELECT product_name, category, product_category.category_id FROM products, product_category, category_assign WHERE products.product_id = '$idforpro' AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id";
+		$idforprosql = "SELECT product_name,product_category.category, product_category.category_id FROM products, product_category, category_assign WHERE products.product_id = '$idforpro' AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id";
 
 		$idforproresult = mysqli_query($dbc, $idforprosql);
 
@@ -36,11 +36,38 @@
 		}
 		
 
+}else{
+
+	echo '		<section class="slice sct-color-1">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-7">
+                                    <div class="text-center">
+                                        <div class="d-block p-2"> 
+                                            <i class="fas fa-times text-danger fa-5x"></i>
+                                        </div>
+                                        <h2 class="heading heading-3 strong-600">OOPS!</h2>
+                                        <p class="mt-5 px-5">
+                                            This Product is not available as yet
+                                        </p>
+                                        <button class="btn btn-danger" onclick="history.go(-1)"; ><i class="fas fa-backward"></i> Previous Page</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>';
+
+	exit();
 }
 mysqli_close($dbc);
 }
 
+
+
+
 	?>
+
+
 
 
 
@@ -65,6 +92,7 @@ mysqli_close($dbc);
 
 	# Open database connection.
 	require ( 'connect_db.php' ) ;
+
 	
 	//capture and save parameter: selected
 	if(isset($_REQUEST["pid"])){
@@ -118,7 +146,7 @@ mysqli_close($dbc);
                   $battery_size = $row["battery_size"];
                   $screen_size = $row["screen_size"];
                   $camera_pixels = $row["camera_pixels"];
-                  $product_image = $row["product_image"];
+                  $image1 = $row["image_1"];
                   $product_price =$row["product_price"];
                   $sale_price = $row["sale_price"];
                   $category = $row["category"];
@@ -149,7 +177,7 @@ mysqli_close($dbc);
 
   $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_connect_error());
 
-  $sql ="SELECT * FROM products WHERE product_id < $product_id ORDER BY product_id DESC LIMIT 1";
+  $sql ="SELECT * FROM products, WHERE product_id < $product_id ORDER BY product_id DESC LIMIT 1";
       $query = mysqli_query($dbconnect, $sql);
           if($query){
             while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
@@ -201,17 +229,17 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
 
 			<div class="col-md-3 pl-3 justify-content-center">
 
-			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="images/<?php echo $image_1 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_1 ?>"></a></div>
+			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="<?php echo $image_1 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="<?php echo $image_1 ?>"></a></div>
 
-			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="images/<?php echo $image_2 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_2 ?>"></a></div>
+			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="<?php echo $image_2 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="<?php echo $image_2 ?>"></a></div>
 
-			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="images/<?php echo $image_3 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="images/<?php echo $image_3 ?>"></a>
+			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="<?php echo $image_3 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="<?php echo $image_3 ?>"></a>
 
 			</div>
 			</div>
 
 			<div class="col-md-9 p-0 m-0 imgBox">
-			<img class="img-thumbnail p-0 m-0" src="images/<?php echo $image_1 ?>" width="400" height="400"/>
+			<img class="img-thumbnail p-0 m-0" src="<?php echo $image_1 ?>" width="400" height="400"/>
 			</div>
 			</div>
 			</div>
@@ -349,7 +377,7 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
 				<?php
 
 				# Retrieve items from 'shop' database table, display similar items except item displayed.
-				$query = "SELECT * FROM products, product_category, category_assign WHERE product_category.category_id = '$category_id' AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id AND products.product_id <> '$product_id' LIMIT 4" ;
+				$query = "SELECT * FROM products, product_category, category_assign, images  WHERE products.product_id = images.product_id  AND product_category.category_id = category_assign.category_id AND products.product_id = category_assign.product_id AND products.product_id <> '$product_id' LIMIT 4" ;
 
 				$result = mysqli_query( $dbc, $query ) ;
 
@@ -358,7 +386,7 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
     			while($row = mysqli_fetch_assoc($result)) {
 
 				        $pname =$row["product_name"];
-				        $pimage = $row["product_image"];
+				        $image1 = $row["image_1"];
 				        $pprice =$row["product_price"];
 				        $sprice = $row["sale_price"];
 				        $prodid = $row["product_id"];
@@ -368,7 +396,7 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
 					<div class="col-md-3 text-center">
 						
 						<br/>
-						<img class="img-thumbnail" src="images/<?php echo $pimage ?>" width="150" height="150">
+						<img class="img-thumbnail" src="<?php echo $image1 ?>" width="150" height="150">
 						<br/>
 						<h5><?php echo $pname ?></h5>
 						<a href="<?php echo $plink; ?>" class="btn btn-dark text-light">View Product<br/></a>

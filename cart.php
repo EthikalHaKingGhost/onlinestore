@@ -57,9 +57,10 @@ if (!empty($_SESSION['cart']))
   
 
   # Retrieve all items in the cart from the 'shop' database table.
-  $query = "SELECT * FROM products WHERE product_id IN (";
+  $query = "SELECT * FROM products, images WHERE images.product_id = products.product_id AND products.product_id IN (";
   foreach ($_SESSION['cart'] as $pid => $value) { $query .= $pid . ','; }
-  $query = substr( $query, 0, -1 ) . ') ORDER BY product_id ASC';
+  $query = substr( $query, 0, -1 ) . ') ORDER BY products.product_id ASC';
+
   $result = mysqli_query ($dbc, $query);
 
 ?>
@@ -85,7 +86,7 @@ if (!empty($_SESSION['cart']))
     $total += $subtotal;
     $id = $row['product_id'];
     $link = "product_details.php?pid=$id";
-    $image = $row['product_image'];
+    $image1 = $row['image_1'];
     $name =  $row['product_name'];
    $new_quantity =  "qty[{$row["product_id"]}]";
    $quantity = $_SESSION['cart'][$row['product_id']]['quantity'];
@@ -108,7 +109,7 @@ if (!empty($_SESSION['cart']))
 <div class="row">
   <div class="col-md-2 py-2">
     <a href="<?php echo $link; ?> " title="View Details">
-      <img src="images/<?php echo $image ?>" width="100" height="100" style="margin-bottom:15px;">
+      <img src="<?php echo $image1 ?>" width="100" height="100" style="margin-bottom:15px;">
         </a>
     </div>
 

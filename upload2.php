@@ -1,8 +1,8 @@
 <?php
 
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$image2 = $target_dir . basename($two["name"]);
 $uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+$imageFileType = strtolower(pathinfo($image2,PATHINFO_EXTENSION));
 
 
 // Allow certain file formats
@@ -18,11 +18,13 @@ echo '<div class="alert alert-warning alert-dismissible">
     $uploadOk = 0;
 }
 
+
 $date=date_create();
-$target_file = $target_dir .date_format($date,'m-d-Y_g-i-s'). "." . $imageFileType;
+
+$image2 = $target_dir .date_format($date,'m-d-Y_g-i-s').$two['name'];
 
 
-if (file_exists($target_file)) {
+if (file_exists($image2)) {
 
     echo '<div class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -34,7 +36,7 @@ if (file_exists($target_file)) {
 
 }
 
-if ($_FILES["fileToUpload"]["size"] > 500000) {
+if ($two["size"] > 500000) {
 
 echo '<div class="alert alert-warning alert-dismissible">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -58,11 +60,11 @@ echo '<div class="alert alert-danger alert-dismissible">
 // if everything is ok, try to upload file
 } else {
 
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+    if (move_uploaded_file($two["tmp_name"], $image2)) {
 
         echo '<div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Message!</strong>The file '. basename( $_FILES['fileToUpload']['name']). ' has been uploaded successfully.
+            <strong>Message!</strong>The file '. basename($two['name']). ' has been uploaded successfully.
             </div>';
 
     } else {
@@ -76,10 +78,6 @@ echo '<div class="alert alert-danger alert-dismissible">
     }
 
 }
-
-
-
-
 
 
 

@@ -61,7 +61,7 @@ if ( isset( $_GET['total'] ) && ( $_GET['total'] > 0 ) && (!empty($_SESSION['car
   <div class="spaceer pb-5"></div>
 <div class="col-md-6 offset-md-3">
 <ul class="list-group bg-white">
-<li class="list-group-item disabled bg-danger text-white" aria-disabled="true"><label class="font-weight-bold h5">Order Confirmation</label>
+<li class="list-group-item bg-danger text-white" aria-disabled="true"><label class="font-weight-bold h5">Order Confirmation</label>
 
   <a href="shop.php"  class="btn btn-sm btn-light text-dark text-decoration-none">continue Shopping</a>
   <a href="trackorders.php"  class="btn btn-sm btn-warning text-light text-decoration-none">View Orders</a>
@@ -72,7 +72,7 @@ if ( isset( $_GET['total'] ) && ( $_GET['total'] > 0 ) && (!empty($_SESSION['car
 
 require ('connect_db.php');
 
-    $orderdetails = "SELECT * FROM `orders`, products, order_contents WHERE products.product_id = order_contents.product_id AND order_contents.order_id = orders.order_id AND orders.order_id = '$order_id'";
+    $orderdetails = "SELECT * FROM `orders`, products, order_contents, images WHERE images.product_id = products.product_id AND products.product_id = order_contents.product_id AND order_contents.order_id = orders.order_id AND orders.order_id = '$order_id'";
 
                   $orderqry = mysqli_query($dbc, $orderdetails);
 
@@ -86,7 +86,7 @@ require ('connect_db.php');
                           $camera = $row["camera_pixels"];
                           $ram = $row["ram"];
                           $quantity = $row["quantity"];
-                          $image = $row["product_image"];
+                          $image1 = $row["image_1"];
 
                           $price = $row["price"];
                           $fullprice = $row["product_price"];
@@ -101,7 +101,7 @@ require ('connect_db.php');
                         <li class="list-group-item list-group-item-action">
                         <div class="row">
                         <div class="col-md-2">
-                        <img src="images/<?php echo $image ?>" class="img-fluid" href="product_details.php?pid=<?php echo $id ?>">
+                        <img src="<?php echo $image1 ?>" class="img-fluid" href="product_details.php?pid=<?php echo $id ?>">
                         </div>
 
                         <div class="col-md-10">

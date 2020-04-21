@@ -9,22 +9,6 @@ ul{
 	background-color: black;
 }
 
-/* --------check box design-------- */
-
-.custom-control-label:before{
-  background-color:black;
-  border-color: white;
-
-}
-.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
-  background-color:black;
-}
-
-.custom-checkbox .custom-control-input:checked~.custom-control-label::after{
-	background-color:black;
-	
-}
-
 
 .btn-grad {
 	color: #FFFFFF !important;
