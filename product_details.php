@@ -146,14 +146,13 @@ mysqli_close($dbc);
                   $battery_size = $row["battery_size"];
                   $screen_size = $row["screen_size"];
                   $camera_pixels = $row["camera_pixels"];
-                  $image1 = $row["image_1"];
                   $product_price =$row["product_price"];
                   $sale_price = $row["sale_price"];
                   $category = $row["category"];
                   $category_id = $row["category_id"];
-                  $image_1 = $row["image_1"];
-                  $image_2 = $row["image_2"];
-                  $image_3 = $row["image_3"];
+                  $image1 = $row["image_1"];
+                  $image2 = $row["image_2"];
+                  $image3 = $row["image_3"];
         
 
 		}
@@ -229,17 +228,17 @@ $dbconnect = mysqli_connect("localhost","root","","topcellersdb") OR die(mysqli_
 
 			<div class="col-md-3 pl-3 justify-content-center">
 
-			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="<?php echo $image_1 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="<?php echo $image_1 ?>"></a></div>
+			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="<?php echo $image1 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="<?php echo $image_1 ?>"></a></div>
 
-			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="<?php echo $image_2 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="<?php echo $image_2 ?>"></a></div>
+			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="<?php echo $image2 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="<?php echo $image_2 ?>"></a></div>
 
-			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="<?php echo $image_3 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="<?php echo $image_3 ?>"></a>
+			<div class="row pl-5 pb-2 d-none d-lg-block"><a class="img1" href="<?php echo $image3 ?>" target="imgBox"><img width="80" height="80" class="img-thumbnail" src="<?php echo $image_3 ?>"></a>
 
 			</div>
 			</div>
 
 			<div class="col-md-9 p-0 m-0 imgBox">
-			<img class="img-thumbnail p-0 m-0" src="<?php echo $image_1 ?>" width="400" height="400"/>
+			<img class="img-thumbnail p-0 m-0" src="<?php echo $image1 ?>" width="400" height="400"/>
 			</div>
 			</div>
 			</div>

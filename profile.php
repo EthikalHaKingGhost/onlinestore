@@ -17,8 +17,6 @@ $page_title = "User Profile";
 
 header("location: profile.php?userid=".$_SESSION["user_id"]);
 
-exit();
-
 }
 
 
@@ -148,7 +146,7 @@ include "includes/header.php";
 
                     <?php 
 
-                exit();
+                
 
             }
 
@@ -327,30 +325,6 @@ include "includes/header.php";
         </div>
 
 
-
-<?php 
-
-
-$activitysql = "SELECT * FROM followers WHERE follower_id = {$_SESSION[ 'user_id' ]} AND followed_id ='$userprofileid'";
-
-        $activityqry = mysqli_query($dbc, $activitysql);
-
-        if (mysqli_num_rows($activityqry) > 0) {
-
-            while($row = mysqli_fetch_assoc($activityqry)) {
-           
-
-            
-        
-?>
-
-<?php
-
-
-if(!empty($row["followed_id"]) && ($row["followed_id"] == $userprofileid)){
-
-?>
-
 <div class="col-md-6 offset-md-3 p-5">
  <h2>Recent Activity</h2>
  <!-- <hr class="my-4"> -->
@@ -358,13 +332,24 @@ if(!empty($row["followed_id"]) && ($row["followed_id"] == $userprofileid)){
  <div class="card">
  <div class="card-body">
 
+
+
  <?php
- $activitysql = "SELECT * FROM user_activity WHERE user_id = $userprofileid ORDER BY user_activity.activity_date LIMIT 5";
- $activityqry = mysqli_query( $dbc, $activitysql ) ;
 
- if(mysqli_num_rows($activityqry) > 0){
+$activitysql = "SELECT * FROM followers WHERE follower_id = {$_SESSION[ 'user_id' ]} AND followed_id ='$userprofileid'";
 
- while ($row = mysqli_fetch_array( $activityqry, MYSQLI_ASSOC ))
+        $activityqry = mysqli_query($dbc, $activitysql);
+
+        if ((mysqli_num_rows($activityqry) > 0) or ($_SESSION["user_id"] == $userprofileid)) {
+
+
+ $sql = "SELECT * FROM user_activity WHERE user_id = '$userprofileid' ORDER BY user_activity.activity_date LIMIT 5";
+
+ $query = mysqli_query( $dbc, $sql ) ;
+
+ if(mysqli_num_rows($query) > 0){
+
+ while ($row = mysqli_fetch_array( $query, MYSQLI_ASSOC ))
  {
 
  $fullname = $row['fullname'];
@@ -394,15 +379,20 @@ if(!empty($row["followed_id"]) && ($row["followed_id"] == $userprofileid)){
  $activitytime = $newdate . " day(s) ago.";
  }
 
- if($activity_log == 'placeorder'){
+ if($activity_log == "placeorder"){
+    
  ?>
+
  <div class="alert alert-success" role="alert">
  <?php echo $fullname." placed an order. <b>".$activitytime.
 "</b>"; ?>
  </div>
  <?php
+
  }
- elseif($activity_log == 'posted message'){
+
+
+ elseif($activity_log == "postedmessage"){
  ?>
  <div class="alert alert-primary" role="alert">
  <?php echo $fullname." created a post. <b>".$activitytime."</b>"
@@ -411,51 +401,105 @@ if(!empty($row["followed_id"]) && ($row["followed_id"] == $userprofileid)){
 
  <?php
  }
- elseif($activity_log == 'liked'){
- ?>
- <div class="alert alert-info" role="alert">
- <?php echo $fullname." liked a post. <b>".$activitytime."</b>";
-?>
- </div>
 
- <?php
- }
- elseif($activity_log == 'unliked'){
- ?>
- <div class="alert alert-danger" role="alert">
- <?php echo $fullname." Unliked a post. <b>".$activitytime."</b>";
-?>
- </div>
 
- <?php
- }
- elseif($activity_log == 'disliked'){
- ?>
- <div class="alert alert-secondary" role="alert">
- <?php echo $fullname." disliked a post. <b>".$activitytime."</b>";
-?>
- </div>
-
- <?php
- }
- elseif($activity_log == 'undisliked'){
+ elseif($activity_log == "updatedprofile"){
  ?>
  <div class="alert alert-success" role="alert">
- <?php echo $fullname." removed diliked from post. <b>".$activitytime."</b>";
+ <?php echo $fullname." updated their profile picture <b>".$activitytime."</b>"
+; ?>
+ </div>
+
+ <?php
+ }
+
+
+  elseif($activity_log == "Loggedin"){
+ ?>
+ <div class="alert alert-success" role="alert">
+ <?php echo $fullname." Logged into account <b>".$activitytime."</b>"
+; ?>
+ </div>
+
+ <?php
+ }
+
+
+  elseif($activity_log == "Loggedout"){
+ ?>
+ <div class="alert alert-danger" role="alert">
+ <?php echo $fullname. " Logged out from account <b>".$activitytime."</b>"; ?>
+ </div>
+
+ <?php
+ }
+
+
+
+ elseif($activity_log == "updatedprofilepic"){
+ ?>
+ <div class="alert alert-primary" role="alert">
+ <?php echo $fullname." Updated their profile picture. <b>".$activitytime."</b>"
+; ?>
+ </div>
+
+ <?php
+ }
+
+
+ elseif($activity_log == "liked"){
+ ?>
+ <div class="alert alert-primary" role="alert">
+ <?php echo $fullname." liked a post <b>".$activitytime."</b>";
 ?>
  </div>
 
  <?php
  }
- elseif($activity_log == 'followed'){
+
+ elseif($activity_log == "unliked"){
+ ?>
+ <div class="alert alert-danger" role="alert">
+ <?php echo $fullname." unliked a post <b>".$activitytime."</b>";
+?>
+ </div>
+
+ <?php
+ }
+
+ elseif($activity_log == "disliked"){
+ ?>
+ <div class="alert alert-danger" role="alert">
+ <?php echo $fullname." disliked a post <b>".$activitytime."</b>";
+?>
+ </div>
+
+ <?php
+ }
+
+
+ elseif($activity_log == "undisliked"){
+ ?>
+ <div class="alert alert-success" role="alert">
+ <?php echo $fullname." removed diliked from post <b>".$activitytime."</b>";
+?>
+ </div>
+
+ <?php
+ }
+
+
+ elseif($activity_log == "followed"){
  ?>
  <div class="alert alert-warning" role="alert">
- <?php echo $fullname." followed user. <b>".$activitytime."</b>";
+ <?php echo $fullname." followed user <b>".$activitytime."</b>";
 ?>
  </div>
  <?php
  }
- elseif($activity_log == 'unfollowed'){
+
+
+ elseif($activity_log == "unfollowed"){
  ?>
  <div class="alert alert-danger" role="alert">
  <?php echo $fullname." unfollowed user. <b>".$activitytime.
@@ -464,48 +508,49 @@ if(!empty($row["followed_id"]) && ($row["followed_id"] == $userprofileid)){
 
  <?php
  }
- elseif($activity_log == 'Registered'){
+
+ elseif($activity_log == "Registered"){
 
  $currentuser = $_SESSION['user_id'];
 
  if($currentuser == $userprofileid){
  ?>
- <div class="alert alert-secondary" role="alert">
- <?php echo "You registered. <b>".$activitytime."</b>"; ?>
- </div>
+<div class="alert alert-secondary" role="alert">
+ <?php echo " You registered <b>".$activitytime."</b>"; ?>
 
+ </div>
  <?php
+
  }
+
  else {
+
  ?>
  <div class="alert alert-secondary" role="alert">
- <?php echo $fullname." registered. <b>".$activitytime."</b>"; ?>
+ <?php echo $fullname." registered <b>".$activitytime."</b>"; ?>
  </div>
-
  <?php
  }
  }
 
- //close loop
- }
- }
- else {
- echo "No recent activity";
- }
- ?>
- </div>
- </div>
- </div>
-<?php 
-
 }
-}
-}
+}else{
 
 
+    echo "<em class='text-center'>User has not been active</em>";
+
+}
+
+}else{
+
+echo "<em class='text-center'>Please follow to see recent activity! </em>";
+}
 ?>
+ </div>
+ </div>
+ </div>
+ </div>
 
-  </div>
 
 
 

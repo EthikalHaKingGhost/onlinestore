@@ -204,7 +204,7 @@ if (mysqli_query($dbc, $insertsql)){
         <form action="adminform.php" method="post" enctype="multipart/form-data">
 
                 <div class="form-group row">
-                            <label for="title" class="col-sm-2 col-form-label">Preferred Title</label>
+                            <label for="title" class="col-sm-2 col-form-label">Category</label>
                             <div class="col-sm-10">
                             <select class="form-control" id="title" name="title">           
                                 <?php 
@@ -233,7 +233,7 @@ if (mysqli_query($dbc, $insertsql)){
                     </div>
 
                     <div class="form-group row">
-                        <label for="fname" class="col-sm-2 col-form-label">Product Name</label>
+                        <label for="fname" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
                           <input type="text" class="form-control text-capitalize" minlength="5" maxlength="30" name="name">
                           <label  class="figure-caption">Minimum 5 characters long.</label>
@@ -284,7 +284,7 @@ if (mysqli_query($dbc, $insertsql)){
                       <div class="form-group row">
                         <label for="lname" class="col-sm-2 col-form-label">Product Price</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control text-capitalize" name="price" required>
+                          <input type="number" class="form-control text-capitalize" name="price" required>
                           <label  class="figure-caption">E.g 5000</label>
                         </div>
                       </div>
@@ -292,12 +292,13 @@ if (mysqli_query($dbc, $insertsql)){
                       <div class="form-group row">
                         <label for="lname" class="col-sm-2 col-form-label">Sale Price</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control text-capitalize"  name="sale">
+                          <input type="number" class="form-control text-capitalize"  name="sale">
+                          <label  class="figure-caption">E.g 5000</label>
                         </div>
                       </div>
 
                        <div class="form-group row">
-                        <label for="fileToUpload" class="col-sm-2 col-form-label">Display Image</label>
+                        <label for="fileToUpload" class="col-sm-2 col-form-label">Display</label>
                         <div class="col-sm-10">
                         <input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload" required>
                         </div>
